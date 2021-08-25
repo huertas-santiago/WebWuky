@@ -3,8 +3,9 @@ var boton = document.getElementById("boton");
 boton.addEventListener("click", dibujoClick);
 
 var d = document.getElementById("dibujito");
-var ancho = d.With; 
+var ancho;
 var lienzo = d.getContext("2d");
+var lineas;
 
 function dibujarLinea(color, xinicial, yinicial, xfinal, yfinal)
 {
@@ -18,18 +19,21 @@ function dibujarLinea(color, xinicial, yinicial, xfinal, yfinal)
 
 function dibujoClick()
 {
-    var lineas = parseInt(texto.value);
+    d = document.getElementById("dibujito");
+    ancho = d.scrollWidth;
+    lineas = parseInt(texto.value);
+    
     var l = 0;
     var yi, xf;
     var colorcito = "red";
     var espacio = ancho / lineas; 
     
-    for(l = 0; l < lineas; l++)
+    for(l; l < lineas; l++)
     {
         yi = espacio * l;
         xf = espacio *(l + 1)
         dibujarLinea(colorcito, 0, yi, xf, 300);
-        console.log("linea " + l);
+        console.log("linea " +  yi + 0+ xf + 300);
     }    
         
     dibujarLinea( colorcito, 1,1,1,299);
