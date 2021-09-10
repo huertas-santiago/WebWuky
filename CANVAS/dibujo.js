@@ -26,7 +26,7 @@ function dibujoClick()
     var l = 0;
     var yi, xf;
     var colorcito = "red";
-    var espacio = ancho / lineas; 
+    var espacio = ancho / lineas;
     console.log("Cabio de santiago 2")
     
     for(l; l < lineas; l++)
