@@ -1,0 +1,12 @@
+<?xml version="1.0" ?>
+<!--GENERATED FILE, PLEASE DO NOT EDIT!!!--><EXT object="Wuky" version="4">
+  <OBJECT>
+    <ID name="Wuky" mc="Infrastructure.DiagramSet" uid="9a11b10b-4954-4759-8c27-9af7ee7ece86"/>
+    <PID name="Wuky" mc="Standard.Project" uid="2cb94cd9-bdd3-4af6-ad3e-e2b839861ddf"/>
+    <ATTRIBUTES>
+      <ATT name="Name"><![CDATA[Wuky]]></ATT>
+      <ATT name="status">1970354901745664</ATT>
+    </ATTRIBUTES>
+    <DEPENDENCIES></DEPENDENCIES>
+  </OBJECT>
+</EXT>

@@ -1,0 +1,62 @@
+<?xml version="1.0" ?>
+<!--GENERATED FILE, PLEASE DO NOT EDIT!!!--><EXT object="wuky" version="4">
+  <OBJECT>
+    <ID name="wuky" mc="Standard.Package" uid="a1f2014f-6c2c-4246-b9be-334182d2d160"/>
+    <PID name="Wuky" mc="Standard.Project" uid="2cb94cd9-bdd3-4af6-ad3e-e2b839861ddf"/>
+    <ATTRIBUTES>
+      <ATT name="IsInstantiable">false</ATT>
+      <ATT name="IsAbstract">false</ATT>
+      <ATT name="IsLeaf">false</ATT>
+      <ATT name="IsRoot">false</ATT>
+      <ATT name="Visibility">Public</ATT>
+      <ATT name="Name"><![CDATA[wuky]]></ATT>
+      <ATT name="status">1970354901745664</ATT>
+    </ATTRIBUTES>
+    <DEPENDENCIES>
+      <COMP relation="OwnedElement">
+        <COMPID name="Usuario" mc="Standard.Class" uid="b99b526f-f670-4cef-b87f-c58068ace190"/>
+        <COMPID name="Cliente" mc="Standard.Class" uid="ae48fbf8-981a-4206-a9ed-99b1754558db"/>
+        <COMPID name="Proveedor" mc="Standard.Class" uid="d08a2563-ad21-4d9b-ab00-4224e5cd1b21"/>
+        <COMPID name="Empleado" mc="Standard.Class" uid="801126ca-d4f4-4727-b26b-3df9a8344027"/>
+        <COMPID name="Permisos" mc="Standard.Class" uid="13a976c6-7c64-4e80-af7e-0283b991206b"/>
+        <COMPID name="Producto" mc="Standard.Class" uid="5aaa76cc-7276-43f0-9912-d3f0116ffea6"/>
+        <COMPID name="Pedido" mc="Standard.Class" uid="900f75b4-705c-434f-94a7-4294ef93dd87"/>
+        <COMPID name="Carrito" mc="Standard.Class" uid="b02d45f0-bd23-408f-9ac1-29de00eb31e4"/>
+        <COMPID name="Mascota" mc="Standard.Class" uid="3f1a0d65-6e34-4148-8651-618bdce97f66"/>
+        <COMPID name="Categotia" mc="Standard.Class" uid="19dbf972-3f2d-4622-be66-5f2cc80c4efe"/>
+        <COMPID name="Rol" mc="Standard.Class" uid="ca9356fd-6846-46cd-aa3f-6133de20066f"/>
+        <COMPID name="Raza" mc="Standard.Class" uid="3ee58e44-0bd3-4d0c-96e8-bfc4d4a007ce"/>
+        <COMPID name="Materiales" mc="Standard.Class" uid="bf2c782b-4dad-4057-9720-0a2d11d78f0e"/>
+        <COMPID name="Cliente" mc="Standard.Actor" uid="6bbf9460-6eba-422f-80bf-56477972e9ac"/>
+        <COMPID name="Login" mc="Standard.UseCase" uid="ca0282b3-eccf-4c56-b748-5cdf914f9976"/>
+        <COMPID name="Ver detalles cuenta" mc="Standard.UseCase" uid="efddc148-faaf-4b2c-9aef-87951635eea5"/>
+        <COMPID name="Agregar al carrito" mc="Standard.UseCase" uid="1d447a1f-d0ce-487e-ba6b-c17cba7e60cb"/>
+        <COMPID name="Buscar Productos" mc="Standard.UseCase" uid="bc7b6f5e-4335-418c-a64a-3d4e0e403772"/>
+        <COMPID name="Pagar" mc="Standard.UseCase" uid="2d5ab7c1-8980-418a-bf5e-3db7849a5a8e"/>
+        <COMPID name="Ver Facturas" mc="Standard.UseCase" uid="12759d62-78f6-4a1a-8644-d0afc1622d42"/>
+        <COMPID name="Eliminar del carrito" mc="Standard.UseCase" uid="3319f445-ff0e-41dd-a117-eafa210077d3"/>
+        <COMPID name="Registrarse" mc="Standard.UseCase" uid="fc7ed382-dd9d-4087-9a75-ae7124a321de"/>
+        <COMPID name="Administrador" mc="Standard.Actor" uid="ed5685ec-ec6f-4672-9ff7-36bf54540505"/>
+        <COMPID name="Ingresar Producto" mc="Standard.UseCase" uid="dab9a920-b10c-40a4-8950-48971d532d9f"/>
+        <COMPID name="Ingresar Proveedor" mc="Standard.UseCase" uid="55d4fc3a-db97-4526-be13-90dcfe826664"/>
+        <COMPID name="Editar Proveedor" mc="Standard.UseCase" uid="3850388e-80be-4804-9353-ea03596e2b6c"/>
+        <COMPID name="Agregar Empleado" mc="Standard.UseCase" uid="feb1ab04-5498-4ba3-a3d8-08476183487b"/>
+        <COMPID name="Editar Empleado" mc="Standard.UseCase" uid="4fed24ab-236a-45d5-95df-c2aa1585e33d"/>
+        <COMPID name="Editar Producto" mc="Standard.UseCase" uid="3d36d753-56b7-4eb6-97ef-5a3328516cc2"/>
+        <COMPID name="Buscar metricas de Empleados" mc="Standard.UseCase" uid="08cfc8d4-892f-428f-9e0d-d9ef8c4eed70"/>
+        <COMPID name="Buscar Facturas" mc="Standard.UseCase" uid="1a0b65b6-10e3-48a1-9d44-11abed02df14"/>
+        <COMPID name="Editar Facturas" mc="Standard.UseCase" uid="0512385b-18b1-4eab-9419-339e5e1ce966"/>
+        <COMPID name="Cliente" mc="Standard.Actor" uid="a51f61c1-1b1c-46ce-89f7-0ee27da8d566"/>
+        <COMPID name="Facebook" mc="Standard.Actor" uid="bf4a3571-6e14-42ef-b627-d6e227124131"/>
+        <COMPID name="Rembolsos" mc="Standard.UseCase" uid="0a2aca2c-d935-408a-93d6-7add57e64248"/>
+        <COMPID name="Pedir Soporte" mc="Standard.UseCase" uid="3c524e8b-d0ff-4456-8adf-abc0d2628b21"/>
+        <COMPID name="Administrador" mc="Standard.Actor" uid="ce848644-7367-4f25-b7aa-401b29fcfed7"/>
+      </COMP>
+      <COMP relation="Product">
+        <COMPID name="wuky Class diagram" mc="Standard.ClassDiagram" uid="b9f119a7-e49f-405f-ae90-38f67eca6bb8"/>
+        <COMPID name="wuky Cliente Use Case diagram" mc="Standard.UseCaseDiagram" uid="0249acab-1cb4-4997-8a3b-caee76908aac"/>
+        <COMPID name="wuky Administrador Use Case diagram" mc="Standard.UseCaseDiagram" uid="6dd08286-8536-48e2-a58b-65baf170f003"/>
+      </COMP>
+    </DEPENDENCIES>
+  </OBJECT>
+</EXT>
