@@ -22,6 +22,8 @@ CREATE TABLE IF NOT EXISTS producto (
   
   fabricado BOOLEAN NULL COMMENT '',
   descripción VARCHAR(400) NULL COMMENT 'Detalle o caracteristicas de la clase',
+  id_marca INT UNSIGNED NULL COMMENT  'llave foranea a la tabla marca',
+  proveedor_idproveedor INT NOT NULL COMMENT 'id clase',
   
   #Estos campos no irían en esta tabla
   #moneda VARCHAR(10) NULL COMMENT 'Nombre de la moneda con la que esta el precio',
@@ -29,29 +31,38 @@ CREATE TABLE IF NOT EXISTS producto (
   #visualizacion_eCommerce BOOLEAN NOT NULL COMMENT 'Verdadero si esta habilitada la visualizacion, compra... en el e-commerce',
   #visualización_facebook BOOLEAN NOT NULL COMMENT 'Verdadero si esta habilitada la visualizacion, compra... en facebook',
   #sexo VARCHAR(45) NULL COMMENT 'hace referencia a las características biológicas y fisiológicas que definen a los machos de las hembras',
-
+  #version VARCHAR(45) NULL COMMENT 'Valor númerico de la actualización del producto',
+  
   #Este campo esta para debatir si quitarlo
   #disponible_facebook VARCHAR(45) NULL COMMENT 'Inventario de los productos disponibles de la aplicación',
-  id_marca INT NULL COMMENT 'id clase',
-  proveedor_idproveedor INT NOT NULL COMMENT 'id clase',
-  #version VARCHAR(45) NULL COMMENT 'Valor númerico de la actualización del producto',
+
   PRIMARY KEY (id_interno),
-  INDEX id_marca_idx (id_marca ASC) VISIBLE,
+  #INDEX id_marca_idx (id_marca ASC) VISIBLE,
   CONSTRAINT id_marca
     FOREIGN KEY (id_marca)
     REFERENCES marca (id_marca)
     ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
+    ON UPDATE NO ACTION
+) 
 ENGINE = InnoDB;
 
 #Santiago
-CREATE TABLE IF NOT EXISTS Imagenes(
-	id_imagenes INT UNSIGNED AUTO_INCREMENT NOT NULL COMMENT 'PK de la clase imagenes'
+CREATE TABLE IF NOT EXISTS imagen(
+	id_imagen INT UNSIGNED AUTO_INCREMENT NOT NULL COMMENT 'PK de la clase imagenes',
+    url VARCHAR(45) NOT NULL COMMENT 'dirección web de donde está guardada la imagen',
+	descripcion VARCHAR(45) NULL COMMENT 'caracteristicas de la imagen',
     
+    #Este campo esta para debatir si quitarlo
+    #codigo INT NULL COMMENT 'conjunto de caracteres que identifican la imagen del producto',
+    	
+	PRIMARY KEY (id_imagen)
 );
 
-CREATE TABLE IF NOT EXISTS caracteristicas(
-	id_marca INT UNSIGNED AUTO_INCREMENT NOT NULL COMMENT 'PK de la clase marca');
+#Santiago
+CREATE TABLE IF NOT EXISTS caracteristica(
+	id_caracteristica INT UNSIGNED AUTO_INCREMENT NOT NULL COMMENT 'PK de la clase marca'
+	
+);
 
 CREATE TABLE IF NOT EXISTS telefono (
 	id_marca INT UNSIGNED AUTO_INCREMENT NOT NULL COMMENT 'PK de la clase marca');
