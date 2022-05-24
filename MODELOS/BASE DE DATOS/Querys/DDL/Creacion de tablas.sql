@@ -32,7 +32,7 @@ CREATE TABLE IF NOT EXISTS producto (
   #disponible_facebook VARCHAR(45) NULL COMMENT 'Inventario de los productos disponibles de la aplicación',
   id_marca INT NULL COMMENT 'id clase',
   proveedor_idproveedor INT NOT NULL COMMENT 'id clase',
-  version VARCHAR(45) NULL COMMENT 'Valor númerico de la actualización del producto',
+  #version VARCHAR(45) NULL COMMENT 'Valor númerico de la actualización del producto',
   PRIMARY KEY (id_interno),
   INDEX id_marca_idx (id_marca ASC) VISIBLE,
   CONSTRAINT id_marca
