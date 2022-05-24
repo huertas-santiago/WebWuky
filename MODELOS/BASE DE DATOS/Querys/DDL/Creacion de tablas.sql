@@ -59,10 +59,16 @@ CREATE TABLE IF NOT EXISTS imagen(
 );
 
 #Santiago
-CREATE TABLE IF NOT EXISTS caracteristica(
-	id_caracteristica INT UNSIGNED AUTO_INCREMENT NOT NULL COMMENT 'PK de la clase marca'
-	
+CREATE TABLE IF NOT EXISTS variante(
+	id_variante INT UNSIGNED AUTO_INCREMENT NOT NULL COMMENT 'PK de la clase caracteristica',
+	tipo VARCHAR(20) NULL COMMENT 'Nombre de la ',
+	descripcion VARCHAR(45) NULL COMMENT 'Detalle o caracteristicas de la clase',
+	medida VARCHAR(45) NULL COMMENT 'Proporción o correspondencia',
+	PRIMARY KEY (id_variante)
 );
+
+CREATE TABLE IF NOT EXISTS variante_productos (
+	id_marca INT UNSIGNED AUTO_INCREMENT NOT NULL COMMENT 'PK de la clase marca');
 
 CREATE TABLE IF NOT EXISTS telefono (
 	id_marca INT UNSIGNED AUTO_INCREMENT NOT NULL COMMENT 'PK de la clase marca');
@@ -158,9 +164,6 @@ CREATE TABLE IF NOT EXISTS permisos (
 	id_marca INT UNSIGNED AUTO_INCREMENT NOT NULL COMMENT 'PK de la clase marca');
 
 CREATE TABLE IF NOT EXISTS producto_imagenes (
-	id_marca INT UNSIGNED AUTO_INCREMENT NOT NULL COMMENT 'PK de la clase marca');
-
-CREATE TABLE IF NOT EXISTS caracteristicas_productos (
 	id_marca INT UNSIGNED AUTO_INCREMENT NOT NULL COMMENT 'PK de la clase marca');
 
 CREATE TABLE IF NOT EXISTS categoria_productos (
