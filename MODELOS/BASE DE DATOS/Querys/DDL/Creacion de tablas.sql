@@ -5,6 +5,7 @@ DROP DATABASE IF EXISTS DBWuky;
 CREATE DATABASE IF NOT EXISTS DBWuky DEFAULT CHARACTER SET utf8;
 USE DBWuky;
 
+#Santiago
 CREATE TABLE IF NOT EXISTS marca(
   id_marca INT UNSIGNED AUTO_INCREMENT NOT NULL COMMENT 'PK de la clase marca',
   nombre VARCHAR(45) NULL COMMENT 'Nombre de la marca',
@@ -12,6 +13,7 @@ CREATE TABLE IF NOT EXISTS marca(
   PRIMARY KEY (id_marca))
 ENGINE = InnoDB;
 
+#Santiago
 CREATE TABLE IF NOT EXISTS producto (
   id_interno INT UNSIGNED AUTO_INCREMENT NOT NULL COMMENT 'id de clase ',
   id_externo VARCHAR(45) NULL COMMENT 'id de la clase',
@@ -42,7 +44,7 @@ CREATE TABLE IF NOT EXISTS producto (
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
-
+#Santiago
 CREATE TABLE IF NOT EXISTS Imagenes(
 	id_imagenes INT UNSIGNED AUTO_INCREMENT NOT NULL COMMENT 'PK de la clase imagenes'
     
