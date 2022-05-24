@@ -20,6 +20,7 @@ CREATE TABLE IF NOT EXISTS producto (
   
   fabricado BOOLEAN NULL COMMENT '',
   descripción VARCHAR(400) NULL COMMENT 'Detalle o caracteristicas de la clase',
+  
   #Estos campos no irían en esta tabla
   #moneda VARCHAR(10) NULL COMMENT 'Nombre de la moneda con la que esta el precio',
   #descuento INT UNSIGNED NULL COMMENT 'Porcentaje de disminución del precio de un bien o un servicio',
@@ -43,7 +44,8 @@ ENGINE = InnoDB;
 
 
 CREATE TABLE IF NOT EXISTS Imagenes(
-	id_marca INT UNSIGNED AUTO_INCREMENT NOT NULL COMMENT 'PK de la clase marca'
+	id_imagenes INT UNSIGNED AUTO_INCREMENT NOT NULL COMMENT 'PK de la clase imagenes'
+    
 );
 
 CREATE TABLE IF NOT EXISTS caracteristicas(
