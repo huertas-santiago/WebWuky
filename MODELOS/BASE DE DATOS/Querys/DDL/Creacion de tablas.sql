@@ -1,4 +1,4 @@
-#No se ha agregado el iva por producto   iva FLOAT UNSIGNED NULL COMMENT 'Impuesto asociado al producto\n',
+#No se ha agregado el iva por producto   iva FLOAT UNSIGNED NULL COMMENT 'Impuesto asociado al producto',
 #No se ha agregado el stok cantidad_stock INT UNSIGNED NULL COMMENT 'cantidad de prodcutos en el inventario',
 
 DROP DATABASE IF EXISTS DBWuky;
@@ -15,27 +15,26 @@ ENGINE = InnoDB;
 
 #Santiago
 CREATE TABLE IF NOT EXISTS producto (
-  id_interno INT UNSIGNED AUTO_INCREMENT NOT NULL COMMENT 'id de clase ',
-  id_externo VARCHAR(45) NULL COMMENT 'id de la clase',
-  id_facebook VARCHAR(45) NULL COMMENT 'id de la clase ',
-  marca VARCHAR(45) NULL COMMENT ' identificador comercial de los bienes y servicios que ofrece una empresa',
+  id_interno INT UNSIGNED AUTO_INCREMENT NOT NULL COMMENT 'PK de la clase imagenes producto',
+  id_externo VARCHAR(45) NULL COMMENT 'Referencia UNICA del producto que tiene el proveedor',
+  id_facebook VARCHAR(45) NULL COMMENT 'Referencia UNICA del producto que tiene facebook',
   
-  fabricado BOOLEAN NULL COMMENT '',
+  fabricado BOOLEAN NULL COMMENT 'Valor que dice si el producto es fabricado o comprado',
   descripción VARCHAR(400) NULL COMMENT 'Detalle o caracteristicas de la clase',
   id_marca INT UNSIGNED NULL COMMENT  'llave foranea a la tabla marca',
   proveedor_idproveedor INT NOT NULL COMMENT 'id clase',
   
   #Estos campos no irían en esta tabla
-  #moneda VARCHAR(10) NULL COMMENT 'Nombre de la moneda con la que esta el precio',
-  #descuento INT UNSIGNED NULL COMMENT 'Porcentaje de disminución del precio de un bien o un servicio',
-  #visualizacion_eCommerce BOOLEAN NOT NULL COMMENT 'Verdadero si esta habilitada la visualizacion, compra... en el e-commerce',
-  #visualización_facebook BOOLEAN NOT NULL COMMENT 'Verdadero si esta habilitada la visualizacion, compra... en facebook',
-  #sexo VARCHAR(45) NULL COMMENT 'hace referencia a las características biológicas y fisiológicas que definen a los machos de las hembras',
-  #version VARCHAR(45) NULL COMMENT 'Valor númerico de la actualización del producto',
+	  #moneda VARCHAR(10) NULL COMMENT 'Nombre de la moneda con la que esta el precio',
+	  #descuento INT UNSIGNED NULL COMMENT 'Porcentaje de disminución del precio de un bien o un servicio',
+	  #visualizacion_eCommerce BOOLEAN NOT NULL COMMENT 'Verdadero si esta habilitada la visualizacion, compra... en el e-commerce',
+	  #visualización_facebook BOOLEAN NOT NULL COMMENT 'Verdadero si esta habilitada la visualizacion, compra... en facebook',
+	  #sexo VARCHAR(45) NULL COMMENT 'hace referencia a las características biológicas y fisiológicas que definen a los machos de las hembras',
+      #version VARCHAR(45) NULL COMMENT 'Valor númerico de la actualización del producto',
   
   #Este campo esta para debatir si quitarlo
-  #disponible_facebook VARCHAR(45) NULL COMMENT 'Inventario de los productos disponibles de la aplicación',
-
+	#disponible_facebook VARCHAR(45) NULL COMMENT 'Inventario de los productos disponibles de la aplicación',
+	#marca VARCHAR(45) NULL COMMENT 'identificador comercial de los bienes y servicios que ofrece una empresa',
   PRIMARY KEY (id_interno),
   #INDEX id_marca_idx (id_marca ASC) VISIBLE,
   CONSTRAINT id_marca
@@ -67,8 +66,28 @@ CREATE TABLE IF NOT EXISTS variante(
 	PRIMARY KEY (id_variante)
 );
 
+#Santiago
 CREATE TABLE IF NOT EXISTS variante_productos (
-	id_marca INT UNSIGNED AUTO_INCREMENT NOT NULL COMMENT 'PK de la clase marca');
+    id_variante INT UNSIGNED NOT NULL COMMENT 'ID de la clase acual',
+	idproducto INT NOT NULL COMMENT 'ID de la clase acual',
+	nombre VARCHAR(45) NULL COMMENT 'Nombrre de la categoría ',
+	id_producto INT NULL COMMENT 'ID de la clase ',
+	descripcion VARCHAR(45) NULL COMMENT 'clase que resulta de una especifica el producto según un criterio o jerarquía',
+	id_materiales INT NULL COMMENT 'ID de la clase ',
+	id_marca INT NULL COMMENT 'ID de la clase ',
+	INDEX fk_caracteristicas_productos_caracteristicas1_idx (caracteristicas_id ASC) VISIBLE,
+	INDEX fk_caracteristicas_productos_producto_actual1_idx (idproducto ASC) VISIBLE,
+	CONSTRAINT fk_caracteristicas_productos_caracteristicas1
+		FOREIGN KEY (caracteristicas_id)
+		REFERENCES caracteristicas (id)
+		ON DELETE NO ACTION
+		ON UPDATE NO ACTION,
+	CONSTRAINT fk_caracteristicas_productos_producto_actual
+		FOREIGN KEY (idproducto)
+		REFERENCES producto (id_interno)
+		ON DELETE NO ACTION
+		ON UPDATE NO ACTION
+);
 
 CREATE TABLE IF NOT EXISTS telefono (
 	id_marca INT UNSIGNED AUTO_INCREMENT NOT NULL COMMENT 'PK de la clase marca');
