@@ -102,7 +102,7 @@ CREATE TABLE IF NOT EXISTS usuario (
     genero VARCHAR (1 ) COMMENT 'genero de usuario',
     tipo_documento VARCHAR (1 ) COMMENT 'tipo de documento de usuario',
     numero_documento VARCHAR (10) COMMENT 'numero de documento de identifidad',
-    direccion  VARCHAR (100)  COMMENT 'direccion de usuario'); 
+    direccion  VARCHAR (100)  COMMENT 'direccion de usuario	'); 
     
     #jessica
 CREATE TABLE IF NOT EXISTS telefono (
@@ -117,9 +117,12 @@ CREATE TABLE IF NOT EXISTS telefono (
     ON UPDATE NO ACTION
     );
 		
-
+#jessica
 CREATE TABLE IF NOT EXISTS cliente (
-	id_marca INT UNSIGNED AUTO_INCREMENT NOT NULL COMMENT 'PK de la clase marca');
+	id_usuario INT UNSIGNED AUTO_INCREMENT NOT NULL COMMENT 'PK de la clase cliente',
+    facebook_vinculado VARCHAR (50) UNIQUE NOT  NULL COMMENT 'cuenta de facebook asociada del cliente',
+    correo_vinculado VARCHAR (50) UNIQUE NOT  NULL COMMENT 'cuenta de correo asociada del cliente'
+    );
 
 CREATE TABLE IF NOT EXISTS producto_favorito (
 	id_marca INT UNSIGNED AUTO_INCREMENT NOT NULL COMMENT 'PK de la clase marca');
