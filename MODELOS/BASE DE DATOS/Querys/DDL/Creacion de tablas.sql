@@ -119,13 +119,14 @@ CREATE TABLE IF NOT EXISTS telefono (
 		
 #jessica
 CREATE TABLE IF NOT EXISTS cliente (
-	id_usuario INT UNSIGNED AUTO_INCREMENT NOT NULL COMMENT 'PK de la clase cliente',
+	id_cliente INT UNSIGNED AUTO_INCREMENT NOT NULL COMMENT 'PK de la clase cliente',
     facebook_vinculado VARCHAR (50) UNIQUE NOT  NULL COMMENT 'cuenta de facebook asociada del cliente',
     correo_vinculado VARCHAR (50) UNIQUE NOT  NULL COMMENT 'cuenta de correo asociada del cliente'
     );
 
+
 CREATE TABLE IF NOT EXISTS producto_favorito (
-	id_marca INT UNSIGNED AUTO_INCREMENT NOT NULL COMMENT 'PK de la clase marca');
+	id_producto_favorito INT UNSIGNED AUTO_INCREMENT NOT NULL COMMENT 'PK de la clase producto_favorito');
 
 CREATE TABLE IF NOT EXISTS categoria (
 	id_marca INT UNSIGNED AUTO_INCREMENT NOT NULL COMMENT 'PK de la clase marca');
