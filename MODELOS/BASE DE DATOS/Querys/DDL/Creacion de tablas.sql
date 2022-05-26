@@ -89,14 +89,34 @@ CREATE TABLE IF NOT EXISTS variante_productos (
 		ON UPDATE NO ACTION
 );
 
-CREATE TABLE IF NOT EXISTS telefono (
-	id_marca INT UNSIGNED AUTO_INCREMENT NOT NULL COMMENT 'PK de la clase marca');
 
 CREATE TABLE IF NOT EXISTS rol (
 	id_marca INT UNSIGNED AUTO_INCREMENT NOT NULL COMMENT 'PK de la clase marca');
 
+#Jessica
 CREATE TABLE IF NOT EXISTS usuario (
-	id_marca INT UNSIGNED AUTO_INCREMENT NOT NULL COMMENT 'PK de la clase marca');
+	id_usuario INT UNSIGNED AUTO_INCREMENT NOT NULL COMMENT 'PK de la clase usuario',
+	correo VARCHAR (50) UNIQUE NOT  NULL COMMENT'Correo de usuario',
+    contrasenna  VARCHAR (50)NOT NULL COMMENT 'contraseña de correo de usuario',
+    nombre VARCHAR (50) NOT NULL COMMENT 'nombre de usuario',
+    genero VARCHAR (1 ) COMMENT 'genero de usuario',
+    tipo_documento VARCHAR (1 ) COMMENT 'tipo de documento de usuario',
+    numero_documento VARCHAR (10) COMMENT 'numero de documento de identifidad',
+    direccion  VARCHAR (100)  COMMENT 'direccion de usuario'); 
+    
+    #jessica
+CREATE TABLE IF NOT EXISTS telefono (
+	id_telefono INT UNSIGNED AUTO_INCREMENT NOT NULL COMMENT  'PK de la clase telefono',
+    celular VARCHAR (10) UNIQUE COMMENT 'Número Telefono Celular',
+    fijo VARCHAR (10) UNIQUE COMMENT 'Número Telefono fijo',
+	id_usuario INT UNSIGNED NOT NULL COMMENT 'FK a la clase usuario',
+    CONSTRAINT id_usuario
+    FOREIGN KEY (id_usuario)
+    REFERENCES usuario (id_usuario)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION
+    );
+		
 
 CREATE TABLE IF NOT EXISTS cliente (
 	id_marca INT UNSIGNED AUTO_INCREMENT NOT NULL COMMENT 'PK de la clase marca');
