@@ -134,11 +134,16 @@ CREATE TABLE IF NOT EXISTS telefono (
     ON UPDATE NO ACTION
     );
 		
-#jessica
+#jessica #Modificado por Santiago
 CREATE TABLE IF NOT EXISTS cliente (
-	id_cliente INT UNSIGNED AUTO_INCREMENT NOT NULL COMMENT 'PK de la clase cliente',
+	id_usuario INT UNSIGNED NOT NULL COMMENT 'PK de la clase cliente y FK de la tabla Usuario' PRIMARY KEY,
     facebook_vinculado VARCHAR (50) UNIQUE NOT  NULL COMMENT 'cuenta de facebook asociada del cliente',
-    correo_vinculado VARCHAR (50) UNIQUE NOT  NULL COMMENT 'cuenta de correo asociada del cliente'
+    correo_vinculado VARCHAR (50) UNIQUE NOT  NULL COMMENT 'cuenta de correo asociada del cliente',
+    CONSTRAINT fk_id_usuario
+    FOREIGN KEY (id_usuario)
+    REFERENCES usuario (id_usuario)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION
     );
 
 #paula
@@ -327,23 +332,33 @@ CREATE TABLE IF NOT EXISTS categoria_productos (
     id_producto INT UNSIGNED AUTO_INCREMENT NOT NULL
 );
 
-
-CREATE TABLE IF NOT EXISTS materiales (
-	id_materiales INT UNSIGNED AUTO_INCREMENT NOT NULL,
-    id_tipo_materiales INT UNSIGNED AUTO_INCREMENT NOT NULL
-    );
-
-    
 #Jessica
 CREATE TABLE IF NOT EXISTS tipo_materiales (
 	id_tipo_materiales INT UNSIGNED AUTO_INCREMENT NOT NULL
     );
 
+#Jessica
+CREATE TABLE IF NOT EXISTS materiales (
+	id_materiales INT UNSIGNED AUTO_INCREMENT NOT NULL PRIMARY KEY,
+    id_tipo_materiales INT UNSIGNED  NOT NULL,
+    CONSTRAINT fk_id_tipo_materiales
+		FOREIGN KEY (id_tipo_materiales)
+        REFERENCES tipo_materiales (id_tipo_materiales)
+		ON DELETE NO ACTION
+		ON UPDATE NO ACTION
+        );
+
+    
 
 
+
+#Jessica
 CREATE TABLE IF NOT EXISTS productos_materiales (
-	id_marca INT UNSIGNED AUTO_INCREMENT NOT NULL COMMENT 'PK de la clase marca');
+	id_material INT UNSIGNED NOT NULL ,
+    id_producto INT UNSIGNED NOT NULL
+    );
 
+#Jessica
 CREATE TABLE IF NOT EXISTS rol_permiso (
 	id_marca INT UNSIGNED AUTO_INCREMENT NOT NULL COMMENT 'PK de la clase marca');
 
