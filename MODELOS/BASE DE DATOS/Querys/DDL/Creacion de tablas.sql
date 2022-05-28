@@ -278,12 +278,17 @@ CREATE TABLE IF NOT EXISTS logs_cliente (
     fecha_ingreso  DATE NOT NULL
     );
     
-
+#Jessica
 CREATE TABLE IF NOT EXISTS permisos (
-	id_marca INT UNSIGNED AUTO_INCREMENT NOT NULL COMMENT 'PK de la clase marca');
-
+	id_permisos INT UNSIGNED AUTO_INCREMENT NOT NULL,
+    Nombre_empleado VARCHAR(45) NULL,
+    Descripcion VARCHAR(100) NULL
+    );
+#Jessica
 CREATE TABLE IF NOT EXISTS producto_imagenes (
-	id_marca INT UNSIGNED AUTO_INCREMENT NOT NULL COMMENT 'PK de la clase marca');
+	id_imagen INT UNSIGNED AUTO_INCREMENT NOT NULL,
+    id_producto INT UNSIGNED AUTO_INCREMENT NOT NULL
+    );
 
 CREATE TABLE IF NOT EXISTS categoria_productos (
 	id_marca INT UNSIGNED AUTO_INCREMENT NOT NULL COMMENT 'PK de la clase marca');
