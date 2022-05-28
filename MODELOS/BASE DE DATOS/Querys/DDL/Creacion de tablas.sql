@@ -71,10 +71,10 @@ CREATE TABLE IF NOT EXISTS variante_productos (
     id_variante INT UNSIGNED NOT NULL COMMENT 'ID de la clase acual',
 	idproducto INT NOT NULL COMMENT 'ID de la clase acual',
 	nombre VARCHAR(45) NULL COMMENT 'Nombrre de la categoría ',
-	id_producto INT NULL COMMENT 'ID de la clase ',
+	id_producto INT NULL COMMENT 'ID de la clase',
 	descripcion VARCHAR(45) NULL COMMENT 'clase que resulta de una especifica el producto según un criterio o jerarquía',
-	id_materiales INT NULL COMMENT 'ID de la clase ',
-	id_marca INT NULL COMMENT 'ID de la clase ',
+	id_materiales INT NULL COMMENT 'ID de la clase',
+	id_marca INT NULL COMMENT 'ID de la clase',
 	INDEX fk_caracteristicas_productos_caracteristicas1_idx (caracteristicas_id ASC) VISIBLE,
 	INDEX fk_caracteristicas_productos_producto_actual1_idx (idproducto ASC) VISIBLE,
 	CONSTRAINT fk_caracteristicas_productos_caracteristicas1
@@ -107,7 +107,7 @@ CREATE TABLE IF NOT EXISTS usuario (
     genero VARCHAR (1 ) COMMENT 'genero de usuario',
     tipo_documento VARCHAR (1 ) COMMENT 'tipo de documento de usuario',
     numero_documento VARCHAR (10) COMMENT 'numero de documento de identifidad',
-    direccion  VARCHAR (100)  COMMENT 'direccion de usuario	'); 
+    direccion  VARCHAR (100)  COMMENT 'direccion de usuario	');
     
     #jessica
 CREATE TABLE IF NOT EXISTS telefono (
@@ -115,6 +115,17 @@ CREATE TABLE IF NOT EXISTS telefono (
     celular VARCHAR (10) UNIQUE COMMENT 'Número Telefono Celular',
     fijo VARCHAR (10) UNIQUE COMMENT 'Número Telefono fijo',
 	id_usuario INT UNSIGNED NOT NULL COMMENT 'FK a la clase usuario',
+    
+    #foto VARCHAR(45) NULL COMMENT 'Imgen del usuario',
+	contraseña INT NULL COMMENT 'Caracteres para ingreso a la plataforma',
+	nombre VARCHAR(45) NULL COMMENT 'Nombrre de la categoría',
+	genero VARCHAR(45) NULL COMMENT 'sexo del usuario',
+	tipo_documento VARCHAR(45) NULL COMMENT 'Reconoce la clase de identificación que maneja el individuo',
+	numero_documento INT NULL COMMENT 'Numero unico  que idefica el individuo',
+	direccion VARCHAR(45) NULL COMMENT 'Lugar de residencia habitual.',
+	numero_telefono INT NULL COMMENT 'secuencia de dígitos utilizada para identificar una línea telefónica',
+	numero_celular INT NULL COMMENT 'secuencia de dígitos utilizada para identificar una línea telefónica',
+    
     CONSTRAINT id_usuario
     FOREIGN KEY (id_usuario)
     REFERENCES usuario (id_usuario)
@@ -157,8 +168,36 @@ CREATE TABLE IF NOT EXISTS mascota (
 CREATE TABLE IF NOT EXISTS tipo_contrato (
 	id_marca INT UNSIGNED AUTO_INCREMENT NOT NULL COMMENT 'PK de la clase marca');
 
+#Santiago
 CREATE TABLE IF NOT EXISTS empleado (
-	id_marca INT UNSIGNED AUTO_INCREMENT NOT NULL COMMENT 'PK de la clase marca');
+	idusuario INT UNSIGNED NOT NULL COMMENT 'FK de la clase Usuario',
+	id_contrato INT UNSIGNED NULL COMMENT '',
+	id_tipo_contrato INT UNSIGNED NOT NULL COMMENT 'tipo de contrato que manejara el usuario',
+	
+    telefono_emergencia INT NULL COMMENT 'secuencia de dígitos utilizada para identificar una línea telefónica',
+	fecha_contratacion DATETIME NULL COMMENT 'fecha de proceso contrato usuario',
+	codigo_contrato INT NULL COMMENT 'conjunto de caracteres que identifican el tipo de contrato que se manejara',
+	tipo_contrato VARCHAR(45) NULL COMMENT 'Especifica el contrato que el usuario tendra',
+	RH VARCHAR(3) NULL COMMENT 'Tipo de sangre',
+	tipo_afialiacion VARCHAR(45) NULL COMMENT 'categoria afilicacion a caja de compensación familiar',
+	afialiacion VARCHAR(45) NULL COMMENT 'afilicacion a caja de compensación familiar',
+	cargo VARCHAR(45) NULL COMMENT 'Especifica el cargo que manejara'
+    /*
+	PRIMARY KEY (idusuario),
+	INDEX fk_empleado_usuario1_idx (idusuario ASC) VISIBLE,
+	INDEX fk_empleado_tipo_contrato1_idx (tipo_contrato_idtipo_contrato ASC) VISIBLE,
+	CONSTRAINT fk_empleado_usuario1
+	FOREIGN KEY (idusuario)
+	REFERENCES usuario (idusuario)
+	ON DELETE NO ACTION
+	ON UPDATE NO ACTION,
+    
+	CONSTRAINT fk_empleado_tipo_contrato1
+	FOREIGN KEY (tipo_contrato_idtipo_contrato)
+	REFERENCES tipo_contrato (idtipo_contrato)
+	ON DELETE NO ACTION
+	ON UPDATE NO ACTION*/
+);
 
 CREATE TABLE IF NOT EXISTS entidad_afiliada (
 	id_marca INT UNSIGNED AUTO_INCREMENT NOT NULL COMMENT 'PK de la clase marca');
