@@ -184,18 +184,27 @@ CREATE TABLE IF NOT EXISTS tema_preguntas (
 
 CREATE TABLE IF NOT EXISTS preguntas_frecuentes (
 	id_marca INT UNSIGNED AUTO_INCREMENT NOT NULL COMMENT 'PK de la clase marca');
-
+#jessica
 CREATE TABLE IF NOT EXISTS dispositivo (
-	id_marca INT UNSIGNED AUTO_INCREMENT NOT NULL COMMENT 'PK de la clase marca');
-
+	id_dispositivo INT UNSIGNED AUTO_INCREMENT NOT NULL COMMENT 'PK de la clase dispositivo',
+    Nombre VARCHAR (50) NOT NULL COMMENT 'nombre de usuario'
+    );
+#jessica
 CREATE TABLE IF NOT EXISTS logs_empleado (
-	id_marca INT UNSIGNED AUTO_INCREMENT NOT NULL COMMENT 'PK de la clase marca');
-
+	id_empleado INT UNSIGNED AUTO_INCREMENT NOT NULL COMMENT 'PK de la clase logs_empleado',
+	direccion_ip VARCHAR (100)  COMMENT 'direccion de logs_empleado',
+    Tiempo_en_plataforma TIME(50) NOT NULL COMMENT 'nombre de logs_empleado',
+	hora_inicio TIME (50) NOT NULL 'hora de conexion' ,
+    fecha_ingreso  DATE  VARCHAR (100)  NULL COMMENT 'nombre de logs_empleado'
+    );
+#jessica
 CREATE TABLE IF NOT EXISTS acciones (
-	id_marca INT UNSIGNED AUTO_INCREMENT NOT NULL COMMENT 'PK de la clase marca');
+	id_acciones INT UNSIGNED AUTO_INCREMENT NOT NULL COMMENT 'PK de la clase marca',
+    nombre VARCHAR(45) NULL COMMENT 'Nombre de clase la acciones',
+    );
 
 CREATE TABLE IF NOT EXISTS acciones_realizadas (
-	id_marca INT UNSIGNED AUTO_INCREMENT NOT NULL COMMENT 'PK de la clase marca');
+	acciones_realizadas INT UNSIGNED AUTO_INCREMENT NOT NULL COMMENT 'PK de la clase acciones_realizadas');
 
 CREATE TABLE IF NOT EXISTS información (
 	id_marca INT UNSIGNED AUTO_INCREMENT NOT NULL COMMENT 'PK de la clase marca');
