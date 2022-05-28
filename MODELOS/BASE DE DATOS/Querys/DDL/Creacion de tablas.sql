@@ -230,22 +230,22 @@ CREATE TABLE IF NOT EXISTS afiliacion (
 	id_afiliacion INT UNSIGNED AUTO_INCREMENT NOT NULL COMMENT 'PK de la clase afiliacion'
     id_entidad
     fecha_afiliacion DATE );
-
+#PAULA
 CREATE TABLE IF NOT EXISTS pedido (
 	id_marca INT UNSIGNED AUTO_INCREMENT NOT NULL COMMENT 'PK de la clase marca');
-
+#PAULA
 CREATE TABLE IF NOT EXISTS estados_pedidos (
 	id_marca INT UNSIGNED AUTO_INCREMENT NOT NULL COMMENT 'PK de la clase marca');
-
+#PAULA
 CREATE TABLE IF NOT EXISTS factura (
 	id_marca INT UNSIGNED AUTO_INCREMENT NOT NULL COMMENT 'PK de la clase marca');
-
+#PAULA
 CREATE TABLE IF NOT EXISTS factura_cliente (
 	id_marca INT UNSIGNED AUTO_INCREMENT NOT NULL COMMENT 'PK de la clase marca');
-
+#PAULA
 CREATE TABLE IF NOT EXISTS estados_facturas_cliente (
 	id_marca INT UNSIGNED AUTO_INCREMENT NOT NULL COMMENT 'PK de la clase marca');
-
+#PAULA
 CREATE TABLE IF NOT EXISTS proveedor (
 	id_marca INT UNSIGNED AUTO_INCREMENT NOT NULL COMMENT 'PK de la clase marca');
 
