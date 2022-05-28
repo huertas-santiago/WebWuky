@@ -205,11 +205,11 @@ CREATE TABLE IF NOT EXISTS dispositivo (
     );
 #jessica
 CREATE TABLE IF NOT EXISTS logs_empleado (
-	id_empleado INT UNSIGNED AUTO_INCREMENT NOT NULL COMMENT 'PK de la clase logs_empleado',
-	direccion_ip VARCHAR (100)  COMMENT 'direccion de logs_empleado',
-    Tiempo_en_plataforma TIME(50) NOT NULL COMMENT 'nombre de logs_empleado',
-	hora_inicio TIME (50) NOT NULL 'hora de conexion' ,
-    fecha_ingreso  DATE  VARCHAR (100)  NULL COMMENT 'nombre de logs_empleado'
+	id_empleado INT UNSIGNED AUTO_INCREMENT NOT NULL ,
+	direccion_ip INT NOT NULL,
+    Tiempo_en_plataforma TIME(50) NOT NULL ,
+	hora_inicio TIME (50) NOT NULL ,
+    fecha_ingreso  DATE NOT NULL
     );
 #jessica
 CREATE TABLE IF NOT EXISTS acciones (
@@ -224,14 +224,21 @@ CREATE TABLE IF NOT EXISTS acciones_realizadas (
     );
 #jessica
 CREATE TABLE IF NOT EXISTS información (
-	id_información INT UNSIGNED AUTO_INCREMENT NOT NULL COMMENT,
-    texto VARCHAR(100) NULL COMMENT,
-    titulo VARCHAR(50) NULL COMMENT,
-    id_imagen INT NULL COMMENT
+	id_información INT UNSIGNED AUTO_INCREMENT NOT NULL ,
+    texto VARCHAR(100) NULL ,
+    titulo VARCHAR(50) NULL ,
+    id_imagen INT NULL
     );
 
+#jessica
 CREATE TABLE IF NOT EXISTS logs_cliente (
-	id_marca INT UNSIGNED AUTO_INCREMENT NOT NULL COMMENT 'PK de la clase marca');
+	id_logs_cliente INT UNSIGNED AUTO_INCREMENT NOT NULL,
+    direccion_ip INT NOT NULL,
+    Tiempo_en_plataforma TIME(50) NOT NULL ,
+	hora_inicio TIME (50) NOT NULL ,
+    fecha_ingreso  DATE NOT NULL
+    );
+    
 
 CREATE TABLE IF NOT EXISTS permisos (
 	id_marca INT UNSIGNED AUTO_INCREMENT NOT NULL COMMENT 'PK de la clase marca');
