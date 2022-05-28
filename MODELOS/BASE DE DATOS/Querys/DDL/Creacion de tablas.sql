@@ -134,11 +134,16 @@ CREATE TABLE IF NOT EXISTS telefono (
     ON UPDATE NO ACTION
     );
 		
-#jessica
+#jessica #Modificado por Santiago
 CREATE TABLE IF NOT EXISTS cliente (
-	id_cliente INT UNSIGNED AUTO_INCREMENT NOT NULL COMMENT 'PK de la clase cliente',
+	id_usuario INT UNSIGNED NOT NULL COMMENT 'PK de la clase cliente y FK de la tabla Usuario' PRIMARY KEY,
     facebook_vinculado VARCHAR (50) UNIQUE NOT  NULL COMMENT 'cuenta de facebook asociada del cliente',
-    correo_vinculado VARCHAR (50) UNIQUE NOT  NULL COMMENT 'cuenta de correo asociada del cliente'
+    correo_vinculado VARCHAR (50) UNIQUE NOT  NULL COMMENT 'cuenta de correo asociada del cliente',
+    CONSTRAINT fk_id_usuario
+    FOREIGN KEY (id_usuario)
+    REFERENCES usuario (id_usuario)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION
     );
 
 #paula
@@ -227,15 +232,21 @@ CREATE TABLE IF NOT EXISTS entidad_afiliada (
    nombre VARCHAR(45));
 
 CREATE TABLE IF NOT EXISTS afiliacion (
-	id_afiliacion INT UNSIGNED AUTO_INCREMENT NOT NULL COMMENT 'PK de la clase afiliacion'
-    id_entidad
+	id_afiliacion INT UNSIGNED AUTO_INCREMENT NOT NULL COMMENT 'PK de la clase afiliacion',
+    id_entidad_afiliada INT UNSIGNED NOT NULL COMMENT 'PK de la clase entidad_afiliada',
     fecha_afiliacion DATE );
 #PAULA
-CREATE TABLE IF NOT EXISTS pedido (
-	id_marca INT UNSIGNED AUTO_INCREMENT NOT NULL COMMENT 'PK de la clase marca');
+CREATE TABLE IF NOT EXISTS pedido(
+	id_pedido INT UNSIGNED AUTO_INCREMENT NOT NULL PRIMARY KEY COMMENT 'PK de la clase pedido',
+    fecha DATE,
+    direccion_envio VARCHAR (45));
 #PAULA
-CREATE TABLE IF NOT EXISTS estados_pedidos (
-	id_marca INT UNSIGNED AUTO_INCREMENT NOT NULL COMMENT 'PK de la clase marca');
+CREATE TABLE IF NOT EXISTS estados_pedidos(
+	id_estados_pedidos INT UNSIGNED AUTO_INCREMENT NOT NULL COMMENT 'PK de la clase estados_pedidos',
+    nombre VARCHAR (45),
+    fecha_inicio DATE,
+    hora_inicio TIME, 
+    tiempo TIME  NOT NULL );
 #PAULA
 CREATE TABLE IF NOT EXISTS factura (
 	id_marca INT UNSIGNED AUTO_INCREMENT NOT NULL COMMENT 'PK de la clase marca');
