@@ -134,11 +134,16 @@ CREATE TABLE IF NOT EXISTS telefono (
     ON UPDATE NO ACTION
     );
 		
-#jessica
+#jessica #Modificado por Santiago
 CREATE TABLE IF NOT EXISTS cliente (
-	id_cliente INT UNSIGNED AUTO_INCREMENT NOT NULL COMMENT 'PK de la clase cliente',
+	id_usuario INT UNSIGNED NOT NULL COMMENT 'PK de la clase cliente y FK de la tabla Usuario' PRIMARY KEY,
     facebook_vinculado VARCHAR (50) UNIQUE NOT  NULL COMMENT 'cuenta de facebook asociada del cliente',
-    correo_vinculado VARCHAR (50) UNIQUE NOT  NULL COMMENT 'cuenta de correo asociada del cliente'
+    correo_vinculado VARCHAR (50) UNIQUE NOT  NULL COMMENT 'cuenta de correo asociada del cliente',
+    CONSTRAINT fk_id_usuario
+    FOREIGN KEY (id_usuario)
+    REFERENCES usuario (id_usuario)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION
     );
 
 #paula
