@@ -258,7 +258,10 @@ CREATE TABLE IF NOT EXISTS categoria_productos (
 
 
 CREATE TABLE IF NOT EXISTS materiales (
-	id_marca INT UNSIGNED AUTO_INCREMENT NOT NULL COMMENT 'PK de la clase marca');
+	id_materiales INT UNSIGNED AUTO_INCREMENT NOT NULL,
+    id_tipo_materiales INT UNSIGNED AUTO_INCREMENT NOT NULL
+    );
+
     
 #Jessica
 CREATE TABLE IF NOT EXISTS tipo_materiales (
