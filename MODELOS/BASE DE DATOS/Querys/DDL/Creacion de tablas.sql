@@ -71,10 +71,10 @@ CREATE TABLE IF NOT EXISTS variante_productos (
     id_variante INT UNSIGNED NOT NULL COMMENT 'ID de la clase acual',
 	idproducto INT NOT NULL COMMENT 'ID de la clase acual',
 	nombre VARCHAR(45) NULL COMMENT 'Nombrre de la categoría ',
-	id_producto INT NULL COMMENT 'ID de la clase ',
+	id_producto INT NULL COMMENT 'ID de la clase',
 	descripcion VARCHAR(45) NULL COMMENT 'clase que resulta de una especifica el producto según un criterio o jerarquía',
-	id_materiales INT NULL COMMENT 'ID de la clase ',
-	id_marca INT NULL COMMENT 'ID de la clase ',
+	id_materiales INT NULL COMMENT 'ID de la clase',
+	id_marca INT NULL COMMENT 'ID de la clase',
 	INDEX fk_caracteristicas_productos_caracteristicas1_idx (caracteristicas_id ASC) VISIBLE,
 	INDEX fk_caracteristicas_productos_producto_actual1_idx (idproducto ASC) VISIBLE,
 	CONSTRAINT fk_caracteristicas_productos_caracteristicas1
