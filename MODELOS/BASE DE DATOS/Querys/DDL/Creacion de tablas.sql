@@ -89,9 +89,14 @@ CREATE TABLE IF NOT EXISTS variante_productos (
 		ON UPDATE NO ACTION
 );
 
-
+#Paula
 CREATE TABLE IF NOT EXISTS rol (
-	id_marca INT UNSIGNED AUTO_INCREMENT NOT NULL COMMENT 'PK de la clase marca');
+	id_rol INT UNSIGNED AUTO_INCREMENT NOT NULL COMMENT 'PK de la clase marca',
+    nombre_rol VARCHAR (45)NOT NULL COMMENT'nombre del rol del usuario',
+    descripcion VARCHAR (45) NOT NULL COMMENT'detalle o caracteristica del rol',
+    id_cargo INT NULL COMMENT 'PK de la tabla cargo',
+    FOREIGN KEY (id_permisos)
+    REFERENCES permisos (id_permisos));
 
 #Jessica
 CREATE TABLE IF NOT EXISTS usuario (
@@ -124,15 +129,24 @@ CREATE TABLE IF NOT EXISTS cliente (
     correo_vinculado VARCHAR (50) UNIQUE NOT  NULL COMMENT 'cuenta de correo asociada del cliente'
     );
 
-
+#paula
 CREATE TABLE IF NOT EXISTS producto_favorito (
-	id_producto_favorito INT UNSIGNED AUTO_INCREMENT NOT NULL COMMENT 'PK de la clase producto_favorito');
+	id_producto_favorito INT UNSIGNED AUTO_INCREMENT NOT NULL COMMENT 'PK de la clase producto_favorito',
+    nombre VARCHAR (45),
+    cantidad VARCHAR (45),
+    comprado VARCHAR (45),
+    descuento VARCHAR (45) COMMENT 'disminucion del precio',
+    FOREIGN Key (id_cliente)
+    REFERENCES cliente (id_cliente));
 
 CREATE TABLE IF NOT EXISTS categoria (
-	id_marca INT UNSIGNED AUTO_INCREMENT NOT NULL COMMENT 'PK de la clase marca');
+	id_categoria INT UNSIGNED AUTO_INCREMENT NOT NULL COMMENT 'PK de la clase marca',
+    nombre VARCHAR (45),
+    descripcion VARCHAR(45));
 
 CREATE TABLE IF NOT EXISTS especie (
-	id_marca INT UNSIGNED AUTO_INCREMENT NOT NULL COMMENT 'PK de la clase marca');
+	id_especie INT UNSIGNED AUTO_INCREMENT NOT NULL COMMENT 'PK de la clase marca',
+    );
 
 CREATE TABLE IF NOT EXISTS raza (
 	id_marca INT UNSIGNED AUTO_INCREMENT NOT NULL COMMENT 'PK de la clase marca');
