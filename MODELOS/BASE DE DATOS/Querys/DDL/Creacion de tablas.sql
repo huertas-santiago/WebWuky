@@ -337,9 +337,6 @@ CREATE TABLE IF NOT EXISTS materiales (
 		ON UPDATE NO ACTION
         );
 
-    
-
-
 
 #Jessica
 CREATE TABLE IF NOT EXISTS productos_materiales (
@@ -349,7 +346,9 @@ CREATE TABLE IF NOT EXISTS productos_materiales (
 
 #Jessica
 CREATE TABLE IF NOT EXISTS rol_permiso (
-	id_marca INT UNSIGNED AUTO_INCREMENT NOT NULL COMMENT 'PK de la clase marca');
+	nombre_rol  VARCHAR (50)NOT NULL,
+    id_permiso INT UNSIGNED AUTO_INCREMENT NOT NULL
+    );
 
 CREATE TABLE IF NOT EXISTS transportadora (
 	id_marca INT UNSIGNED AUTO_INCREMENT NOT NULL COMMENT 'PK de la clase marca');
