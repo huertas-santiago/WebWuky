@@ -315,15 +315,25 @@ CREATE TABLE IF NOT EXISTS producto_imagenes (
 	id_imagen INT UNSIGNED AUTO_INCREMENT NOT NULL,
     id_producto INT UNSIGNED AUTO_INCREMENT NOT NULL
     );
-
+#Jessica
 CREATE TABLE IF NOT EXISTS categoria_productos (
-	id_marca INT UNSIGNED AUTO_INCREMENT NOT NULL COMMENT 'PK de la clase marca');
+	id_categoria_productos INT UNSIGNED AUTO_INCREMENT NOT NULL,
+    id_producto INT UNSIGNED AUTO_INCREMENT NOT NULL
+);
 
-CREATE TABLE IF NOT EXISTS tipo_material (
-	id_marca INT UNSIGNED AUTO_INCREMENT NOT NULL COMMENT 'PK de la clase marca');
 
 CREATE TABLE IF NOT EXISTS materiales (
-	id_marca INT UNSIGNED AUTO_INCREMENT NOT NULL COMMENT 'PK de la clase marca');
+	id_materiales INT UNSIGNED AUTO_INCREMENT NOT NULL,
+    id_tipo_materiales INT UNSIGNED AUTO_INCREMENT NOT NULL
+    );
+
+    
+#Jessica
+CREATE TABLE IF NOT EXISTS tipo_materiales (
+	id_tipo_materiales INT UNSIGNED AUTO_INCREMENT NOT NULL
+    );
+
+
 
 CREATE TABLE IF NOT EXISTS productos_materiales (
 	id_marca INT UNSIGNED AUTO_INCREMENT NOT NULL COMMENT 'PK de la clase marca');
