@@ -250,9 +250,15 @@ CREATE TABLE IF NOT EXISTS factura_cliente (
 #PAULA
 CREATE TABLE IF NOT EXISTS estados_facturas_cliente (
 	id_marca INT UNSIGNED AUTO_INCREMENT NOT NULL COMMENT 'PK de la clase marca');
-#PAULA
+#Santiago
 CREATE TABLE IF NOT EXISTS proveedor (
-	id_marca INT UNSIGNED AUTO_INCREMENT NOT NULL COMMENT 'PK de la clase marca');
+	idusuario INT UNSIGNED NOT NULL COMMENT 'FK de la clase Usuario',
+    CONSTRAINT fk_id_usuario
+    FOREIGN KEY (id_usuario)
+    REFERENCES usuario (id_usuario)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION
+    );
 
 CREATE TABLE IF NOT EXISTS factura_proveedor (
 	id_marca INT UNSIGNED AUTO_INCREMENT NOT NULL COMMENT 'PK de la clase marca');
