@@ -214,14 +214,21 @@ CREATE TABLE IF NOT EXISTS logs_empleado (
 #jessica
 CREATE TABLE IF NOT EXISTS acciones (
 	id_acciones INT UNSIGNED AUTO_INCREMENT NOT NULL COMMENT 'PK de la clase marca',
-    nombre VARCHAR(45) NULL COMMENT 'Nombre de clase la acciones',
+    nombre VARCHAR(45) NULL COMMENT 'Nombre de clase la acciones'
     );
-
+#jessica 
 CREATE TABLE IF NOT EXISTS acciones_realizadas (
-	acciones_realizadas INT UNSIGNED AUTO_INCREMENT NOT NULL COMMENT 'PK de la clase acciones_realizadas');
-
+	id_usuario INT UNSIGNED AUTO_INCREMENT NOT NULL COMMENT 'PK de la clase id_usuario',
+    id_accion INT NOT NULL COMMENT 'Id accion',
+    descripción VARCHAR (45) NULL COMMENT 'descripcion clase accion'
+    );
+#jessica
 CREATE TABLE IF NOT EXISTS información (
-	id_marca INT UNSIGNED AUTO_INCREMENT NOT NULL COMMENT 'PK de la clase marca');
+	id_información INT UNSIGNED AUTO_INCREMENT NOT NULL COMMENT,
+    texto VARCHAR(100) NULL COMMENT,
+    titulo VARCHAR(50) NULL COMMENT,
+    id_imagen INT NULL COMMENT
+    );
 
 CREATE TABLE IF NOT EXISTS logs_cliente (
 	id_marca INT UNSIGNED AUTO_INCREMENT NOT NULL COMMENT 'PK de la clase marca');
