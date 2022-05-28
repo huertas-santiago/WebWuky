@@ -295,23 +295,33 @@ CREATE TABLE IF NOT EXISTS categoria_productos (
     id_producto INT UNSIGNED AUTO_INCREMENT NOT NULL
 );
 
-
-CREATE TABLE IF NOT EXISTS materiales (
-	id_materiales INT UNSIGNED AUTO_INCREMENT NOT NULL,
-    id_tipo_materiales INT UNSIGNED AUTO_INCREMENT NOT NULL
-    );
-
-    
 #Jessica
 CREATE TABLE IF NOT EXISTS tipo_materiales (
 	id_tipo_materiales INT UNSIGNED AUTO_INCREMENT NOT NULL
     );
 
+#Jessica
+CREATE TABLE IF NOT EXISTS materiales (
+	id_materiales INT UNSIGNED AUTO_INCREMENT NOT NULL PRIMARY KEY,
+    id_tipo_materiales INT UNSIGNED  NOT NULL,
+    CONSTRAINT fk_id_tipo_materiales
+		FOREIGN KEY (id_tipo_materiales)
+        REFERENCES tipo_materiales (id_tipo_materiales)
+		ON DELETE NO ACTION
+		ON UPDATE NO ACTION
+        );
+
+    
 
 
+
+#Jessica
 CREATE TABLE IF NOT EXISTS productos_materiales (
-	id_marca INT UNSIGNED AUTO_INCREMENT NOT NULL COMMENT 'PK de la clase marca');
+	id_material INT UNSIGNED NOT NULL ,
+    id_producto INT UNSIGNED NOT NULL
+    );
 
+#Jessica
 CREATE TABLE IF NOT EXISTS rol_permiso (
 	id_marca INT UNSIGNED AUTO_INCREMENT NOT NULL COMMENT 'PK de la clase marca');
 
