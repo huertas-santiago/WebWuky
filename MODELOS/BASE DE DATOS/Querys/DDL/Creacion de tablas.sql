@@ -192,6 +192,7 @@ CREATE TABLE IF NOT EXISTS mascota (
 	FOREIGN Key (id_cliente)
     REFERENCES cliente (id_cliente));
 
+
 CREATE TABLE IF NOT EXISTS tipo_contrato (
 	id_tipo_contrato INT UNSIGNED AUTO_INCREMENT NOT NULL COMMENT 'PK de la clase tipo_contrato',
     nombre VARCHAR (45));
@@ -235,11 +236,13 @@ CREATE TABLE IF NOT EXISTS afiliacion (
 	id_afiliacion INT UNSIGNED AUTO_INCREMENT NOT NULL COMMENT 'PK de la clase afiliacion',
     id_entidad_afiliada INT UNSIGNED NOT NULL COMMENT 'PK de la clase entidad_afiliada',
     fecha_afiliacion DATE );
+
 #PAULA
 CREATE TABLE IF NOT EXISTS pedido(
 	id_pedido INT UNSIGNED AUTO_INCREMENT NOT NULL PRIMARY KEY COMMENT 'PK de la clase pedido',
     fecha DATE,
     direccion_envio VARCHAR (45));
+
 #PAULA
 CREATE TABLE IF NOT EXISTS estados_pedidos(
 	id_estados_pedidos INT UNSIGNED AUTO_INCREMENT NOT NULL COMMENT 'PK de la clase estados_pedidos',
@@ -250,12 +253,15 @@ CREATE TABLE IF NOT EXISTS estados_pedidos(
 #PAULA
 CREATE TABLE IF NOT EXISTS factura (
 	id_marca INT UNSIGNED AUTO_INCREMENT NOT NULL COMMENT 'PK de la clase marca');
+
 #PAULA
 CREATE TABLE IF NOT EXISTS factura_cliente (
 	id_marca INT UNSIGNED AUTO_INCREMENT NOT NULL COMMENT 'PK de la clase marca');
+
 #PAULA
 CREATE TABLE IF NOT EXISTS estados_facturas_cliente (
 	id_marca INT UNSIGNED AUTO_INCREMENT NOT NULL COMMENT 'PK de la clase marca');
+
 #Santiago
 CREATE TABLE IF NOT EXISTS proveedor (
 	idusuario INT UNSIGNED NOT NULL COMMENT 'FK de la clase Usuario',
@@ -266,25 +272,93 @@ CREATE TABLE IF NOT EXISTS proveedor (
     ON UPDATE NO ACTION
     );
 
+#Santiago
 CREATE TABLE IF NOT EXISTS factura_proveedor (
-	id_marca INT UNSIGNED AUTO_INCREMENT NOT NULL COMMENT 'PK de la clase marca');
+	id_factura INT UNSIGNED NOT NULL COMMENT 'FK a la clase factura',
+	id_empleado INT NOT NULL COMMENT 'FK a la clase empleado, Quien realizó el pedido',
+	id_proveedor INT NOT NULL COMMENT 'FK a la clase proveedor',
+    
+	fecha DATETIME NOT NULL COMMENT 'Fecha en que se realizó el pedido',
+    
+	rete_ica VARCHAR(45) NULL COMMENT 'Impuesto de retención',
+	rete_fuente VARCHAR(45) NULL COMMENT 'Impuesto de retención',
+	iva INT NULL COMMENT 'Impuesto asociado al producto',
+	subtotal INT NULL COMMENT 'Valor de la suma de los productos',
+    
+	precio_total INT NULL COMMENT 'total de  la suma de los productos',
+	tipo_pago VARCHAR(45) NULL COMMENT 'forma con que se genera el pago'
+	
+    /*
+    INDEX fk_factura_proveedor_empleado1_idx (id_empleado ASC) VISIBLE,
+	PRIMARY KEY (id_factura),
+	INDEX fk_factura_proveedor_proveedor1_idx (id_proveedor ASC) VISIBLE,
+    */
+	
+    /*
+    CONSTRAINT fk_factura_proveedor_empleado1
+		FOREIGN KEY (id_empleado)
+		REFERENCES empleado (id_usuario)
+		ON DELETE NO ACTION
+		ON UPDATE NO ACTION,
+	CONSTRAINT fk_factura_proveedor_proveedor1
+		FOREIGN KEY (id_proveedor)
+		REFERENCES proveedor (id_usuario)
+		ON DELETE NO ACTION
+		ON UPDATE NO ACTION,
+	CONSTRAINT fk_factura_proveedor_factura1
+		FOREIGN KEY (id_factura)
+		REFERENCES factura (id_factura)
+		ON DELETE NO ACTION
+		ON UPDATE NO ACTION
+	
+	*/
+);
 
+#Santiago
 CREATE TABLE IF NOT EXISTS carrito (
-	id_marca INT UNSIGNED AUTO_INCREMENT NOT NULL COMMENT 'PK de la clase marca');
+	id_carrito INT UNSIGNED AUTO_INCREMENT NOT NULL COMMENT 'PK de la clase carrito',
+    id_cliente INT NOT NULL COMMENT 'FK a la clase cliente'
+    
+    /*
+	PRIMARY KEY (id_cliente),
+	CONSTRAINT fk_carrito_cliente1
+		FOREIGN KEY (id_usuario)
+		REFERENCES cliente (id_usuario)
+		ON DELETE NO ACTION
+		ON UPDATE NO ACTION
+	*/
+);
 
+#Santiago
 CREATE TABLE IF NOT EXISTS infografia (
-	id_marca INT UNSIGNED AUTO_INCREMENT NOT NULL COMMENT 'PK de la clase marca');
+	id_infografia INT UNSIGNED AUTO_INCREMENT NOT NULL COMMENT 'PK de la clase infografia',
+	imagenes VARCHAR(45) NULL,
+	texto TEXT NULL,
+	tamaño_imagen VARCHAR(45) NULL,
+    seccion INT UNSIGNED NULL COMMENT 'En que posicion esta ubicado la infografia en el home del cliente',
+	nombre VARCHAR(45) NULL,
+    habilitado BOOL NOT NULL COMMENT 'Representa si se muestra o no la infografia',
+	PRIMARY KEY (id_infografia)
+);
 
+#Santiago
 CREATE TABLE IF NOT EXISTS tema_preguntas (
-	id_marca INT UNSIGNED AUTO_INCREMENT NOT NULL COMMENT 'PK de la clase marca');
+	id_tema_preguntas INT UNSIGNED AUTO_INCREMENT NOT NULL COMMENT 'PK de la clase tema_preguntas',
+    nombre VARCHAR(45) NULL    
+);
 
+#Santiago
 CREATE TABLE IF NOT EXISTS preguntas_frecuentes (
-	id_marca INT UNSIGNED AUTO_INCREMENT NOT NULL COMMENT 'PK de la clase marca');
+	id_marca INT UNSIGNED AUTO_INCREMENT NOT NULL COMMENT 'PK de la clase marca'
+
+);
+
 #jessica
 CREATE TABLE IF NOT EXISTS dispositivo (
 	id_dispositivo INT UNSIGNED AUTO_INCREMENT NOT NULL COMMENT 'PK de la clase dispositivo',
     Nombre VARCHAR (50) NOT NULL COMMENT 'nombre de usuario'
     );
+    
 #jessica
 CREATE TABLE IF NOT EXISTS logs_empleado (
 	id_empleado INT UNSIGNED AUTO_INCREMENT NOT NULL ,
@@ -293,17 +367,20 @@ CREATE TABLE IF NOT EXISTS logs_empleado (
 	hora_inicio TIME (50) NOT NULL ,
     fecha_ingreso  DATE NOT NULL
     );
+    
 #jessica
 CREATE TABLE IF NOT EXISTS acciones (
 	id_acciones INT UNSIGNED AUTO_INCREMENT NOT NULL COMMENT 'PK de la clase marca',
     nombre VARCHAR(45) NULL COMMENT 'Nombre de clase la acciones'
     );
+    
 #jessica 
 CREATE TABLE IF NOT EXISTS acciones_realizadas (
 	id_usuario INT UNSIGNED AUTO_INCREMENT NOT NULL COMMENT 'PK de la clase id_usuario',
     id_accion INT NOT NULL COMMENT 'Id accion',
     descripción VARCHAR (45) NULL COMMENT 'descripcion clase accion'
     );
+    
 #jessica
 CREATE TABLE IF NOT EXISTS información (
 	id_información INT UNSIGNED AUTO_INCREMENT NOT NULL ,
@@ -319,7 +396,7 @@ CREATE TABLE IF NOT EXISTS logs_cliente (
     Tiempo_en_plataforma TIME(50) NOT NULL ,
 	hora_inicio TIME (50) NOT NULL ,
     fecha_ingreso  DATE NOT NULL
-    );
+);
     
 #Jessica
 CREATE TABLE IF NOT EXISTS permisos (
@@ -327,11 +404,13 @@ CREATE TABLE IF NOT EXISTS permisos (
     Nombre_empleado VARCHAR(45) NULL,
     Descripcion VARCHAR(100) NULL
     );
+
 #Jessica
 CREATE TABLE IF NOT EXISTS producto_imagenes (
 	id_imagen INT UNSIGNED AUTO_INCREMENT NOT NULL,
     id_producto INT UNSIGNED AUTO_INCREMENT NOT NULL
     );
+
 #Jessica
 CREATE TABLE IF NOT EXISTS categoria_productos (
 	id_categoria_productos INT UNSIGNED AUTO_INCREMENT NOT NULL,
@@ -353,7 +432,6 @@ CREATE TABLE IF NOT EXISTS materiales (
 		ON DELETE NO ACTION
 		ON UPDATE NO ACTION
         );
-
 
 #Jessica
 CREATE TABLE IF NOT EXISTS productos_materiales (
@@ -380,7 +458,10 @@ CREATE TABLE IF NOT EXISTS producto_facturaProveedor (
 	id_marca INT UNSIGNED AUTO_INCREMENT NOT NULL COMMENT 'PK de la clase marca');
 
 CREATE TABLE IF NOT EXISTS producto_carrito (
-	id_marca INT UNSIGNED AUTO_INCREMENT NOT NULL COMMENT 'PK de la clase marca');
+	id_marca INT UNSIGNED AUTO_INCREMENT NOT NULL COMMENT 'PK de la clase marca',
+    cantidad_producto VARCHAR(45) NULL COMMENT 'Número determinado de unidades adquiridos'
+    
+);
 
 CREATE TABLE IF NOT EXISTS imagenes_infografia (
 	id_marca INT UNSIGNED AUTO_INCREMENT NOT NULL COMMENT 'PK de la clase marca');
