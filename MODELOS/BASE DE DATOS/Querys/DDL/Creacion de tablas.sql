@@ -10,74 +10,7 @@ CREATE TABLE IF NOT EXISTS marca(
   id_marca INT UNSIGNED AUTO_INCREMENT NOT NULL COMMENT 'PK de la clase marca',
   nombre VARCHAR(45) NULL COMMENT 'Nombre de la marca',
   descripcion VARCHAR(45) NULL COMMENT 'Detalle o caracteristicas de la marca',
-  PRIMARY KEY (id_marca))
-ENGINE = InnoDB;
-
-#Santiago
-CREATE TABLE IF NOT EXISTS producto (
-  id_interno INT UNSIGNED AUTO_INCREMENT NOT NULL COMMENT 'PK de la clase imagenes producto',
-  id_externo VARCHAR(45) NULL COMMENT 'Referencia UNICA del producto que tiene el proveedor',
-  id_facebook VARCHAR(45) NULL COMMENT 'Referencia UNICA del producto que tiene facebook',
-  
-  fabricado BOOLEAN NULL COMMENT 'Valor que dice si el producto es fabricado o comprado',
-  descripción VARCHAR(400) NULL COMMENT 'Detalle o caracteristicas de la clase',
-  id_marca INT UNSIGNED NULL COMMENT  'llave foranea a la tabla marca',
-  proveedor_idproveedor INT NOT NULL COMMENT 'id clase',
-  
-  #Estos campos no irían en esta tabla
-	  #moneda VARCHAR(10) NULL COMMENT 'Nombre de la moneda con la que esta el precio',
-	  #descuento INT UNSIGNED NULL COMMENT 'Porcentaje de disminución del precio de un bien o un servicio',
-	  #visualizacion_eCommerce BOOLEAN NOT NULL COMMENT 'Verdadero si esta habilitada la visualizacion, compra... en el e-commerce',
-	  #visualización_facebook BOOLEAN NOT NULL COMMENT 'Verdadero si esta habilitada la visualizacion, compra... en facebook',
-	  #sexo VARCHAR(45) NULL COMMENT 'hace referencia a las características biológicas y fisiológicas que definen a los machos de las hembras',
-      #version VARCHAR(45) NULL COMMENT 'Valor númerico de la actualización del producto',
-  
-  #Este campo esta para debatir si quitarlo
-	#disponible_facebook VARCHAR(45) NULL COMMENT 'Inventario de los productos disponibles de la aplicación',
-	#marca VARCHAR(45) NULL COMMENT 'identificador comercial de los bienes y servicios que ofrece una empresa',
-  PRIMARY KEY (id_interno),
-  #INDEX id_marca_idx (id_marca ASC) VISIBLE,
-  CONSTRAINT id_marca
-    FOREIGN KEY (id_marca)
-    REFERENCES marca (id_marca)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION
-) 
-ENGINE = InnoDB;
-
-
-
-#Santiago
-CREATE TABLE IF NOT EXISTS variante(
-	id_variante INT UNSIGNED AUTO_INCREMENT NOT NULL COMMENT 'PK de la clase caracteristica',
-	tipo VARCHAR(20) NULL COMMENT 'Nombre de la ',
-	descripcion VARCHAR(45) NULL COMMENT 'Detalle o caracteristicas de la clase',
-	medida VARCHAR(45) NULL COMMENT 'Proporción o correspondencia',
-	PRIMARY KEY (id_variante)
-);
-
-#Santiago
-CREATE TABLE IF NOT EXISTS variante_productos (
-    id_variante INT UNSIGNED NOT NULL COMMENT 'ID de la clase acual',
-	idproducto INT NOT NULL COMMENT 'ID de la clase acual',
-	nombre VARCHAR(45) NULL COMMENT 'Nombrre de la categoría ',
-	id_producto INT NULL COMMENT 'ID de la clase',
-	descripcion VARCHAR(45) NULL COMMENT 'clase que resulta de una especifica el producto según un criterio o jerarquía',
-	id_materiales INT NULL COMMENT 'ID de la clase',
-	id_marca INT NULL COMMENT 'ID de la clase',
-	INDEX fk_caracteristicas_productos_caracteristicas1_idx (caracteristicas_id ASC) VISIBLE,
-	INDEX fk_caracteristicas_productos_producto_actual1_idx (idproducto ASC) VISIBLE,
-	CONSTRAINT fk_caracteristicas_productos_caracteristicas1
-		FOREIGN KEY (caracteristicas_id)
-		REFERENCES caracteristicas (id)
-		ON DELETE NO ACTION
-		ON UPDATE NO ACTION,
-	CONSTRAINT fk_caracteristicas_productos_producto_actual
-		FOREIGN KEY (idproducto)
-		REFERENCES producto (id_interno)
-		ON DELETE NO ACTION
-		ON UPDATE NO ACTION
-);
+  PRIMARY KEY (id_marca));
 
 #Paula
 CREATE TABLE IF NOT EXISTS rol (
@@ -156,6 +89,75 @@ CREATE TABLE IF NOT EXISTS transportadora (
 		ON DELETE NO ACTION
 		ON UPDATE NO ACTION
 	*/
+);
+
+#Santiago
+CREATE TABLE IF NOT EXISTS producto (
+  id_interno INT UNSIGNED AUTO_INCREMENT NOT NULL COMMENT 'PK de la clase imagenes producto',
+  id_externo VARCHAR(45) NULL COMMENT 'Referencia UNICA del producto que tiene el proveedor',
+  id_facebook VARCHAR(45) NULL COMMENT 'Referencia UNICA del producto que tiene facebook',
+  
+  fabricado BOOLEAN NULL COMMENT 'Valor que dice si el producto es fabricado o comprado',
+  id_marca INT UNSIGNED NULL COMMENT  'llave foranea a la tabla marca',
+  id_proveedor INT NOT NULL COMMENT 'llave foranea a la tabla proveedor',
+  
+  #Estos campos no irían en esta tabla
+	  #moneda VARCHAR(10) NULL COMMENT 'Nombre de la moneda con la que esta el precio',
+	  
+      #version VARCHAR(45) NULL COMMENT 'Valor númerico de la actualización del producto',
+  
+  #Este campo esta para debatir si quitarlo
+	#disponible_facebook VARCHAR(45) NULL COMMENT 'Inventario de los productos disponibles de la aplicación',
+	#marca VARCHAR(45) NULL COMMENT 'identificador comercial de los bienes y servicios que ofrece una empresa',
+  PRIMARY KEY (id_interno),
+  #INDEX id_marca_idx (id_marca ASC) VISIBLE,
+  
+  CONSTRAINT id_marca
+    FOREIGN KEY (id_marca)
+    REFERENCES marca (id_marca)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION
+);
+
+#Santiago
+CREATE TABLE IF NOT EXISTS variante(
+	id_variante INT UNSIGNED AUTO_INCREMENT NOT NULL COMMENT 'PK de la clase caracteristica',
+	tipo VARCHAR(20) NULL COMMENT 'Tipo de la variante como PESO, DIMENSION, COLOR, TELA',
+	valor VARCHAR(45) NULL COMMENT 'Valor tomado por esta variante',
+	medida VARCHAR(45) NULL COMMENT 'Como se mide el tipo, si es peso la medida es Kg',
+	descripción VARCHAR(10000) NULL COMMENT 'Texto donde describe el producto',
+	PRIMARY KEY (id_variante)
+);
+
+#Santiago
+CREATE TABLE IF NOT EXISTS variante_productos (
+    id_variante INT UNSIGNED NOT NULL COMMENT 'ID de la clase acual',
+	id_producto INT NOT NULL COMMENT 'ID de la clase acual',
+
+	precio INT UNSIGNED NOT NULL COMMENT 'Precio del producto',
+	descuento INT UNSIGNED NULL DEFAULT 0 COMMENT 'Porcentaje de disminución del precio de un bien o un servicio',
+	visualizacion_eCommerce BOOLEAN NULL DEFAULT 1 COMMENT 'Verdadero si esta habilitada la visualizacion, compra... en el e-commerce',
+	visualización_facebook BOOLEAN NOT NULL DEFAULT 1 COMMENT 'Verdadero si esta habilitada la visualizacion, compra... en facebook',
+	sexo VARCHAR(45) NULL COMMENT 'hace referencia a las características biológicas y fisiológicas que definen a los machos de las hembras',
+
+	descripcion VARCHAR(45) NULL COMMENT 'clase que resulta de una especifica el producto según un criterio o jerarquía',
+	id_materiales INT NULL COMMENT 'ID de la clase',    
+    PRIMARY KEY (id_variante,id_producto),
+    
+    /*
+	INDEX fk_caracteristicas_productos_caracteristicas1_idx (caracteristicas_id ASC) VISIBLE,
+	INDEX fk_caracteristicas_productos_producto_actual1_idx (idproducto ASC) VISIBLE,
+    */
+	/*CONSTRAINT fk_caracteristicas_productos_caracteristicas1
+		FOREIGN KEY (caracteristicas_id)
+		REFERENCES caracteristicas (id)
+		ON DELETE NO ACTION
+		ON UPDATE NO ACTION,
+	CONSTRAINT fk_caracteristicas_productos_producto_actual
+		FOREIGN KEY (idproducto)
+		REFERENCES producto (id_interno)
+		ON DELETE NO ACTION
+		ON UPDATE NO ACTION*/
 );
 
 #Santiago
