@@ -295,7 +295,17 @@ CREATE TABLE IF NOT EXISTS variante_materiales (
 	id_material INT UNSIGNED NOT NULL
 );
 
+#paula
+CREATE TABLE IF NOT EXISTS categoria (
+	id_categoria INT UNSIGNED AUTO_INCREMENT NOT NULL COMMENT 'PK de la clase categoria',
+    nombre VARCHAR (45),
+    descripcion VARCHAR(45));
 
+#Jessica
+CREATE TABLE IF NOT EXISTS categoria_productos (
+	id_categoria_productos INT UNSIGNED AUTO_INCREMENT NOT NULL,
+    id_producto INT UNSIGNED AUTO_INCREMENT NOT NULL
+);
 
 
 #Santiago
@@ -303,6 +313,7 @@ CREATE TABLE IF NOT EXISTS imagen(
 	id_imagen INT UNSIGNED AUTO_INCREMENT NOT NULL COMMENT 'PK de la clase imagenes',
     url VARCHAR(45) NOT NULL COMMENT 'dirección web de donde está guardada la imagen',
 	descripcion VARCHAR(45) NULL COMMENT 'caracteristicas de la imagen',
+    tamaño VARCHAR (1) DEFAULT 'P' COMMENT 'Puede estar la misma imagen con diferente tamaño (PEQUEÑO,MEDIANO,GRANDE), para la carga responsive',
     
     #Este campo esta para debatir si quitarlo
     #codigo INT NULL COMMENT 'conjunto de caracteres que identifican la imagen del producto',
@@ -313,12 +324,10 @@ CREATE TABLE IF NOT EXISTS imagen(
 #Santiago
 CREATE TABLE IF NOT EXISTS infografia (
 	id_infografia INT UNSIGNED AUTO_INCREMENT NOT NULL COMMENT 'PK de la clase infografia',
-	imagenes VARCHAR(45) NULL,
 	texto TEXT NULL,
-	tamaño_imagen VARCHAR(45) NULL,
     seccion INT UNSIGNED NULL COMMENT 'En que posicion esta ubicado la infografia en el home del cliente',
-	nombre VARCHAR(45) NULL,
-    habilitado BOOL NOT NULL COMMENT 'Representa si se muestra o no la infografia',
+	nombre_infografia VARCHAR(45) NULL,
+    habilitado BOOL DEFAULT 1 COMMENT 'Representa si se muestra o no la infografia',
 	PRIMARY KEY (id_infografia)
 );
 
@@ -335,90 +344,109 @@ CREATE TABLE IF NOT EXISTS imagenes_infografia (
     
 	/*
 	CONSTRAINT fk_infografia_has_Imagenes_infografia1
-		FOREIGN KEY (infografia_idinfografia)
-		REFERENCES mydb.infografia (idinfografia)
+		FOREIGN KEY (id_infografia)
+		REFERENCES infografia (id_infografia)
 		ON DELETE NO ACTION
 		ON UPDATE NO ACTION,
+        
 	CONSTRAINT fk_infografia_has_Imagenes_Imagenes1
-		FOREIGN KEY (Imagenes_id)
-		REFERENCES Imagenes (idimagenes)
+		FOREIGN KEY (id_imagen)
+		REFERENCES imagen (id_imagen)
 		ON DELETE NO ACTION
 		ON UPDATE NO ACTION
 	*/
 );
 
-#jessica
+#jessica 
 CREATE TABLE IF NOT EXISTS telefono (
 	id_telefono INT UNSIGNED AUTO_INCREMENT NOT NULL COMMENT  'PK de la clase telefono',
-    celular VARCHAR (10) UNIQUE COMMENT 'Número Telefono Celular',
-    fijo VARCHAR (10) UNIQUE COMMENT 'Número Telefono fijo',
+    numero VARCHAR (10) COMMENT 'Número Telefono Celular',
+    fijo BOOL DEFAULT 0 COMMENT 'Representa si el Número Telefono ES FIJO',
 	id_usuario INT UNSIGNED NOT NULL COMMENT 'FK a la clase usuario',
+    observacion  VARCHAR (150) COMMENT 'Si hace referencia a un numero de telefono de una empresa, este puede tener un cargo...'
     
-    #foto VARCHAR(45) NULL COMMENT 'Imgen del usuario',
-	contraseña INT NULL COMMENT 'Caracteres para ingreso a la plataforma',
-	nombre VARCHAR(45) NULL COMMENT 'Nombrre de la categoría',
-	genero VARCHAR(45) NULL COMMENT 'sexo del usuario',
-	tipo_documento VARCHAR(45) NULL COMMENT 'Reconoce la clase de identificación que maneja el individuo',
-	numero_documento INT NULL COMMENT 'Numero unico  que idefica el individuo',
-	direccion VARCHAR(45) NULL COMMENT 'Lugar de residencia habitual.',
-	numero_telefono INT NULL COMMENT 'secuencia de dígitos utilizada para identificar una línea telefónica',
-	numero_celular INT NULL COMMENT 'secuencia de dígitos utilizada para identificar una línea telefónica',
-    
+    /*
     CONSTRAINT id_usuario
-    FOREIGN KEY (id_usuario)
-    REFERENCES usuario (id_usuario)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION
+		FOREIGN KEY (id_usuario)
+		REFERENCES usuario (id_usuario)
+		ON DELETE NO ACTION
+		ON UPDATE NO ACTION
+    */
     );
-		
-#paula
+	
+#paula #Modificado por Santiago
 CREATE TABLE IF NOT EXISTS producto_favorito (
-	id_producto_favorito INT UNSIGNED AUTO_INCREMENT NOT NULL COMMENT 'PK de la clase producto_favorito',
+	id_producto INT UNSIGNED NOT NULL COMMENT 'PK de la clase producto_favorito',
     id_cliente INT UNSIGNED NOT NULL COMMENT 'PK de la clase cliente',
-    nombre VARCHAR (45),
-    cantidad VARCHAR (45),
-    comprado VARCHAR (45),
-    descuento VARCHAR (45) COMMENT 'disminucion del precio',
-    FOREIGN Key (id_cliente)
-    REFERENCES cliente (id_cliente));
-
-#paula
-CREATE TABLE IF NOT EXISTS categoria (
-	id_categoria INT UNSIGNED AUTO_INCREMENT NOT NULL COMMENT 'PK de la clase categoria',
-    nombre VARCHAR (45),
-    descripcion VARCHAR(45));
-
-#Jessica
-CREATE TABLE IF NOT EXISTS categoria_productos (
-	id_categoria_productos INT UNSIGNED AUTO_INCREMENT NOT NULL,
-    id_producto INT UNSIGNED AUTO_INCREMENT NOT NULL
+    cantidad INT UNSIGNED DEFAULT 1 COMMENT ''
+    
+    #Este campo se puede calcular con las facturas del cliente
+    #comprado INT UNSIGNED DEFAULT 0 COMMENT ''
+    
+    /*
+	CONSTRAINT fk_infografia_has_Imagenes_infografia1
+		FOREIGN KEY (infografia_idinfografia)
+		REFERENCES infografia (idinfografia)
+		ON DELETE NO ACTION
+		ON UPDATE NO ACTION,
+        
+	CONSTRAINT fk_infografia_has_Imagenes_Imagenes1
+		FOREIGN KEY (Imagenes_id)
+		REFERENCES Imagenes (idimagenes)
+		ON DELETE NO ACTION
+		ON UPDATE NO ACTION
+    */
 );
 
-
-
-
-#PAULA
+#PAULA #Modificado Santiago
 CREATE TABLE IF NOT EXISTS pedido(
 	id_pedido INT UNSIGNED AUTO_INCREMENT NOT NULL PRIMARY KEY COMMENT 'PK de la clase pedido',
+    id_cliente INT UNSIGNED NOT NULL PRIMARY KEY COMMENT 'PK de la clase pedido',
     fecha DATE,
-    direccion_envio VARCHAR (45));
+    direccion_envio VARCHAR (100),
+    origen VARCHAR (2) DEFAULT 'EC' COMMENT 'De donde se originó el pedido, Facebook, Instagram, eCommerce'
+    
+    /*
+    CONSTRAINT fk_id_cliente
+		FOREIGN KEY (id_cliente)
+		REFERENCES infografia (id_cliente)
+		ON DELETE NO ACTION
+		ON UPDATE NO ACTION,
+    */
+);
 
-#PAULA
+#PAULA #Modificado Santiago
 CREATE TABLE IF NOT EXISTS estados_pedidos(
 	id_estados_pedidos INT UNSIGNED AUTO_INCREMENT NOT NULL COMMENT 'PK de la clase estados_pedidos',
-    nombre VARCHAR (45),
-    fecha_inicio DATE,
-    hora_inicio TIME, 
-    tiempo TIME  NOT NULL );
-#PAULA
-CREATE TABLE IF NOT EXISTS factura (
-	id_marca INT UNSIGNED AUTO_INCREMENT NOT NULL COMMENT 'PK de la clase marca');
+    estando_anterior  INT UNSIGNED NOT NULL COMMENT 'Referencia a esta misma tabla, para ver el estado anterior',
+    
+    nombre VARCHAR (10) NOT NULL COMMENT '',
+    nota VARCHAR(200) COMMENT '',
+    
+    fecha_inicio DATETIME,
+    tiempo TIME  NOT NULL,
+    
+    PRIMARY KEY (id_estados_pedidos)
+    
+    /*
+    CONSTRAINT fk_infografia_has_Imagenes_infografia1
+		FOREIGN KEY (estando_anterior)
+		REFERENCES estados_pedidos (id_estados_pedidos)
+		ON DELETE NO ACTION
+		ON UPDATE NO ACTION
+	*/
+);
 
-#PAULA
+#Santiago
+CREATE TABLE IF NOT EXISTS factura (
+	id_marca INT UNSIGNED AUTO_INCREMENT NOT NULL COMMENT 'PK de la clase marca'
+);
+
+#Santiago
 CREATE TABLE IF NOT EXISTS factura_cliente (
 	id_marca INT UNSIGNED AUTO_INCREMENT NOT NULL COMMENT 'PK de la clase marca');
 
-#PAULA
+#Santiago
 CREATE TABLE IF NOT EXISTS estados_facturas_cliente (
 	id_marca INT UNSIGNED AUTO_INCREMENT NOT NULL COMMENT 'PK de la clase marca');
 
