@@ -12,54 +12,112 @@ CREATE TABLE IF NOT EXISTS marca(
   descripcion VARCHAR(45) NULL COMMENT 'Detalle o caracteristicas de la marca',
   PRIMARY KEY (id_marca));
 
-#Paula
+#Santiago
+#Ver si tiene sentido esta clase, o solo se coloca un check en empleado con los diferentes tipos de contrato
+CREATE TABLE IF NOT EXISTS tipo_contrato (
+	id_tipo_contrato INT UNSIGNED AUTO_INCREMENT NOT NULL COMMENT 'PK de la clase tipo_contrato',
+    nombre VARCHAR (45));
+
+#Santiago
+CREATE TABLE IF NOT EXISTS entidad_afiliada (
+   id_entidad_afiliada INT UNSIGNED AUTO_INCREMENT NOT NULL COMMENT 'PK de la clase entidad_afiliada',
+   nombre VARCHAR(45));
+
+#Paula #Modificado Santiago
 CREATE TABLE IF NOT EXISTS rol (
 	id_rol INT UNSIGNED AUTO_INCREMENT NOT NULL COMMENT 'PK de la clase rol',
     nombre_rol VARCHAR (45)NOT NULL COMMENT'nombre del rol del usuario',
-    descripcion VARCHAR (45) NOT NULL COMMENT'detalle o caracteristica del rol',
-	FOREIGN KEY (id_cargo)
-    REFERENCES cargo(id_cargo),
-    FOREIGN KEY (id_permisos)
-    REFERENCES permisos (id_permisos));
+    
+    PRIMARY KEY (id_rol) 
+);
 
-#Jessica
+#Jessica #Modificado por Santiago
+CREATE TABLE IF NOT EXISTS permiso (
+	id_permisos INT UNSIGNED AUTO_INCREMENT NOT NULL,
+    nombre_permiso VARCHAR (45)NOT NULL COMMENT'nombre del rol del usuario',
+    descripcion VARCHAR(100) NULL,
+    
+    PRIMARY KEY (id_permisos) 
+);
+
+#Santiago
+CREATE TABLE IF NOT EXISTS rol_permiso (
+	id_rol INT UNSIGNED NOT NULL COMMENT 'PK de la clase rol',
+	id_permiso INT UNSIGNED AUTO_INCREMENT NOT NULL
+    
+    /*
+    CONSTRAINT fk_id_rol
+		FOREIGN KEY (id_rol)
+		REFERENCES rol (id_rol)
+		ON DELETE NO ACTION
+		ON UPDATE NO ACTION,
+    
+    CONSTRAINT fk_id_permiso
+		FOREIGN KEY (id_permiso)
+		REFERENCES permiso (id_permiso)
+		ON DELETE NO ACTION
+		ON UPDATE NO ACTION
+    */
+);
+
+#Jessica #Modificado Santiago
 CREATE TABLE IF NOT EXISTS usuario (
 	id_usuario INT UNSIGNED AUTO_INCREMENT NOT NULL COMMENT 'PK de la clase usuario',
-	correo VARCHAR (50) UNIQUE NOT  NULL COMMENT'Correo de usuario',
+    id_rol INT UNSIGNED NOT NULL COMMENT 'FK de la clase rol',
+    
+	correo VARCHAR (50) UNIQUE NOT  NULL COMMENT 'Correo de usuario',
     contrasenna  VARCHAR (50)NOT NULL COMMENT 'contraseña de correo de usuario',
     nombre VARCHAR (50) NOT NULL COMMENT 'nombre de usuario',
-    genero VARCHAR (1 ) COMMENT 'genero de usuario',
-    tipo_documento VARCHAR (1 ) COMMENT 'tipo de documento de usuario',
+    genero VARCHAR (1) COMMENT 'genero de usuario',
+    tipo_documento VARCHAR (1) COMMENT 'tipo de documento de usuario',
     numero_documento VARCHAR (10) COMMENT 'numero de documento de identifidad',
-    direccion  VARCHAR (100)  COMMENT 'direccion de usuario	'
+    fecha_nacimiento date COMMENT '',
+    direccion  VARCHAR (100)  COMMENT 'direccion de usuario'
+    
+    /*
+    CONSTRAINT fk_id_rol
+		FOREIGN KEY (id_rol)
+		REFERENCES rol (id_rol)
+		ON DELETE NO ACTION
+		ON UPDATE NO ACTION
+	*/
 );
     
 #jessica #Modificado por Santiago
 CREATE TABLE IF NOT EXISTS cliente (
 	id_usuario INT UNSIGNED NOT NULL COMMENT 'PK de la clase cliente y FK de la tabla Usuario' PRIMARY KEY,
     facebook_vinculado VARCHAR (50) UNIQUE NOT  NULL COMMENT 'cuenta de facebook asociada del cliente',
-    correo_vinculado VARCHAR (50) UNIQUE NOT  NULL COMMENT 'cuenta de correo asociada del cliente',
+    correo_vinculado VARCHAR (50) UNIQUE NOT  NULL COMMENT 'cuenta de correo asociada del cliente'
+    /*
     CONSTRAINT fk_id_usuario
-    FOREIGN KEY (id_usuario)
-    REFERENCES usuario (id_usuario)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION
+		FOREIGN KEY (id_usuario)
+		REFERENCES usuario (id_usuario)
+		ON DELETE NO ACTION
+		ON UPDATE NO ACTION
+	*/
     );
 
 #Santiago
 CREATE TABLE IF NOT EXISTS empleado (
 	id_usuario INT UNSIGNED NOT NULL COMMENT 'FK de la clase Usuario',
-	id_contrato INT UNSIGNED NULL COMMENT '',
-	id_tipo_contrato INT UNSIGNED NOT NULL COMMENT 'tipo de contrato que manejara el usuario',
+	id_tipo_contrato INT UNSIGNED NOT NULL COMMENT 'FK de la clase tipo_contrato, Especifica el contrato que el usuario tendra',
+    id_tipo_contrato INT UNSIGNED NOT NULL COMMENT 'FK de la clase tipo_contrato, Especifica el contrato que el usuario tendra',
+	foto INT UNSIGNED NOT NULL COMMENT 'FK de la clase imagen',
 
-    telefono_emergencia INT NULL COMMENT 'secuencia de dígitos utilizada para identificar una línea telefónica',
-	fecha_contratacion DATETIME NULL COMMENT 'fecha de proceso contrato usuario',
-	codigo_contrato INT NULL COMMENT 'conjunto de caracteres que identifican el tipo de contrato que se manejara',
-	tipo_contrato VARCHAR(45) NULL COMMENT 'Especifica el contrato que el usuario tendra',
-	RH VARCHAR(3) NULL COMMENT 'Tipo de sangre',
+	grupo_sanguineo_RH VARCHAR(3) NULL COMMENT 'Tipo de sangre',
+    
+    fecha_contratacion DATETIME NULL COMMENT 'fecha de proceso contrato usuario',
+	fecha_fin_contratacion DATETIME NULL COMMENT 'fecha de proceso contrato usuario',
+    codigo_contrato INT UNSIGNED NULL COMMENT 'Numero único de contratación',
+    activo BOOL DEFAULT 0 COMMENT '',
+	cargo VARCHAR(45) NULL COMMENT 'Especifica el cargo que manejara'
+    
+    
+    /*
 	tipo_afialiacion VARCHAR(45) NULL COMMENT 'categoria afilicacion a caja de compensación familiar',
 	afialiacion VARCHAR(45) NULL COMMENT 'afilicacion a caja de compensación familiar',
-	cargo VARCHAR(45) NULL COMMENT 'Especifica el cargo que manejara'
+    */
+
     /*
 	PRIMARY KEY (id_usuario),
 	INDEX fk_empleado_usuario1_idx (idusuario ASC) VISIBLE,
@@ -78,8 +136,55 @@ CREATE TABLE IF NOT EXISTS empleado (
 );
 
 #Santiago
+CREATE TABLE IF NOT EXISTS afiliacion (
+    id_entidad_afiliada INT UNSIGNED NOT NULL COMMENT 'FK a la clase entidad_afiliada',
+    id_empleado INT UNSIGNED NOT NULL COMMENT 'FK a la clase empleado',
+    
+    nombre_afiliacion VARCHAR (10) NULL COMMENT 'Nombre de la afiliciacion del empleado, puede ser EPS',
+    fecha_afiliacion DATE,
+    activo BOOL DEFAULT 1 COMMENT '',
+    codigo_afiliacion VARCHAR (15) NULL COMMENT 'Codigo que el empleado tiene es ésta entidad',
+	
+    PRIMARY KEY (id_entidad_afiliada,id_empleado)
+    
+    /*
+    CONSTRAINT fk_empleado_tipo_contrato1
+		FOREIGN KEY (tipo_contrato_idtipo_contrato)
+		REFERENCES tipo_contrato (idtipo_contrato)
+		ON DELETE NO ACTION
+		ON UPDATE NO ACTION,
+        
+    CONSTRAINT fk_empleado_tipo_contrato1
+		FOREIGN KEY (tipo_contrato_idtipo_contrato)
+		REFERENCES tipo_contrato (idtipo_contrato)
+		ON DELETE NO ACTION
+		ON UPDATE NO ACTION,
+        
+	CONSTRAINT fk_empleado_tipo_contrato1
+		FOREIGN KEY (tipo_contrato_idtipo_contrato)
+		REFERENCES tipo_contrato (idtipo_contrato)
+		ON DELETE NO ACTION
+		ON UPDATE NO ACTION,
+    */
+    
+);
+
+#Santiago
+CREATE TABLE IF NOT EXISTS proveedor (
+	id_usuario INT UNSIGNED NOT NULL COMMENT 'FK de la clase Usuario'
+    
+    /*
+    CONSTRAINT fk_id_usuario
+		FOREIGN KEY (id_usuario)
+		REFERENCES usuario (id_usuario)
+		ON DELETE NO ACTION
+		ON UPDATE NO ACTION
+	*/
+);
+
+#Santiago
 CREATE TABLE IF NOT EXISTS transportadora (
-	id_usuario INT UNSIGNED AUTO_INCREMENT NOT NULL COMMENT 'PK de la clase transportadora y FK de la tabla Usuario',
+	id_usuario INT UNSIGNED NOT NULL COMMENT 'PK de la clase transportadora y FK de la tabla Usuario',
 	PRIMARY KEY (id_usuario)
     
     /*
@@ -103,8 +208,7 @@ CREATE TABLE IF NOT EXISTS producto (
   
   #Estos campos no irían en esta tabla
 	  #moneda VARCHAR(10) NULL COMMENT 'Nombre de la moneda con la que esta el precio',
-	  
-      #version VARCHAR(45) NULL COMMENT 'Valor númerico de la actualización del producto',
+	  #version VARCHAR(45) NULL COMMENT 'Valor númerico de la actualización del producto',
   
   #Este campo esta para debatir si quitarlo
 	#disponible_facebook VARCHAR(45) NULL COMMENT 'Inventario de los productos disponibles de la aplicación',
@@ -119,13 +223,9 @@ CREATE TABLE IF NOT EXISTS producto (
     ON UPDATE NO ACTION
 );
 
-#Santiago
+#Santiag
 CREATE TABLE IF NOT EXISTS variante(
-	id_variante INT UNSIGNED AUTO_INCREMENT NOT NULL COMMENT 'PK de la clase caracteristica',
-	tipo VARCHAR(20) NULL COMMENT 'Tipo de la variante como PESO, DIMENSION, COLOR, TELA',
-	valor VARCHAR(45) NULL COMMENT 'Valor tomado por esta variante',
-	medida VARCHAR(45) NULL COMMENT 'Como se mide el tipo, si es peso la medida es Kg',
-	descripción VARCHAR(10000) NULL COMMENT 'Texto donde describe el producto',
+	id_variante INT UNSIGNED AUTO_INCREMENT NOT NULL COMMENT 'PK de la clase variante',
 	PRIMARY KEY (id_variante)
 );
 
@@ -133,16 +233,16 @@ CREATE TABLE IF NOT EXISTS variante(
 CREATE TABLE IF NOT EXISTS variante_productos (
     id_variante INT UNSIGNED NOT NULL COMMENT 'ID de la clase acual',
 	id_producto INT NOT NULL COMMENT 'ID de la clase acual',
+	#id_material INT NULL COMMENT 'llave foranea a la tabla material',  
 
 	precio INT UNSIGNED NOT NULL COMMENT 'Precio del producto',
 	descuento INT UNSIGNED NULL DEFAULT 0 COMMENT 'Porcentaje de disminución del precio de un bien o un servicio',
 	visualizacion_eCommerce BOOLEAN NULL DEFAULT 1 COMMENT 'Verdadero si esta habilitada la visualizacion, compra... en el e-commerce',
 	visualización_facebook BOOLEAN NOT NULL DEFAULT 1 COMMENT 'Verdadero si esta habilitada la visualizacion, compra... en facebook',
 	sexo VARCHAR(45) NULL COMMENT 'hace referencia a las características biológicas y fisiológicas que definen a los machos de las hembras',
-
-	descripcion VARCHAR(45) NULL COMMENT 'clase que resulta de una especifica el producto según un criterio o jerarquía',
-	id_materiales INT NULL COMMENT 'ID de la clase',    
-    PRIMARY KEY (id_variante,id_producto),
+	descripción VARCHAR(10000) NULL COMMENT 'Texto donde describe el producto',
+	      
+    PRIMARY KEY (id_variante,id_producto)
     
     /*
 	INDEX fk_caracteristicas_productos_caracteristicas1_idx (caracteristicas_id ASC) VISIBLE,
@@ -159,6 +259,44 @@ CREATE TABLE IF NOT EXISTS variante_productos (
 		ON DELETE NO ACTION
 		ON UPDATE NO ACTION*/
 );
+
+#Santiago
+CREATE TABLE IF NOT EXISTS tipo_materiales (
+	id_tipo_materiales INT UNSIGNED AUTO_INCREMENT NOT NULL
+    );
+
+#Santiago
+CREATE TABLE IF NOT EXISTS materiales (
+	id_materiales INT UNSIGNED AUTO_INCREMENT NOT NULL  COMMENT 'PK de la clase materiales',
+    id_variante INT UNSIGNED NOT NULL COMMENT 'FK a la tabla variante',
+    id_tipo_material INT UNSIGNED NOT NULL COMMENT 'Tipo de la variante como PESO, DIMENSION, COLOR, TELA',
+	
+    valor VARCHAR(45) NULL COMMENT 'Valor tomado por esta variante',
+	medida VARCHAR(45) NULL COMMENT 'Como se mide el tipo, si es peso la medida es Kg',
+    
+    PRIMARY KEY(id_materiales)
+    
+    /*CONSTRAINT fk_id_tipo_materiales
+		FOREIGN KEY (id_tipo_materiales)
+        REFERENCES tipo_materiales (id_tipo_materiales)
+		ON DELETE NO ACTION
+		ON UPDATE NO ACTION
+       
+       CONSTRAINT fk_id_variante
+		FOREIGN KEY (id_variante)
+        REFERENCES variante (id_variante)
+		ON DELETE NO ACTION
+		ON UPDATE NO ACTION
+       */
+	);
+
+#Santiago
+CREATE TABLE IF NOT EXISTS variante_materiales (
+	id_material INT UNSIGNED NOT NULL
+);
+
+
+
 
 #Santiago
 CREATE TABLE IF NOT EXISTS imagen(
@@ -244,56 +382,20 @@ CREATE TABLE IF NOT EXISTS producto_favorito (
     FOREIGN Key (id_cliente)
     REFERENCES cliente (id_cliente));
 
+#paula
 CREATE TABLE IF NOT EXISTS categoria (
 	id_categoria INT UNSIGNED AUTO_INCREMENT NOT NULL COMMENT 'PK de la clase categoria',
     nombre VARCHAR (45),
     descripcion VARCHAR(45));
 
-CREATE TABLE IF NOT EXISTS especie (
-	id_especie INT UNSIGNED AUTO_INCREMENT NOT NULL COMMENT 'PK de la clase especie',
-    id_mascota INT UNSIGNED NOT NULL COMMENT 'PK de la clase mascota',
-    id_raza INT UNSIGNED NOT NULL COMMENT 'PK de la clase raza',
-    nombre VARCHAR (45),
-    FOREIGN Key (id_mascota)
-    REFERENCES mascota (id_mascota),
-    FOREIGN Key (id_raza)
-    REFERENCES raza (id_raza));
-
-CREATE TABLE IF NOT EXISTS raza (
-	id_raza INT UNSIGNED AUTO_INCREMENT NOT NULL COMMENT 'PK de la clase raza',
-    id_especie INT UNSIGNED NOT NULL COMMENT 'PK de la clase especie',
-    nombre VARCHAR (45),
-	FOREIGN Key (id_especie)
-    REFERENCES especie (id_especie));
-
-CREATE TABLE IF NOT EXISTS mascota (
-	id_mascota INT UNSIGNED AUTO_INCREMENT NOT NULL COMMENT 'PK de la clase mascota',
-    id_raza INT UNSIGNED NOT NULL COMMENT 'PK de la clase raza',
-    id_cliente INT UNSIGNED NOT NULL COMMENT 'PK de la clase cliente',
-    foto VARCHAR (45),
-    sexo VARCHAR (45),
-    tamaño VARCHAR (45),
-    fecha_nacimiento VARCHAR(45),
-	FOREIGN Key (id_raza)
-    REFERENCES raza (id_raza),
-	FOREIGN Key (id_cliente)
-    REFERENCES cliente (id_cliente));
-
-
-CREATE TABLE IF NOT EXISTS tipo_contrato (
-	id_tipo_contrato INT UNSIGNED AUTO_INCREMENT NOT NULL COMMENT 'PK de la clase tipo_contrato',
-    nombre VARCHAR (45));
+#Jessica
+CREATE TABLE IF NOT EXISTS categoria_productos (
+	id_categoria_productos INT UNSIGNED AUTO_INCREMENT NOT NULL,
+    id_producto INT UNSIGNED AUTO_INCREMENT NOT NULL
+);
 
 
 
-CREATE TABLE IF NOT EXISTS entidad_afiliada (
-   id_entidad_afiliada INT UNSIGNED AUTO_INCREMENT NOT NULL COMMENT 'PK de la clase entidad_afiliada',
-   nombre VARCHAR(45));
-
-CREATE TABLE IF NOT EXISTS afiliacion (
-	id_afiliacion INT UNSIGNED AUTO_INCREMENT NOT NULL COMMENT 'PK de la clase afiliacion',
-    id_entidad_afiliada INT UNSIGNED NOT NULL COMMENT 'PK de la clase entidad_afiliada',
-    fecha_afiliacion DATE );
 
 #PAULA
 CREATE TABLE IF NOT EXISTS pedido(
@@ -320,15 +422,7 @@ CREATE TABLE IF NOT EXISTS factura_cliente (
 CREATE TABLE IF NOT EXISTS estados_facturas_cliente (
 	id_marca INT UNSIGNED AUTO_INCREMENT NOT NULL COMMENT 'PK de la clase marca');
 
-#Santiago
-CREATE TABLE IF NOT EXISTS proveedor (
-	idusuario INT UNSIGNED NOT NULL COMMENT 'FK de la clase Usuario',
-    CONSTRAINT fk_id_usuario
-    FOREIGN KEY (id_usuario)
-    REFERENCES usuario (id_usuario)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION
-    );
+
 
 #Santiago
 CREATE TABLE IF NOT EXISTS factura_proveedor (
@@ -446,12 +540,7 @@ CREATE TABLE IF NOT EXISTS logs_cliente (
     fecha_ingreso  DATE NOT NULL
 );
     
-#Jessica
-CREATE TABLE IF NOT EXISTS permisos (
-	id_permisos INT UNSIGNED AUTO_INCREMENT NOT NULL,
-    Nombre_empleado VARCHAR(45) NULL,
-    Descripcion VARCHAR(100) NULL
-    );
+
 
 #Jessica
 CREATE TABLE IF NOT EXISTS producto_imagenes (
@@ -459,39 +548,6 @@ CREATE TABLE IF NOT EXISTS producto_imagenes (
     id_producto INT UNSIGNED AUTO_INCREMENT NOT NULL
     );
 
-#Jessica
-CREATE TABLE IF NOT EXISTS categoria_productos (
-	id_categoria_productos INT UNSIGNED AUTO_INCREMENT NOT NULL,
-    id_producto INT UNSIGNED AUTO_INCREMENT NOT NULL
-);
-
-#Jessica
-CREATE TABLE IF NOT EXISTS tipo_materiales (
-	id_tipo_materiales INT UNSIGNED AUTO_INCREMENT NOT NULL
-    );
-
-#Jessica
-CREATE TABLE IF NOT EXISTS materiales (
-	id_materiales INT UNSIGNED AUTO_INCREMENT NOT NULL PRIMARY KEY,
-    id_tipo_materiales INT UNSIGNED  NOT NULL,
-    CONSTRAINT fk_id_tipo_materiales
-		FOREIGN KEY (id_tipo_materiales)
-        REFERENCES tipo_materiales (id_tipo_materiales)
-		ON DELETE NO ACTION
-		ON UPDATE NO ACTION
-        );
-
-#Jessica
-CREATE TABLE IF NOT EXISTS productos_materiales (
-	id_material INT UNSIGNED NOT NULL ,
-    id_producto INT UNSIGNED NOT NULL
-    );
-
-#Jessica
-CREATE TABLE IF NOT EXISTS rol_permiso (
-	nombre_rol  VARCHAR (50)NOT NULL,
-    id_permiso INT UNSIGNED AUTO_INCREMENT NOT NULL
-);
 
 CREATE TABLE IF NOT EXISTS envio (
 	id_marca INT UNSIGNED AUTO_INCREMENT NOT NULL COMMENT 'PK de la clase marca');
@@ -508,3 +564,32 @@ CREATE TABLE IF NOT EXISTS producto_carrito (
     cantidad_producto VARCHAR(45) NULL COMMENT 'Número determinado de unidades adquiridos'
 );
 
+CREATE TABLE IF NOT EXISTS especie (
+	id_especie INT UNSIGNED AUTO_INCREMENT NOT NULL COMMENT 'PK de la clase especie',
+    id_mascota INT UNSIGNED NOT NULL COMMENT 'PK de la clase mascota',
+    id_raza INT UNSIGNED NOT NULL COMMENT 'PK de la clase raza',
+    nombre VARCHAR (45),
+    FOREIGN Key (id_mascota)
+    REFERENCES mascota (id_mascota),
+    FOREIGN Key (id_raza)
+    REFERENCES raza (id_raza));
+
+CREATE TABLE IF NOT EXISTS raza (
+	id_raza INT UNSIGNED AUTO_INCREMENT NOT NULL COMMENT 'PK de la clase raza',
+    id_especie INT UNSIGNED NOT NULL COMMENT 'PK de la clase especie',
+    nombre VARCHAR (45),
+	FOREIGN Key (id_especie)
+    REFERENCES especie (id_especie));
+
+CREATE TABLE IF NOT EXISTS mascota (
+	id_mascota INT UNSIGNED AUTO_INCREMENT NOT NULL COMMENT 'PK de la clase mascota',
+    id_raza INT UNSIGNED NOT NULL COMMENT 'PK de la clase raza',
+    id_cliente INT UNSIGNED NOT NULL COMMENT 'PK de la clase cliente',
+    foto VARCHAR (45),
+    sexo VARCHAR (45),
+    tamaño VARCHAR (45),
+    fecha_nacimiento VARCHAR(45),
+	FOREIGN Key (id_raza)
+    REFERENCES raza (id_raza),
+	FOREIGN Key (id_cliente)
+    REFERENCES cliente (id_cliente));
