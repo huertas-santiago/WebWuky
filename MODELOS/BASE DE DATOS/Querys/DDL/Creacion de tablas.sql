@@ -71,7 +71,9 @@ CREATE TABLE IF NOT EXISTS usuario (
     tipo_documento VARCHAR (1) COMMENT 'tipo de documento de usuario',
     numero_documento VARCHAR (10) COMMENT 'numero de documento de identifidad',
     fecha_nacimiento date COMMENT '',
-    direccion  VARCHAR (100)  COMMENT 'direccion de usuario'
+    direccion  VARCHAR (100)  COMMENT 'direccion de usuario',
+    
+    PRIMARY KEY (id_usuario)
 );
     
 #jessica #Modificado por Santiago
@@ -418,10 +420,11 @@ CREATE TABLE IF NOT EXISTS pedido(
 #PAULA #Modificado Santiago
 CREATE TABLE IF NOT EXISTS estados_pedidos(
 	id_estados_pedidos INT UNSIGNED AUTO_INCREMENT NOT NULL COMMENT 'PK de la clase estados_pedidos',
-    estando_anterior  INT UNSIGNED NOT NULL COMMENT 'Referencia a esta misma tabla, para ver el estado anterior',
-    
+	id_pedido INT UNSIGNED NOT NULL PRIMARY KEY COMMENT 'FK a la clase pedido',
+    id_estando_anterior  INT UNSIGNED NULL COMMENT 'Referencia a esta misma tabla, para ver el estado anterior',
+	
     estado VARCHAR (10) NOT NULL COMMENT '',
-    nota VARCHAR(200) COMMENT '',
+    nota VARCHAR(200) NULL COMMENT '',
     
     fecha_inicio DATETIME,
     tiempo TIME  NOT NULL,
@@ -429,7 +432,13 @@ CREATE TABLE IF NOT EXISTS estados_pedidos(
     PRIMARY KEY (id_estados_pedidos)
     
     /*
-    CONSTRAINT fk_infografia_has_Imagenes_infografia1
+    CONSTRAINT fk_pedido
+		FOREIGN KEY (id_pedido)
+		REFERENCES pedido (id_pedido)
+		ON DELETE NO ACTION
+		ON UPDATE NO ACTION
+    
+    CONSTRAINT fk_estando_anterior
 		FOREIGN KEY (estando_anterior)
 		REFERENCES estados_pedidos (id_estados_pedidos)
 		ON DELETE NO ACTION
@@ -439,8 +448,8 @@ CREATE TABLE IF NOT EXISTS estados_pedidos(
 
 #Santiago
 #Tabla no es necesaria, no tiene sentico, con factura_cliente es suficiente 
-/*
-CREATE TABLE IF NOT EXISTS factura (
+#CREATE TABLE IF NOT EXISTS factura (
+/*	
 	id_factura INT UNSIGNED AUTO_INCREMENT NOT NULL COMMENT 'PK de la clase factura',
     fecha DATETIME,
 	rete_ica FLOAT,
@@ -583,30 +592,75 @@ CREATE TABLE IF NOT EXISTS carrito (
 #Santiago
 CREATE TABLE IF NOT EXISTS tema_preguntas (
 	id_tema_preguntas INT UNSIGNED AUTO_INCREMENT NOT NULL COMMENT 'PK de la clase tema_preguntas',
-    nombre VARCHAR(45) NULL    
+    nombre VARCHAR(45) NULL COMMENT ''
 );
 
 #Santiago
 CREATE TABLE IF NOT EXISTS preguntas_frecuentes (
-	id_marca INT UNSIGNED AUTO_INCREMENT NOT NULL COMMENT 'PK de la clase marca'
+	id_preguntas_frecuentes INT UNSIGNED AUTO_INCREMENT NOT NULL COMMENT 'PK de la clase preguntas_frecuentes',
+	id_tema_preguntas INT UNSIGNED NOT NULL COMMENT 'FK a la clase tema_preguntas',
 
+	pregunta VARCHAR(45) NULL COMMENT '',
+	respuesta VARCHAR(1000) NULL COMMENT '',
+    
+    PRIMARY KEY (id_preguntas_frecuentes)
+    
+    /*
+	CONSTRAINT fk_tema_preguntas
+		FOREIGN KEY (id_tema_preguntas)
+		REFERENCES tema_preguntas (id_tema_preguntas)
+		ON DELETE NO ACTION
+		ON UPDATE NO ACTION
+	*/
 );
 
 #jessica
-CREATE TABLE IF NOT EXISTS dispositivo (
+#Eliminada por Santiago, la pasé a cada clase de log
+#CREATE TABLE IF NOT EXISTS dispositivo (
+/*
 	id_dispositivo INT UNSIGNED AUTO_INCREMENT NOT NULL COMMENT 'PK de la clase dispositivo',
-    Nombre VARCHAR (50) NOT NULL COMMENT 'nombre de usuario'
-    );
+    Nombre VARCHAR (50) NOT NULL COMMENT 'nombre del dispositivo'
+);*/
     
-#jessica
+#jessica #Modificado por Santiago
 CREATE TABLE IF NOT EXISTS logs_empleado (
-	id_empleado INT UNSIGNED AUTO_INCREMENT NOT NULL ,
+	id_logs_empleado INT UNSIGNED AUTO_INCREMENT NOT NULL ,
+	id_empleado INT UNSIGNED NOT NULL ,
 	direccion_ip INT NOT NULL,
     Tiempo_en_plataforma TIME(50) NOT NULL ,
 	hora_inicio TIME (50) NOT NULL ,
-    fecha_ingreso  DATE NOT NULL
-    );
+    fecha_ingreso  DATE NOT NULL,
+    dispositivo VARCHAR (50) NOT NULL COMMENT 'nombre del dispositivo con el que se conectó, PC..Celular',
     
+    PRIMARY KEY (id_logs_empleado)
+    
+    /*
+	CONSTRAINT fk_empleado
+		FOREIGN KEY (id_empleado)
+		REFERENCES empleado (id_empleado)
+		ON DELETE NO ACTION
+		ON UPDATE NO ACTION
+	*/
+    );
+
+#jessica
+CREATE TABLE IF NOT EXISTS logs_cliente (
+	id_logs_cliente INT UNSIGNED AUTO_INCREMENT NOT NULL,
+    direccion_ip INT NOT NULL,
+    Tiempo_en_plataforma TIME(50) NOT NULL ,
+	hora_inicio TIME (50) NOT NULL ,
+    fecha_ingreso  DATE NOT NULL,
+	dispositivo VARCHAR (50) NOT NULL COMMENT 'nombre del dispositivo con el que se conectó, PC..Celular'
+
+	/*
+	CONSTRAINT fk_empleado
+		FOREIGN KEY (id_empleado)
+		REFERENCES empleado (id_empleado)
+		ON DELETE NO ACTION
+		ON UPDATE NO ACTION
+	*/
+);
+
 #jessica
 CREATE TABLE IF NOT EXISTS acciones (
 	id_acciones INT UNSIGNED AUTO_INCREMENT NOT NULL COMMENT 'PK de la clase marca',
@@ -628,17 +682,6 @@ CREATE TABLE IF NOT EXISTS información (
     id_imagen INT NULL
     );
 
-#jessica
-CREATE TABLE IF NOT EXISTS logs_cliente (
-	id_logs_cliente INT UNSIGNED AUTO_INCREMENT NOT NULL,
-    direccion_ip INT NOT NULL,
-    Tiempo_en_plataforma TIME(50) NOT NULL ,
-	hora_inicio TIME (50) NOT NULL ,
-    fecha_ingreso  DATE NOT NULL
-);
-    
-
-
 #Jessica
 CREATE TABLE IF NOT EXISTS producto_imagenes (
 	id_imagen INT UNSIGNED AUTO_INCREMENT NOT NULL,
@@ -654,9 +697,6 @@ CREATE TABLE IF NOT EXISTS producto_pedido (
 
 CREATE TABLE IF NOT EXISTS producto_facturaProveedor (
 	id_marca INT UNSIGNED AUTO_INCREMENT NOT NULL COMMENT 'PK de la clase marca');
-
-
-
 
 CREATE TABLE IF NOT EXISTS especie (
 	id_especie INT UNSIGNED AUTO_INCREMENT NOT NULL COMMENT 'PK de la clase especie',
