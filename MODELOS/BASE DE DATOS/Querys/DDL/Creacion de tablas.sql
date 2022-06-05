@@ -420,7 +420,7 @@ CREATE TABLE IF NOT EXISTS estados_pedidos(
 	id_estados_pedidos INT UNSIGNED AUTO_INCREMENT NOT NULL COMMENT 'PK de la clase estados_pedidos',
     estando_anterior  INT UNSIGNED NOT NULL COMMENT 'Referencia a esta misma tabla, para ver el estado anterior',
     
-    nombre VARCHAR (10) NOT NULL COMMENT '',
+    estado VARCHAR (10) NOT NULL COMMENT '',
     nota VARCHAR(200) COMMENT '',
     
     fecha_inicio DATETIME,
@@ -451,7 +451,7 @@ CREATE TABLE IF NOT EXISTS factura (
 
 #Santiago
 CREATE TABLE IF NOT EXISTS factura_cliente (
-	id_marca INT UNSIGNED AUTO_INCREMENT NOT NULL COMMENT 'PK de la clase marca',
+	id_factura_cliente INT UNSIGNED AUTO_INCREMENT NOT NULL COMMENT 'PK de la clase factura_cliente',
     fecha DATETIME,
 	rete_ica FLOAT,
 	rete_fuente FLOAT,
@@ -473,25 +473,46 @@ CREATE TABLE IF NOT EXISTS factura_cliente (
 
 #Santiago
 CREATE TABLE IF NOT EXISTS estados_facturas_cliente (
-	id_marca INT UNSIGNED AUTO_INCREMENT NOT NULL COMMENT 'PK de la clase marca'
-	
+	id_estados_facturas_cliente INT UNSIGNED AUTO_INCREMENT NOT NULL COMMENT 'PK de la clase estados_facturas_cliente',
+	id_factura_cliente INT UNSIGNED NOT NULL COMMENT 'FK a la clase factura_cliente',
+    
+	estado VARCHAR (10) NOT NULL COMMENT '',
+	fecha_inicio DATETIME,
+	tiempo TIME NULL,
+	id_estando_anterior INT UNSIGNED NOT NULL COMMENT 'PK de la clase factura_cliente'
+    
+    /*
+    CONSTRAINT fk_id_factura_cliente
+		FOREIGN KEY (id_factura_cliente)
+		REFERENCES factura_cliente (id_factura_cliente)
+		ON DELETE NO ACTION
+		ON UPDATE NO ACTION,
+        
+	CONSTRAINT fk_infografia_has_Imagenes_infografia1
+		FOREIGN KEY (id_estando_anterior)
+		REFERENCES estados_facturas_cliente (id_estados_facturas_cliente)
+		ON DELETE NO ACTION
+		ON UPDATE NO ACTION
+    */
+
 );
-
-
 
 #Santiago
 CREATE TABLE IF NOT EXISTS factura_proveedor (
 	id_factura INT UNSIGNED NOT NULL COMMENT 'FK a la clase factura',
 	id_empleado INT NOT NULL COMMENT 'FK a la clase empleado, Quien realizó el pedido',
 	id_proveedor INT NOT NULL COMMENT 'FK a la clase proveedor',
+    
 	fecha DATETIME NOT NULL COMMENT 'Fecha en que se realizó el pedido',
+    fecha_cancelado DATETIME NULL COMMENT 'Fecha en que se pagó el pedido',
     
 	rete_ica VARCHAR(45) NULL COMMENT 'Impuesto de retención',
 	rete_fuente VARCHAR(45) NULL COMMENT 'Impuesto de retención',
 	iva INT NULL COMMENT 'Impuesto asociado al producto',
 	subtotal INT NULL COMMENT 'Valor de la suma de los productos',
     
-	precio_total INT NULL COMMENT 'total de  la suma de los productos',
+	precio_total FLOAT NULL COMMENT 'total de  la suma de los productos',
+    abono FLOAT NULL COMMENT 'Total abonado a la factura',
 	tipo_pago VARCHAR(45) NULL COMMENT 'forma con que se genera el pago'
 	
     /*
@@ -522,11 +543,27 @@ CREATE TABLE IF NOT EXISTS factura_proveedor (
 
 #Santiago
 CREATE TABLE IF NOT EXISTS carrito (
-	id_carrito INT UNSIGNED AUTO_INCREMENT NOT NULL COMMENT 'PK de la clase carrito',
-    id_cliente INT NOT NULL COMMENT 'FK a la clase cliente'
+    id_cliente INT NOT NULL COMMENT 'FK a la clase cliente',
+    id_producto INT UNSIGNED AUTO_INCREMENT NOT NULL COMMENT 'FK a la clase producto',
+    
+    cantidad_producto VARCHAR(45) NULL COMMENT 'Número determinado de unidades adquiridos'
     
     /*
 	PRIMARY KEY (id_cliente),
+	CONSTRAINT fk_carrito_cliente1
+		FOREIGN KEY (id_usuario)
+		REFERENCES cliente (id_usuario)
+		ON DELETE NO ACTION
+		ON UPDATE NO ACTION,
+	PRIMARY KEY (id_cliente),
+    
+	CONSTRAINT fk_carrito_cliente1
+		FOREIGN KEY (id_usuario)
+		REFERENCES cliente (id_usuario)
+		ON DELETE NO ACTION
+		ON UPDATE NO ACTION,
+	PRIMARY KEY (id_cliente),
+    
 	CONSTRAINT fk_carrito_cliente1
 		FOREIGN KEY (id_usuario)
 		REFERENCES cliente (id_usuario)
@@ -535,7 +572,13 @@ CREATE TABLE IF NOT EXISTS carrito (
 	*/
 );
 
-
+#Santiago
+#No hay necesidad de esta tabla, para eso está la tabla carrito
+#CREATE TABLE IF NOT EXISTS producto_carrito (
+/*	id_marca INT UNSIGNED AUTO_INCREMENT NOT NULL COMMENT 'PK de la clase marca',
+    cantidad_producto VARCHAR(45) NULL COMMENT 'Número determinado de unidades adquiridos'
+);
+*/
 
 #Santiago
 CREATE TABLE IF NOT EXISTS tema_preguntas (
@@ -613,10 +656,7 @@ CREATE TABLE IF NOT EXISTS producto_facturaProveedor (
 	id_marca INT UNSIGNED AUTO_INCREMENT NOT NULL COMMENT 'PK de la clase marca');
 
 
-CREATE TABLE IF NOT EXISTS producto_carrito (
-	id_marca INT UNSIGNED AUTO_INCREMENT NOT NULL COMMENT 'PK de la clase marca',
-    cantidad_producto VARCHAR(45) NULL COMMENT 'Número determinado de unidades adquiridos'
-);
+
 
 CREATE TABLE IF NOT EXISTS especie (
 	id_especie INT UNSIGNED AUTO_INCREMENT NOT NULL COMMENT 'PK de la clase especie',
