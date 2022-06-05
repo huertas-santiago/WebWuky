@@ -63,7 +63,6 @@ CREATE TABLE IF NOT EXISTS rol_permiso (
 #Jessica #Modificado Santiago
 CREATE TABLE IF NOT EXISTS usuario (
 	id_usuario INT UNSIGNED AUTO_INCREMENT NOT NULL COMMENT 'PK de la clase usuario',
-    id_rol INT UNSIGNED NOT NULL COMMENT 'FK de la clase rol',
     
 	correo VARCHAR (50) UNIQUE NOT  NULL COMMENT 'Correo de usuario',
     contrasenna  VARCHAR (50)NOT NULL COMMENT 'contraseña de correo de usuario',
@@ -73,21 +72,13 @@ CREATE TABLE IF NOT EXISTS usuario (
     numero_documento VARCHAR (10) COMMENT 'numero de documento de identifidad',
     fecha_nacimiento date COMMENT '',
     direccion  VARCHAR (100)  COMMENT 'direccion de usuario'
-    
-    /*
-    CONSTRAINT fk_id_rol
-		FOREIGN KEY (id_rol)
-		REFERENCES rol (id_rol)
-		ON DELETE NO ACTION
-		ON UPDATE NO ACTION
-	*/
 );
     
 #jessica #Modificado por Santiago
 CREATE TABLE IF NOT EXISTS cliente (
 	id_usuario INT UNSIGNED NOT NULL COMMENT 'PK de la clase cliente y FK de la tabla Usuario' PRIMARY KEY,
-    facebook_vinculado VARCHAR (50) UNIQUE NOT  NULL COMMENT 'cuenta de facebook asociada del cliente',
-    correo_vinculado VARCHAR (50) UNIQUE NOT  NULL COMMENT 'cuenta de correo asociada del cliente'
+    facebook_vinculado VARCHAR (50) UNIQUE NULL COMMENT 'cuenta de facebook asociada del cliente',
+    correo_vinculado VARCHAR (50) UNIQUE NOT NULL COMMENT 'cuenta de correo asociada del cliente'
     /*
     CONSTRAINT fk_id_usuario
 		FOREIGN KEY (id_usuario)
@@ -102,6 +93,8 @@ CREATE TABLE IF NOT EXISTS empleado (
 	id_usuario INT UNSIGNED NOT NULL COMMENT 'FK de la clase Usuario',
 	id_tipo_contrato INT UNSIGNED NOT NULL COMMENT 'FK de la clase tipo_contrato, Especifica el contrato que el usuario tendra',
     id_tipo_contrato INT UNSIGNED NOT NULL COMMENT 'FK de la clase tipo_contrato, Especifica el contrato que el usuario tendra',
+    
+    id_rol INT UNSIGNED NOT NULL COMMENT 'FK de la clase rol',
 	foto INT UNSIGNED NOT NULL COMMENT 'FK de la clase imagen',
 
 	grupo_sanguineo_RH VARCHAR(3) NULL COMMENT 'Tipo de sangre',
@@ -133,6 +126,13 @@ CREATE TABLE IF NOT EXISTS empleado (
 	REFERENCES tipo_contrato (idtipo_contrato)
 	ON DELETE NO ACTION
 	ON UPDATE NO ACTION*/
+    /*
+    CONSTRAINT fk_id_rol
+		FOREIGN KEY (id_rol)
+		REFERENCES rol (id_rol)
+		ON DELETE NO ACTION
+		ON UPDATE NO ACTION
+	*/
 );
 
 #Santiago
