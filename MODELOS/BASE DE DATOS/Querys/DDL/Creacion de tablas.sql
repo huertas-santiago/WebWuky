@@ -16,7 +16,10 @@ CREATE TABLE IF NOT EXISTS marca(
 #Ver si tiene sentido esta clase, o solo se coloca un check en empleado con los diferentes tipos de contrato
 CREATE TABLE IF NOT EXISTS tipo_contrato (
 	id_tipo_contrato INT UNSIGNED AUTO_INCREMENT NOT NULL COMMENT 'PK de la clase tipo_contrato',
-    nombre VARCHAR (45));
+    nombre VARCHAR (45),
+    
+    PRIMARY KEY (id_tipo_contrato)
+    );
 
 #Santiago
 CREATE TABLE IF NOT EXISTS entidad_afiliada (
@@ -45,8 +48,10 @@ CREATE TABLE IF NOT EXISTS permiso (
 
 #Santiago
 CREATE TABLE IF NOT EXISTS rol_permiso (
-	id_rol INT UNSIGNED NOT NULL COMMENT 'PK de la clase rol',
-	id_permiso INT UNSIGNED AUTO_INCREMENT NOT NULL
+	id_rol INT UNSIGNED NOT NULL COMMENT 'FK a la clase rol',
+	id_permiso INT UNSIGNED NOT NULL COMMENT 'FK a la clase permiso',
+    
+    PRIMARY KEY (id_rol , id_permiso)
     
     /*
     CONSTRAINT fk_id_rol
@@ -97,7 +102,7 @@ CREATE TABLE IF NOT EXISTS cliente (
 CREATE TABLE IF NOT EXISTS empleado (
 	id_usuario INT UNSIGNED NOT NULL COMMENT 'FK de la clase Usuario',
 	id_tipo_contrato INT UNSIGNED NOT NULL COMMENT 'FK de la clase tipo_contrato, Especifica el contrato que el usuario tendra',
-    id_tipo_contrato INT UNSIGNED NOT NULL COMMENT 'FK de la clase tipo_contrato, Especifica el contrato que el usuario tendra',
+    #id_tipo_contrato INT UNSIGNED NOT NULL COMMENT 'FK de la clase tipo_contrato, Especifica el contrato que el usuario tendra',
     
     id_rol INT UNSIGNED NOT NULL COMMENT 'FK de la clase rol',
 	foto INT UNSIGNED NOT NULL COMMENT 'FK de la clase imagen',
@@ -108,8 +113,9 @@ CREATE TABLE IF NOT EXISTS empleado (
 	fecha_fin_contratacion DATETIME NULL COMMENT 'fecha de proceso contrato usuario',
     codigo_contrato INT UNSIGNED NULL COMMENT 'Numero único de contratación',
     activo BOOL DEFAULT 0 COMMENT '',
-	cargo VARCHAR(45) NULL COMMENT 'Especifica el cargo que manejara'
+	cargo VARCHAR(45) NULL COMMENT 'Especifica el cargo que manejara',
     
+    PRIMARY KEY (id_usuario)
     
     /*
 	tipo_afialiacion VARCHAR(45) NULL COMMENT 'categoria afilicacion a caja de compensación familiar',
@@ -228,7 +234,7 @@ CREATE TABLE IF NOT EXISTS producto (
     ON UPDATE NO ACTION
 );
 
-#Santiag
+#Santiago
 CREATE TABLE IF NOT EXISTS variante(
 	id_variante INT UNSIGNED AUTO_INCREMENT NOT NULL COMMENT 'PK de la clase variante',
 	PRIMARY KEY (id_variante)
@@ -267,7 +273,9 @@ CREATE TABLE IF NOT EXISTS variante_productos (
 
 #Santiago
 CREATE TABLE IF NOT EXISTS tipo_materiales (
-	id_tipo_materiales INT UNSIGNED AUTO_INCREMENT NOT NULL
+	id_tipo_materiales INT UNSIGNED AUTO_INCREMENT NOT NULL,
+    
+    PRIMARY KEY (id_tipo_materiales)
     );
 
 #Santiago
@@ -296,20 +304,28 @@ CREATE TABLE IF NOT EXISTS materiales (
 	);
 
 #Santiago
-CREATE TABLE IF NOT EXISTS variante_materiales (
-	id_material INT UNSIGNED NOT NULL
+CREATE TABLE IF NOT EXISTS variante_material (
+	id_variante INT UNSIGNED NOT NULL,
+    id_material INT UNSIGNED NOT NULL,
+    
+    PRIMARY KEY (id_variante,id_material)
 );
 
 #paula
 CREATE TABLE IF NOT EXISTS categoria (
 	id_categoria INT UNSIGNED AUTO_INCREMENT NOT NULL COMMENT 'PK de la clase categoria',
     nombre VARCHAR (45),
-    descripcion VARCHAR(45));
+    descripcion VARCHAR(45),
+    
+    PRIMARY KEY (id_categoria)
+);
 
 #Jessica
-CREATE TABLE IF NOT EXISTS categoria_productos (
-	id_categoria_productos INT UNSIGNED AUTO_INCREMENT NOT NULL,
-    id_producto INT UNSIGNED AUTO_INCREMENT NOT NULL
+CREATE TABLE IF NOT EXISTS categoria_producto (
+	id_categoria_producto INT UNSIGNED NOT NULL,
+    id_producto INT UNSIGNED NOT NULL,
+    
+    PRIMARY KEY (id_categoria_producto,id_producto)
 );
 
 
@@ -338,8 +354,8 @@ CREATE TABLE IF NOT EXISTS infografia (
 
 #Santiago
 CREATE TABLE IF NOT EXISTS imagenes_infografia (
-	id_imagen INT UNSIGNED AUTO_INCREMENT NOT NULL COMMENT 'FK a la clase imagen',
-	id_infografia INT UNSIGNED AUTO_INCREMENT NOT NULL COMMENT 'FK a la clase infografia',
+	id_imagen INT UNSIGNED NOT NULL COMMENT 'FK a la clase imagen',
+	id_infografia INT UNSIGNED NOT NULL COMMENT 'FK a la clase infografia',
 	PRIMARY KEY (id_imagen, id_infografia)
     
     /*
@@ -368,7 +384,9 @@ CREATE TABLE IF NOT EXISTS telefono (
     numero VARCHAR (10) COMMENT 'Número Telefono Celular',
     fijo BOOL DEFAULT 0 COMMENT 'Representa si el Número Telefono ES FIJO',
 	id_usuario INT UNSIGNED NOT NULL COMMENT 'FK a la clase usuario',
-    observacion  VARCHAR (150) COMMENT 'Si hace referencia a un numero de telefono de una empresa, este puede tener un cargo...'
+    observacion  VARCHAR (150) COMMENT 'Si hace referencia a un numero de telefono de una empresa, este puede tener un cargo...',
+    
+    PRIMARY KEY (id_telefono)
     
     /*
     CONSTRAINT id_usuario
@@ -412,7 +430,7 @@ CREATE TABLE IF NOT EXISTS envio (
 	largo INT UNSIGNED NULL COMMENT '',
 	ancho INT UNSIGNED NULL COMMENT '',
 	alto INT UNSIGNED NULL COMMENT '',
-	valor_declarado FLOAT UNSIGNED NULL COMMENT '',
+	valor_declarado FLOAT NULL COMMENT '',
     
     direccion_envio VARCHAR (100),
 
@@ -421,12 +439,14 @@ CREATE TABLE IF NOT EXISTS envio (
 
 #PAULA #Modificado Santiago
 CREATE TABLE IF NOT EXISTS pedido(
-	id_pedido INT UNSIGNED AUTO_INCREMENT NOT NULL PRIMARY KEY COMMENT 'PK de la clase pedido',
-    id_cliente INT UNSIGNED NOT NULL PRIMARY KEY COMMENT 'FK a la clase cliente',
+	id_pedido INT UNSIGNED AUTO_INCREMENT NOT NULL COMMENT 'PK de la clase pedido',
+    id_cliente INT UNSIGNED NOT NULL COMMENT 'FK a la clase cliente',
     id_envio INT UNSIGNED NULL COMMENT 'FK a la clase envio',
     
     fecha DATE,
-    origen VARCHAR (2) DEFAULT 'EC' COMMENT 'De donde se originó el pedido, Facebook, Instagram, eCommerce'
+    origen VARCHAR (2) DEFAULT 'EC' COMMENT 'De donde se originó el pedido, Facebook, Instagram, eCommerce',
+    
+    PRIMARY KEY (id_pedido,id_cliente)
     
     /*
     CONSTRAINT fk_id_cliente
@@ -446,7 +466,7 @@ CREATE TABLE IF NOT EXISTS pedido(
 #PAULA #Modificado Santiago
 CREATE TABLE IF NOT EXISTS estados_pedidos(
 	id_estados_pedidos INT UNSIGNED AUTO_INCREMENT NOT NULL COMMENT 'PK de la clase estados_pedidos',
-	id_pedido INT UNSIGNED NOT NULL PRIMARY KEY COMMENT 'FK a la clase pedido',
+	id_pedido INT UNSIGNED NOT NULL COMMENT 'FK a la clase pedido',
     id_estando_anterior  INT UNSIGNED NULL COMMENT 'Referencia a esta misma tabla, para ver el estado anterior',
 	
     estado VARCHAR (10) NOT NULL COMMENT '',
@@ -503,10 +523,13 @@ CREATE TABLE IF NOT EXISTS factura_cliente (
     #Datos del DESTINATARIO
 	nombre_destibatario VARCHAR(20),
     tipo_documento VARCHAR(20),
-	numero_documento VARCHAR(20)
+	numero_documento VARCHAR(20),
+    
+    PRIMARY KEY (id_factura_cliente)
 );
 
 #Santiago
+#Revisar PK
 CREATE TABLE IF NOT EXISTS estados_facturas_cliente (
 	id_estados_facturas_cliente INT UNSIGNED AUTO_INCREMENT NOT NULL COMMENT 'PK de la clase estados_facturas_cliente',
 	id_factura_cliente INT UNSIGNED NOT NULL COMMENT 'FK a la clase factura_cliente',
@@ -514,7 +537,9 @@ CREATE TABLE IF NOT EXISTS estados_facturas_cliente (
 	estado VARCHAR (10) NOT NULL COMMENT '',
 	fecha_inicio DATETIME,
 	tiempo TIME NULL,
-	id_estando_anterior INT UNSIGNED NOT NULL COMMENT 'PK de la clase factura_cliente'
+	id_estando_anterior INT UNSIGNED NOT NULL COMMENT 'PK de la clase factura_cliente',
+    
+    PRIMARY KEY (id_estados_facturas_cliente)
     
     /*
     CONSTRAINT fk_id_factura_cliente
@@ -579,9 +604,11 @@ CREATE TABLE IF NOT EXISTS factura_proveedor (
 #Santiago
 CREATE TABLE IF NOT EXISTS carrito (
     id_cliente INT NOT NULL COMMENT 'FK a la clase cliente',
-    id_producto INT UNSIGNED AUTO_INCREMENT NOT NULL COMMENT 'FK a la clase producto',
+    id_producto INT UNSIGNED NOT NULL COMMENT 'FK a la clase producto',
     
-    cantidad_producto VARCHAR(45) NULL COMMENT 'Número determinado de unidades adquiridos'
+    cantidad_producto VARCHAR(45) NULL COMMENT 'Número determinado de unidades adquiridos',
+    
+    PRIMARY KEY (id_cliente,id_producto)
     
     /*
 	PRIMARY KEY (id_cliente),
@@ -618,7 +645,9 @@ CREATE TABLE IF NOT EXISTS carrito (
 #Santiago
 CREATE TABLE IF NOT EXISTS tema_preguntas (
 	id_tema_preguntas INT UNSIGNED AUTO_INCREMENT NOT NULL COMMENT 'PK de la clase tema_preguntas',
-    nombre VARCHAR(45) NULL COMMENT ''
+    nombre VARCHAR(45) NULL COMMENT '',
+    
+    PRIMARY KEY (id_tema_preguntas)
 );
 
 #Santiago
@@ -649,12 +678,13 @@ CREATE TABLE IF NOT EXISTS preguntas_frecuentes (
 );*/
     
 #jessica #Modificado por Santiago
+#Verificar tipo de dato TIME
 CREATE TABLE IF NOT EXISTS logs_empleado (
 	id_logs_empleado INT UNSIGNED AUTO_INCREMENT NOT NULL COMMENT '',
 	id_empleado INT UNSIGNED NOT NULL COMMENT '',
 	direccion_ip INT NOT NULL COMMENT '',
-    Tiempo_en_plataforma TIME(50) NOT NULL COMMENT '',
-	hora_inicio TIME (50) NOT NULL COMMENT '',
+    Tiempo_en_plataforma TIME NOT NULL COMMENT '',
+	hora_inicio TIME  NOT NULL COMMENT '',
     fecha_ingreso  DATE NOT NULL COMMENT '',
     dispositivo VARCHAR (50) NOT NULL COMMENT 'nombre del dispositivo con el que se conectó, PC..Celular',
     
@@ -670,15 +700,18 @@ CREATE TABLE IF NOT EXISTS logs_empleado (
     );
 
 #jessica #Modificado por Santiago
+#Verificar tipo de dato TIME
 CREATE TABLE IF NOT EXISTS logs_cliente (
 	id_logs_cliente INT UNSIGNED AUTO_INCREMENT NOT NULL,
     id_cliente INT UNSIGNED NOT NULL ,
     
     direccion_ip INT NOT NULL,
-    Tiempo_en_plataforma TIME(50) NOT NULL ,
-	hora_inicio TIME (50) NOT NULL ,
+    Tiempo_en_plataforma TIME NOT NULL ,
+	hora_inicio TIME NOT NULL ,
     fecha_ingreso  DATE NOT NULL,
-	dispositivo VARCHAR (50) NOT NULL COMMENT 'nombre del dispositivo con el que se conectó, PC..Celular'
+	dispositivo VARCHAR (50) NOT NULL COMMENT 'nombre del dispositivo con el que se conectó, PC..Celular',
+    
+    PRIMARY KEY (id_logs_cliente)
 
 	/*
 	CONSTRAINT fk_cliente
@@ -703,6 +736,9 @@ CREATE TABLE IF NOT EXISTS acciones_realizadas (
     id_logs_empleado INT UNSIGNED NOT NULL COMMENT 'FK a la clase logs_empleado',
     tipo_accion VARCHAR(45) NOT NULL COMMENT 'Nombre de la accion realizada',
     descripción VARCHAR (200) NULL COMMENT 'descripcion clase accion'
+    
+    PRIMARY KEY (id_acciones_realizadas)
+
     
     /*
     CONSTRAINT fk_logs_empleado
