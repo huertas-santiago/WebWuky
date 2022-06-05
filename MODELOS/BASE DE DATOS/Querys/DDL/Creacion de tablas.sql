@@ -735,7 +735,7 @@ CREATE TABLE IF NOT EXISTS acciones_realizadas (
 	id_acciones_realizadas INT UNSIGNED AUTO_INCREMENT NOT NULL COMMENT 'PK de la clase acciones_realizadas',
     id_logs_empleado INT UNSIGNED NOT NULL COMMENT 'FK a la clase logs_empleado',
     tipo_accion VARCHAR(45) NOT NULL COMMENT 'Nombre de la accion realizada',
-    descripción VARCHAR (200) NULL COMMENT 'descripcion clase accion'
+    descripción VARCHAR (200) NULL COMMENT 'descripcion clase accion',
     
     PRIMARY KEY (id_acciones_realizadas)
 
