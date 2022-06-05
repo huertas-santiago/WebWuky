@@ -21,7 +21,10 @@ CREATE TABLE IF NOT EXISTS tipo_contrato (
 #Santiago
 CREATE TABLE IF NOT EXISTS entidad_afiliada (
    id_entidad_afiliada INT UNSIGNED AUTO_INCREMENT NOT NULL COMMENT 'PK de la clase entidad_afiliada',
-   nombre VARCHAR(45));
+   nombre VARCHAR(45),
+   
+   PRIMARY KEY (id_entidad_afiliada)
+   );
 
 #Paula #Modificado Santiago
 CREATE TABLE IF NOT EXISTS rol (
