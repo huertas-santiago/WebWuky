@@ -204,7 +204,7 @@ CREATE TABLE IF NOT EXISTS producto (
   
   fabricado BOOLEAN NULL COMMENT 'Valor que dice si el producto es fabricado o comprado',
   id_marca INT UNSIGNED NULL COMMENT  'llave foranea a la tabla marca',
-  id_proveedor INT NOT NULL COMMENT 'llave foranea a la tabla proveedor',
+  id_proveedor INT NULL COMMENT 'llave foranea a la tabla proveedor',
   
   #Estos campos no irían en esta tabla
 	  #moneda VARCHAR(10) NULL COMMENT 'Nombre de la moneda con la que esta el precio',
@@ -438,17 +438,44 @@ CREATE TABLE IF NOT EXISTS estados_pedidos(
 );
 
 #Santiago
+#Tabla no es necesaria, no tiene sentico, con factura_cliente es suficiente 
+/*
 CREATE TABLE IF NOT EXISTS factura (
-	id_marca INT UNSIGNED AUTO_INCREMENT NOT NULL COMMENT 'PK de la clase marca'
-);
+	id_factura INT UNSIGNED AUTO_INCREMENT NOT NULL COMMENT 'PK de la clase factura',
+    fecha DATETIME,
+	rete_ica FLOAT,
+	rete_fuente FLOAT,
+	iva FLOAT,
+	subtotal FLOAT
+);*/
 
 #Santiago
 CREATE TABLE IF NOT EXISTS factura_cliente (
-	id_marca INT UNSIGNED AUTO_INCREMENT NOT NULL COMMENT 'PK de la clase marca');
+	id_marca INT UNSIGNED AUTO_INCREMENT NOT NULL COMMENT 'PK de la clase marca',
+    fecha DATETIME,
+	rete_ica FLOAT,
+	rete_fuente FLOAT,
+	iva FLOAT,
+	subtotal FLOAT,
+    compra_neta FLOAT,
+	dijitos_tarjeta VARCHAR(20),
+	id_banco VARCHAR(20),
+	codigo_facturado VARCHAR(20),
+	
+	respuesta_banco BOOL,
+	forma_pago VARCHAR(2),
+    
+    #Datos del DESTINATARIO
+	nombre_destibatario VARCHAR(20),
+    tipo_documento VARCHAR(20),
+	numero_documento VARCHAR(20)
+);
 
 #Santiago
 CREATE TABLE IF NOT EXISTS estados_facturas_cliente (
-	id_marca INT UNSIGNED AUTO_INCREMENT NOT NULL COMMENT 'PK de la clase marca');
+	id_marca INT UNSIGNED AUTO_INCREMENT NOT NULL COMMENT 'PK de la clase marca'
+	
+);
 
 
 
@@ -457,7 +484,6 @@ CREATE TABLE IF NOT EXISTS factura_proveedor (
 	id_factura INT UNSIGNED NOT NULL COMMENT 'FK a la clase factura',
 	id_empleado INT NOT NULL COMMENT 'FK a la clase empleado, Quien realizó el pedido',
 	id_proveedor INT NOT NULL COMMENT 'FK a la clase proveedor',
-    
 	fecha DATETIME NOT NULL COMMENT 'Fecha en que se realizó el pedido',
     
 	rete_ica VARCHAR(45) NULL COMMENT 'Impuesto de retención',
