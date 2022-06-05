@@ -403,12 +403,29 @@ CREATE TABLE IF NOT EXISTS producto_favorito (
     */
 );
 
+#Santiago
+CREATE TABLE IF NOT EXISTS envio (
+	id_envio INT UNSIGNED AUTO_INCREMENT NOT NULL COMMENT 'PK de la clase envio',
+    
+    codigo_envio VARCHAR (15) NULL COMMENT '',
+	peso FLOAT NULL COMMENT '',
+	largo INT UNSIGNED NULL COMMENT '',
+	ancho INT UNSIGNED NULL COMMENT '',
+	alto INT UNSIGNED NULL COMMENT '',
+	valor_declarado FLOAT UNSIGNED NULL COMMENT '',
+    
+    direccion_envio VARCHAR (100),
+
+	PRIMARY KEY(id_envio)
+);
+
 #PAULA #Modificado Santiago
 CREATE TABLE IF NOT EXISTS pedido(
 	id_pedido INT UNSIGNED AUTO_INCREMENT NOT NULL PRIMARY KEY COMMENT 'PK de la clase pedido',
-    id_cliente INT UNSIGNED NOT NULL PRIMARY KEY COMMENT 'PK de la clase pedido',
+    id_cliente INT UNSIGNED NOT NULL PRIMARY KEY COMMENT 'FK a la clase cliente',
+    id_envio INT UNSIGNED NULL COMMENT 'FK a la clase envio',
+    
     fecha DATE,
-    direccion_envio VARCHAR (100),
     origen VARCHAR (2) DEFAULT 'EC' COMMENT 'De donde se originó el pedido, Facebook, Instagram, eCommerce'
     
     /*
@@ -417,6 +434,12 @@ CREATE TABLE IF NOT EXISTS pedido(
 		REFERENCES infografia (id_cliente)
 		ON DELETE NO ACTION
 		ON UPDATE NO ACTION,
+        
+	CONSTRAINT fk_envio
+		FOREIGN KEY (id_envio)
+		REFERENCES envio (id_envio)
+		ON DELETE NO ACTION
+		ON UPDATE NO ACTION
     */
 );
 
@@ -690,30 +713,58 @@ CREATE TABLE IF NOT EXISTS acciones_realizadas (
     */
 );
     
-#jessica
+#jessica #Modificado por Santiago
 CREATE TABLE IF NOT EXISTS información (
 	id_información INT UNSIGNED AUTO_INCREMENT NOT NULL ,
-    texto VARCHAR(100) NULL ,
-    titulo VARCHAR(50) NULL ,
-    id_imagen INT NULL
+    texto TEXT NOT NULL,
+    titulo VARCHAR(50) NOT NULL,
+    id_imagen INT UNSIGNED NULL,
+    
+    PRIMARY KEY (id_información)
+    
+    /*
+    CONSTRAINT fk_tema_preguntas
+		FOREIGN KEY (id_tema_preguntas)
+		REFERENCES tema_preguntas (id_tema_preguntas)
+		ON DELETE NO ACTION
+		ON UPDATE NO ACTION
+    */
+);
+
+#Jessica #Modificado por Santiago
+CREATE TABLE IF NOT EXISTS producto_imagenes (
+	id_imagen INT UNSIGNED NOT NULL,
+    id_producto INT UNSIGNED NOT NULL,
+    
+    PRIMARY KEY ( id_producto , id_imagen )
+    
+    /*
+    CONSTRAINT fk_imagen
+		FOREIGN KEY (id_imagen)
+		REFERENCES imagen (id_imagen)
+		ON DELETE NO ACTION
+		ON UPDATE NO ACTION
+	
+    CONSTRAINT fk_producto
+		FOREIGN KEY (id_producto)
+		REFERENCES producto (id_producto)
+		ON DELETE NO ACTION
+		ON UPDATE NO ACTION
+    */
+);
+
+
+
+
+CREATE TABLE IF NOT EXISTS producto_pedido (
+	id_marca INT UNSIGNED AUTO_INCREMENT NOT NULL COMMENT 'PK de la clase marca'
 
 );
 
-#Jessica
-CREATE TABLE IF NOT EXISTS producto_imagenes (
-	id_imagen INT UNSIGNED AUTO_INCREMENT NOT NULL,
-    id_producto INT UNSIGNED AUTO_INCREMENT NOT NULL
-    );
-
-
-CREATE TABLE IF NOT EXISTS envio (
-	id_marca INT UNSIGNED AUTO_INCREMENT NOT NULL COMMENT 'PK de la clase marca');
-
-CREATE TABLE IF NOT EXISTS producto_pedido (
-	id_marca INT UNSIGNED AUTO_INCREMENT NOT NULL COMMENT 'PK de la clase marca');
-
 CREATE TABLE IF NOT EXISTS producto_facturaProveedor (
-	id_marca INT UNSIGNED AUTO_INCREMENT NOT NULL COMMENT 'PK de la clase marca');
+	id_marca INT UNSIGNED AUTO_INCREMENT NOT NULL COMMENT 'PK de la clase marca'
+
+);
 
 CREATE TABLE IF NOT EXISTS especie (
 	id_especie INT UNSIGNED AUTO_INCREMENT NOT NULL COMMENT 'PK de la clase especie',
@@ -723,14 +774,18 @@ CREATE TABLE IF NOT EXISTS especie (
     FOREIGN Key (id_mascota)
     REFERENCES mascota (id_mascota),
     FOREIGN Key (id_raza)
-    REFERENCES raza (id_raza));
+    REFERENCES raza (id_raza)
+
+);
 
 CREATE TABLE IF NOT EXISTS raza (
 	id_raza INT UNSIGNED AUTO_INCREMENT NOT NULL COMMENT 'PK de la clase raza',
     id_especie INT UNSIGNED NOT NULL COMMENT 'PK de la clase especie',
     nombre VARCHAR (45),
 	FOREIGN Key (id_especie)
-    REFERENCES especie (id_especie));
+    REFERENCES especie (id_especie)
+
+);
 
 CREATE TABLE IF NOT EXISTS mascota (
 	id_mascota INT UNSIGNED AUTO_INCREMENT NOT NULL COMMENT 'PK de la clase mascota',
@@ -743,4 +798,6 @@ CREATE TABLE IF NOT EXISTS mascota (
 	FOREIGN Key (id_raza)
     REFERENCES raza (id_raza),
 	FOREIGN Key (id_cliente)
-    REFERENCES cliente (id_cliente));
+    REFERENCES cliente (id_cliente)
+
+);
