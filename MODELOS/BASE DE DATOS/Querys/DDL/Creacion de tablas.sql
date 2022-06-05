@@ -753,51 +753,102 @@ CREATE TABLE IF NOT EXISTS producto_imagenes (
     */
 );
 
-
-
-
+#Santiago
 CREATE TABLE IF NOT EXISTS producto_pedido (
-	id_marca INT UNSIGNED AUTO_INCREMENT NOT NULL COMMENT 'PK de la clase marca'
-
+	id_producto INT UNSIGNED NOT NULL COMMENT 'FK a la clase producto',
+	id_pedido INT UNSIGNED NOT NULL COMMENT 'FK a la clase pedido',
+    cantidad INT UNSIGNED DEFAULT 1 COMMENT '',
+    
+    PRIMARY KEY (id_producto , id_pedido)
+    
+    /*
+    CONSTRAINT fk_producto
+		FOREIGN KEY (id_producto)
+		REFERENCES producto (id_producto)
+		ON DELETE NO ACTION
+		ON UPDATE NO ACTION,
+        
+	CONSTRAINT fk_pedido
+		FOREIGN KEY (id_pedido)
+		REFERENCES pedido (id_pedido)
+		ON DELETE NO ACTION
+		ON UPDATE NO ACTION
+	*/
 );
 
+#Santiago
 CREATE TABLE IF NOT EXISTS producto_facturaProveedor (
-	id_marca INT UNSIGNED AUTO_INCREMENT NOT NULL COMMENT 'PK de la clase marca'
-
+	id_producto INT UNSIGNED NOT NULL COMMENT 'FK a la clase producto',
+	id_pedido INT UNSIGNED NOT NULL COMMENT 'FK a la clase pedido',
+    cantidad INT UNSIGNED DEFAULT 1 COMMENT '',
+    
+    PRIMARY KEY (id_producto , id_pedido)
+    
+    /*
+    CONSTRAINT fk_producto
+		FOREIGN KEY (id_producto)
+		REFERENCES producto (id_producto)
+		ON DELETE NO ACTION
+		ON UPDATE NO ACTION,
+        
+	CONSTRAINT fk_pedido
+		FOREIGN KEY (id_pedido)
+		REFERENCES pedido (id_pedido)
+		ON DELETE NO ACTION
+		ON UPDATE NO ACTION
+	*/
 );
 
+#Paula #Modificado por Santiago
 CREATE TABLE IF NOT EXISTS especie (
 	id_especie INT UNSIGNED AUTO_INCREMENT NOT NULL COMMENT 'PK de la clase especie',
-    id_mascota INT UNSIGNED NOT NULL COMMENT 'PK de la clase mascota',
-    id_raza INT UNSIGNED NOT NULL COMMENT 'PK de la clase raza',
     nombre VARCHAR (45),
-    FOREIGN Key (id_mascota)
-    REFERENCES mascota (id_mascota),
-    FOREIGN Key (id_raza)
-    REFERENCES raza (id_raza)
-
+    
+    PRIMARY KEY (id_especie)
 );
 
+#Paula #Modificado por Santiago
 CREATE TABLE IF NOT EXISTS raza (
 	id_raza INT UNSIGNED AUTO_INCREMENT NOT NULL COMMENT 'PK de la clase raza',
-    id_especie INT UNSIGNED NOT NULL COMMENT 'PK de la clase especie',
+    id_especie INT UNSIGNED NULL COMMENT 'PK de la clase especie',
     nombre VARCHAR (45),
-	FOREIGN Key (id_especie)
-    REFERENCES especie (id_especie)
-
+    
+    PRIMARY KEY (id_raza)
+    
+    /*
+    CONSTRAINT fk_especie
+		FOREIGN KEY (id_especie)
+		REFERENCES especie (id_especie)
+		ON DELETE NO ACTION
+		ON UPDATE NO ACTION
+	*/
 );
 
+#Paula #Modificado por Santiago
 CREATE TABLE IF NOT EXISTS mascota (
 	id_mascota INT UNSIGNED AUTO_INCREMENT NOT NULL COMMENT 'PK de la clase mascota',
     id_raza INT UNSIGNED NOT NULL COMMENT 'PK de la clase raza',
     id_cliente INT UNSIGNED NOT NULL COMMENT 'PK de la clase cliente',
+    
     foto VARCHAR (45),
+    nombre VARCHAR (45),
     sexo VARCHAR (45),
     tamaño VARCHAR (45),
     fecha_nacimiento VARCHAR(45),
-	FOREIGN Key (id_raza)
-    REFERENCES raza (id_raza),
-	FOREIGN Key (id_cliente)
-    REFERENCES cliente (id_cliente)
-
+    
+    PRIMARY KEY (id_mascota)
+    
+    /*
+    CONSTRAINT fk_tema_preguntas
+		FOREIGN KEY (id_tema_preguntas)
+		REFERENCES tema_preguntas (id_tema_preguntas)
+		ON DELETE NO ACTION
+		ON UPDATE NO ACTION,
+	
+    CONSTRAINT fk_tema_preguntas
+		FOREIGN KEY (id_tema_preguntas)
+		REFERENCES tema_preguntas (id_tema_preguntas)
+		ON DELETE NO ACTION
+		ON UPDATE NO ACTION
+	*/
 );
