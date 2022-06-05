@@ -624,12 +624,12 @@ CREATE TABLE IF NOT EXISTS preguntas_frecuentes (
     
 #jessica #Modificado por Santiago
 CREATE TABLE IF NOT EXISTS logs_empleado (
-	id_logs_empleado INT UNSIGNED AUTO_INCREMENT NOT NULL ,
-	id_empleado INT UNSIGNED NOT NULL ,
-	direccion_ip INT NOT NULL,
-    Tiempo_en_plataforma TIME(50) NOT NULL ,
-	hora_inicio TIME (50) NOT NULL ,
-    fecha_ingreso  DATE NOT NULL,
+	id_logs_empleado INT UNSIGNED AUTO_INCREMENT NOT NULL COMMENT '',
+	id_empleado INT UNSIGNED NOT NULL COMMENT '',
+	direccion_ip INT NOT NULL COMMENT '',
+    Tiempo_en_plataforma TIME(50) NOT NULL COMMENT '',
+	hora_inicio TIME (50) NOT NULL COMMENT '',
+    fecha_ingreso  DATE NOT NULL COMMENT '',
     dispositivo VARCHAR (50) NOT NULL COMMENT 'nombre del dispositivo con el que se conectó, PC..Celular',
     
     PRIMARY KEY (id_logs_empleado)
@@ -643,9 +643,11 @@ CREATE TABLE IF NOT EXISTS logs_empleado (
 	*/
     );
 
-#jessica
+#jessica #Modificado por Santiago
 CREATE TABLE IF NOT EXISTS logs_cliente (
 	id_logs_cliente INT UNSIGNED AUTO_INCREMENT NOT NULL,
+    id_cliente INT UNSIGNED NOT NULL ,
+    
     direccion_ip INT NOT NULL,
     Tiempo_en_plataforma TIME(50) NOT NULL ,
 	hora_inicio TIME (50) NOT NULL ,
@@ -653,26 +655,37 @@ CREATE TABLE IF NOT EXISTS logs_cliente (
 	dispositivo VARCHAR (50) NOT NULL COMMENT 'nombre del dispositivo con el que se conectó, PC..Celular'
 
 	/*
-	CONSTRAINT fk_empleado
-		FOREIGN KEY (id_empleado)
-		REFERENCES empleado (id_empleado)
+	CONSTRAINT fk_cliente
+		FOREIGN KEY (id_cliente)
+		REFERENCES cliente (id_cliente)
 		ON DELETE NO ACTION
 		ON UPDATE NO ACTION
 	*/
 );
 
 #jessica
-CREATE TABLE IF NOT EXISTS acciones (
-	id_acciones INT UNSIGNED AUTO_INCREMENT NOT NULL COMMENT 'PK de la clase marca',
+#Eliminada por Santiago, la pasé a la clase acciones_realizadas
+#CREATE TABLE IF NOT EXISTS acciones (
+/*	id_acciones INT UNSIGNED AUTO_INCREMENT NOT NULL COMMENT 'PK de la clase marca',
     nombre VARCHAR(45) NULL COMMENT 'Nombre de clase la acciones'
     );
+*/
     
-#jessica 
+#jessica #Modificado por Santiago
 CREATE TABLE IF NOT EXISTS acciones_realizadas (
-	id_usuario INT UNSIGNED AUTO_INCREMENT NOT NULL COMMENT 'PK de la clase id_usuario',
-    id_accion INT NOT NULL COMMENT 'Id accion',
-    descripción VARCHAR (45) NULL COMMENT 'descripcion clase accion'
-    );
+	id_acciones_realizadas INT UNSIGNED AUTO_INCREMENT NOT NULL COMMENT 'PK de la clase acciones_realizadas',
+    id_logs_empleado INT UNSIGNED NOT NULL COMMENT 'FK a la clase logs_empleado',
+    tipo_accion VARCHAR(45) NOT NULL COMMENT 'Nombre de la accion realizada',
+    descripción VARCHAR (200) NULL COMMENT 'descripcion clase accion'
+    
+    /*
+    CONSTRAINT fk_logs_empleado
+		FOREIGN KEY (id_logs_empleado)
+		REFERENCES logs_empleado (id_logs_empleado)
+		ON DELETE NO ACTION
+		ON UPDATE NO ACTION
+    */
+);
     
 #jessica
 CREATE TABLE IF NOT EXISTS información (
@@ -680,7 +693,8 @@ CREATE TABLE IF NOT EXISTS información (
     texto VARCHAR(100) NULL ,
     titulo VARCHAR(50) NULL ,
     id_imagen INT NULL
-    );
+
+);
 
 #Jessica
 CREATE TABLE IF NOT EXISTS producto_imagenes (
