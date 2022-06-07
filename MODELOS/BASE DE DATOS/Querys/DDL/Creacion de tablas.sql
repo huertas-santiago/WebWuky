@@ -9,15 +9,15 @@ USE DBWuky;
 CREATE TABLE IF NOT EXISTS marca(
   id_marca INT UNSIGNED AUTO_INCREMENT NOT NULL COMMENT 'PK de la clase marca',
   nombre VARCHAR(45) NULL COMMENT 'Nombre de la marca',
-  descripcion VARCHAR(45) NULL COMMENT 'Detalle o caracteristicas de la marca',
+  #descripcion VARCHAR(45) NULL COMMENT 'Detalle o caracteristicas de la marca',
   PRIMARY KEY (id_marca));
+
 
 #Santiago
 #Ver si tiene sentido esta clase, o solo se coloca un check en empleado con los diferentes tipos de contrato
 CREATE TABLE IF NOT EXISTS tipo_contrato (
 	id_tipo_contrato INT UNSIGNED AUTO_INCREMENT NOT NULL COMMENT 'PK de la clase tipo_contrato',
     nombre VARCHAR (45),
-    
     PRIMARY KEY (id_tipo_contrato)
     );
 
@@ -76,7 +76,7 @@ CREATE TABLE IF NOT EXISTS usuario (
     contrasenna  VARCHAR (50)NOT NULL COMMENT 'contraseña de correo de usuario',
     nombre VARCHAR (50) NOT NULL COMMENT 'nombre de usuario',
     genero VARCHAR (1) COMMENT 'genero de usuario',
-    tipo_documento VARCHAR (1) COMMENT 'tipo de documento de usuario',
+    tipo_documento VARCHAR (3) COMMENT 'tipo de documento de usuario',
     numero_documento VARCHAR (10) COMMENT 'numero de documento de identifidad',
     fecha_nacimiento date COMMENT '',
     direccion  VARCHAR (100)  COMMENT 'direccion de usuario',
@@ -88,7 +88,7 @@ CREATE TABLE IF NOT EXISTS usuario (
 CREATE TABLE IF NOT EXISTS cliente (
 	id_usuario INT UNSIGNED NOT NULL COMMENT 'PK de la clase cliente y FK de la tabla Usuario' PRIMARY KEY,
     facebook_vinculado VARCHAR (50) UNIQUE NULL COMMENT 'cuenta de facebook asociada del cliente',
-    correo_vinculado VARCHAR (50) UNIQUE NOT NULL COMMENT 'cuenta de correo asociada del cliente'
+    correo_vinculado VARCHAR (50) UNIQUE NULL COMMENT 'cuenta de correo asociada del cliente'
     /*
     CONSTRAINT fk_id_usuario
 		FOREIGN KEY (id_usuario)
@@ -109,8 +109,8 @@ CREATE TABLE IF NOT EXISTS empleado (
 
 	grupo_sanguineo_RH VARCHAR(3) NULL COMMENT 'Tipo de sangre',
     
-    fecha_contratacion DATETIME NULL COMMENT 'fecha de proceso contrato usuario',
-	fecha_fin_contratacion DATETIME NULL COMMENT 'fecha de proceso contrato usuario',
+    fecha_contratacion DATE NULL COMMENT 'fecha de proceso contrato usuario',
+	fecha_fin_contratacion DATE NULL COMMENT 'fecha de proceso contrato usuario',
     codigo_contrato INT UNSIGNED NULL COMMENT 'Numero único de contratación',
     activo BOOL DEFAULT 0 COMMENT '',
 	cargo VARCHAR(45) NULL COMMENT 'Especifica el cargo que manejara',
@@ -868,7 +868,7 @@ CREATE TABLE IF NOT EXISTS mascota (
     
     foto VARCHAR (45),
     nombre VARCHAR (45),
-    sexo VARCHAR (45),
+    sexo VARCHAR (1),
     tamaño VARCHAR (45),
     fecha_nacimiento VARCHAR(45),
     
