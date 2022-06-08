@@ -507,6 +507,7 @@ CREATE TABLE IF NOT EXISTS estados_pedidos(
 #Santiago
 CREATE TABLE IF NOT EXISTS factura_cliente (
 	id_factura_cliente INT UNSIGNED AUTO_INCREMENT NOT NULL COMMENT 'PK de la clase factura_cliente',
+    
     fecha DATETIME,
 	rete_ica FLOAT,
 	rete_fuente FLOAT,
@@ -514,14 +515,14 @@ CREATE TABLE IF NOT EXISTS factura_cliente (
 	subtotal FLOAT,
     compra_neta FLOAT,
 	dijitos_tarjeta VARCHAR(20),
-	id_banco VARCHAR(20),
+	id_banco VARCHAR(20) NULL,
 	codigo_facturado VARCHAR(20),
 	
 	respuesta_banco BOOL,
 	forma_pago VARCHAR(2),
     
     #Datos del DESTINATARIO
-	nombre_destibatario VARCHAR(20),
+	nombre_destinatario VARCHAR(20),
     tipo_documento VARCHAR(20),
 	numero_documento VARCHAR(20),
     
