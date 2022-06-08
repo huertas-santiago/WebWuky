@@ -235,13 +235,15 @@ CREATE TABLE IF NOT EXISTS producto (
 );
 
 #Santiago
-CREATE TABLE IF NOT EXISTS variante(
-	id_variante INT UNSIGNED AUTO_INCREMENT NOT NULL COMMENT 'PK de la clase variante',
+#Se elimina la tabla
+#CREATE TABLE IF NOT EXISTS variante_producto(
+/*	id_variante INT UNSIGNED AUTO_INCREMENT NOT NULL COMMENT 'PK de la clase variante',
 	PRIMARY KEY (id_variante)
 );
+*/
 
 #Santiago
-CREATE TABLE IF NOT EXISTS variante_productos (
+CREATE TABLE IF NOT EXISTS variante (
     id_variante INT UNSIGNED NOT NULL COMMENT 'ID de la clase acual',
 	id_producto INT NOT NULL COMMENT 'ID de la clase acual',
 	#id_material INT NULL COMMENT 'llave foranea a la tabla material',  
@@ -272,36 +274,31 @@ CREATE TABLE IF NOT EXISTS variante_productos (
 );
 
 #Santiago
-CREATE TABLE IF NOT EXISTS tipo_materiales (
-	id_tipo_materiales INT UNSIGNED AUTO_INCREMENT NOT NULL,
-    
+#Se elimna esta tabla
+#CREATE TABLE IF NOT EXISTS tipo_materiales (
+/*	id_tipo_materiales INT UNSIGNED AUTO_INCREMENT NOT NULL,
     PRIMARY KEY (id_tipo_materiales)
     );
+*/
 
 #Santiago
-CREATE TABLE IF NOT EXISTS materiales (
-	id_materiales INT UNSIGNED AUTO_INCREMENT NOT NULL  COMMENT 'PK de la clase materiales',
-    id_variante INT UNSIGNED NOT NULL COMMENT 'FK a la tabla variante',
-    id_tipo_material INT UNSIGNED NOT NULL COMMENT 'Tipo de la variante como PESO, DIMENSION, COLOR, TELA',
-	
-    valor VARCHAR(45) NULL COMMENT 'Valor tomado por esta variante',
+CREATE TABLE IF NOT EXISTS material (
+	id_material INT UNSIGNED AUTO_INCREMENT NOT NULL  COMMENT 'PK de la clase materiales',
+    
+    tipo_material INT UNSIGNED NOT NULL COMMENT 'Tipo de la variante como PESO, DIMENSION, COLOR, TELA',
+	valor VARCHAR(45) NULL COMMENT 'Valor tomado por esta variante',
 	medida VARCHAR(45) NULL COMMENT 'Como se mide el tipo, si es peso la medida es Kg',
     
-    PRIMARY KEY(id_materiales)
+    PRIMARY KEY(id_material)
     
-    /*CONSTRAINT fk_id_tipo_materiales
-		FOREIGN KEY (id_tipo_materiales)
-        REFERENCES tipo_materiales (id_tipo_materiales)
-		ON DELETE NO ACTION
-		ON UPDATE NO ACTION
-       
-       CONSTRAINT fk_id_variante
+    /*
+	CONSTRAINT fk_id_variante
 		FOREIGN KEY (id_variante)
-        REFERENCES variante (id_variante)
+		REFERENCES variante (id_variante)
 		ON DELETE NO ACTION
 		ON UPDATE NO ACTION
-       */
-	);
+	*/
+);
 
 #Santiago
 CREATE TABLE IF NOT EXISTS variante_material (
