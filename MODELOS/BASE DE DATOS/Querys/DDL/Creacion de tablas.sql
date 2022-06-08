@@ -535,9 +535,9 @@ CREATE TABLE IF NOT EXISTS estados_facturas_cliente (
 	id_estados_facturas_cliente INT UNSIGNED AUTO_INCREMENT NOT NULL COMMENT 'PK de la clase estados_facturas_cliente',
 	id_factura_cliente INT UNSIGNED NOT NULL COMMENT 'FK a la clase factura_cliente',
     
-	estado VARCHAR (10) NOT NULL COMMENT '',
+	estado VARCHAR (10) NOT NULL COMMENT 'Accion "Pendiente", "Pagada"',
 	fecha_inicio DATETIME NOT NULL,
-	id_estando_anterior INT UNSIGNED NULL COMMENT 'PK de la clase factura_cliente',
+	id_estado_anterior INT UNSIGNED NULL COMMENT 'PK de la clase factura_cliente',
     
     PRIMARY KEY (id_estados_facturas_cliente)
     
