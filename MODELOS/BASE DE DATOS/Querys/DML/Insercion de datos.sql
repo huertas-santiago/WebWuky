@@ -107,5 +107,35 @@ INSERT INTO mascota (id_raza, id_cliente, foto, nombre, sexo, tamaño, fecha_nac
 INSERT INTO mascota (id_raza, id_cliente, foto, nombre, sexo, tamaño, fecha_nacimiento)
  VALUES (8, 3, 8, 'Pancho', 'H', 'Pequeña', '2018-12-16');
 SELECT*FROM mascota;
-drop table mascota;
+#drop table mascota;
+
+DESCRIBE factura_cliente;
+INSERT INTO factura_cliente (id_factura_cliente,fecha,rete_ica,rete_fuente,iva,subtotal,compra_neta,dijitos_tarjeta,id_banco,codigo_facturado,respuesta_banco,forma_pago,nombre_destinatario,tipo_documento,numero_documento) 
+VALUES (null,'2022-06-07',0,0,23456.64,123456,146912.64,956,'B12','67545h6767',1,'Tj','Santiago Huertas','C',8706833565);
+INSERT INTO factura_cliente (id_factura_cliente,fecha,rete_ica,rete_fuente,iva,subtotal,compra_neta,dijitos_tarjeta,id_banco,codigo_facturado,respuesta_banco,forma_pago,nombre_destinatario,tipo_documento,numero_documento) 
+VALUES (null,'2019-10-01',0,0,110200,580000,690200,970,'B13','67545h6768',0,'Tj','Marlon Martinez','C',378120729);
+INSERT INTO factura_cliente (id_factura_cliente,fecha,rete_ica,rete_fuente,iva,subtotal,compra_neta,dijitos_tarjeta,id_banco,codigo_facturado,respuesta_banco,forma_pago,nombre_destinatario,tipo_documento,numero_documento) 
+VALUES (null,'2022-10-20',0,0,6460,34000,40460,226,'B14','67545h6769',1,'Tj','Lucas Contreras','C',1038055081);
+INSERT INTO factura_cliente (id_factura_cliente,fecha,rete_ica,rete_fuente,iva,subtotal,compra_neta,dijitos_tarjeta,id_banco,codigo_facturado,respuesta_banco,forma_pago,nombre_destinatario,tipo_documento,numero_documento) 
+VALUES (null,'2020-10-12',0,0,22800,120000,142800,142,'B15','67545h6770',1,'Tj','Milena Castro ','C',4592966760);
+SELECT*FROM factura_cliente;
+#DROP TABLE factura_cliente;
+
+DESCRIBE estados_facturas_cliente;
+INSERT INTO estados_facturas_cliente (id_estados_facturas_cliente,id_factura_cliente,estado,fecha_inicio,id_estado_anterior) 
+VALUES (null,2,'Pendiente','2022-02-03',null);
+INSERT INTO estados_facturas_cliente (id_estados_facturas_cliente,id_factura_cliente,estado,fecha_inicio,id_estado_anterior) 
+VALUES (null,1,'Pagada','2020-02-02',null);
+INSERT INTO estados_facturas_cliente (id_estados_facturas_cliente,id_factura_cliente,estado,fecha_inicio,id_estado_anterior) 
+VALUES (null,3,'Pagada','2022-01-02',null);
+SELECT*FROM  estados_facturas_cliente;
+#DROP TABLE estados_facturas_cliente;
+
+
+
+
+
+
+
+
 
