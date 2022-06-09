@@ -51,9 +51,8 @@ CREATE TABLE IF NOT EXISTS rol_permiso (
 	id_rol INT UNSIGNED NOT NULL COMMENT 'FK a la clase rol',
 	id_permiso INT UNSIGNED NOT NULL COMMENT 'FK a la clase permiso',
     
-    PRIMARY KEY (id_rol , id_permiso)
+    PRIMARY KEY (id_rol , id_permiso),
     
-    /*
     CONSTRAINT fk_id_rol
 		FOREIGN KEY (id_rol)
 		REFERENCES rol (id_rol)
@@ -65,7 +64,6 @@ CREATE TABLE IF NOT EXISTS rol_permiso (
 		REFERENCES permiso (id_permiso)
 		ON DELETE NO ACTION
 		ON UPDATE NO ACTION
-    */
 );
 
 #Jessica #Modificado Santiago
