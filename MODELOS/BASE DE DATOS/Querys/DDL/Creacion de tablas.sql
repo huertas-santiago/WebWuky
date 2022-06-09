@@ -244,8 +244,7 @@ CREATE TABLE IF NOT EXISTS producto (
 
 #Santiago
 CREATE TABLE IF NOT EXISTS variante (
-    id_variante INT UNSIGNED NOT NULL COMMENT 'ID de la clase acual',
-	id_producto INT NOT NULL COMMENT 'ID de la clase acual',
+	id_producto INT UNSIGNED NOT NULL COMMENT 'ID de la clase acual',
 	#id_material INT NULL COMMENT 'llave foranea a la tabla material',  
 
 	precio INT UNSIGNED NOT NULL COMMENT 'Precio del producto',
@@ -254,7 +253,9 @@ CREATE TABLE IF NOT EXISTS variante (
 	visualización_facebook BOOLEAN NOT NULL DEFAULT 1 COMMENT 'Verdadero si esta habilitada la visualizacion, compra... en facebook',
 	sexo VARCHAR(45) NULL COMMENT 'hace referencia a las características biológicas y fisiológicas que definen a los machos de las hembras',
 	descripción VARCHAR(10000) NULL COMMENT 'Texto donde describe el producto',
-	      
+	
+    stock INT UNSIGNED DEFAULT 0 COMMENT 'Cantidad de productos en el inventario',
+    
     PRIMARY KEY (id_variante,id_producto)
     
     /*
@@ -286,9 +287,8 @@ CREATE TABLE IF NOT EXISTS material (
 	id_material INT UNSIGNED AUTO_INCREMENT NOT NULL  COMMENT 'PK de la clase materiales',
     
     tipo_material INT UNSIGNED NOT NULL COMMENT 'Tipo de la variante como PESO, DIMENSION, COLOR, TELA',
-	valor VARCHAR(45) NULL COMMENT 'Valor tomado por esta variante',
 	medida VARCHAR(45) NULL COMMENT 'Como se mide el tipo, si es peso la medida es Kg',
-    
+
     PRIMARY KEY(id_material)
     
     /*
@@ -304,6 +304,8 @@ CREATE TABLE IF NOT EXISTS material (
 CREATE TABLE IF NOT EXISTS variante_material (
 	id_variante INT UNSIGNED NOT NULL,
     id_material INT UNSIGNED NOT NULL,
+    
+    cantidad VARCHAR(45) NULL COMMENT 'Valor tomado por el tipo_material en material',
     
     PRIMARY KEY (id_variante,id_material)
 );
