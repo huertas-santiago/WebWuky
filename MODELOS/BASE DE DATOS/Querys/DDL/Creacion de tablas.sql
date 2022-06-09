@@ -244,7 +244,7 @@ CREATE TABLE IF NOT EXISTS producto (
 
 #Santiago
 CREATE TABLE IF NOT EXISTS variante (
-	id_producto INT UNSIGNED NOT NULL COMMENT 'ID de la clase acual',
+    id_producto INT UNSIGNED NOT NULL COMMENT 'ID de la clase acual',
 	#id_material INT NULL COMMENT 'llave foranea a la tabla material',  
 
 	precio INT UNSIGNED NOT NULL COMMENT 'Precio del producto',
@@ -256,7 +256,7 @@ CREATE TABLE IF NOT EXISTS variante (
 	
     stock INT UNSIGNED DEFAULT 0 COMMENT 'Cantidad de productos en el inventario',
     
-    PRIMARY KEY (id_variante,id_producto)
+    PRIMARY KEY (id_producto)
     
     /*
 	INDEX fk_caracteristicas_productos_caracteristicas1_idx (caracteristicas_id ASC) VISIBLE,
