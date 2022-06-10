@@ -4,6 +4,7 @@
 DROP DATABASE IF EXISTS DBWuky;
 CREATE DATABASE IF NOT EXISTS DBWuky DEFAULT CHARACTER SET utf8;
 USE DBWuky;
+show tables;
 
 #Santiago
 CREATE TABLE IF NOT EXISTS marca(
@@ -39,11 +40,11 @@ CREATE TABLE IF NOT EXISTS rol (
 
 #Jessica #Modificado por Santiago
 CREATE TABLE IF NOT EXISTS permiso (
-	id_permisos INT UNSIGNED AUTO_INCREMENT NOT NULL,
+	id_permiso INT UNSIGNED AUTO_INCREMENT NOT NULL,
     nombre_permiso VARCHAR (45)NOT NULL COMMENT'nombre del rol del usuario',
     descripcion VARCHAR(100) NULL,
     
-    PRIMARY KEY (id_permisos) 
+    PRIMARY KEY (id_permiso) 
 );
 
 #Santiago
