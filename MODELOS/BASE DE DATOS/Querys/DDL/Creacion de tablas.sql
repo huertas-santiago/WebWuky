@@ -38,12 +38,13 @@ CREATE TABLE IF NOT EXISTS rol (
 );
 
 #Jessica #Modificado por Santiago
+#DROP TABLE permiso;
 CREATE TABLE IF NOT EXISTS permiso (
-	id_permisos INT UNSIGNED AUTO_INCREMENT NOT NULL,
+	id_permiso INT UNSIGNED AUTO_INCREMENT NOT NULL,
     nombre_permiso VARCHAR (45)NOT NULL COMMENT'nombre del rol del usuario',
-    descripcion VARCHAR(100) NULL,
+    descripcion VARCHAR(200) NULL,
     
-    PRIMARY KEY (id_permisos) 
+    PRIMARY KEY (id_permiso) 
 );
 
 #Santiago
@@ -53,13 +54,13 @@ CREATE TABLE IF NOT EXISTS rol_permiso (
     
     PRIMARY KEY (id_rol , id_permiso),
     
-    CONSTRAINT fk_id_rol
+    CONSTRAINT fk_rol_permiso_rol
 		FOREIGN KEY (id_rol)
 		REFERENCES rol (id_rol)
 		ON DELETE NO ACTION
 		ON UPDATE NO ACTION,
     
-    CONSTRAINT fk_id_permiso
+    CONSTRAINT fk_rol_permiso_permiso
 		FOREIGN KEY (id_permiso)
 		REFERENCES permiso (id_permiso)
 		ON DELETE NO ACTION
@@ -70,12 +71,12 @@ CREATE TABLE IF NOT EXISTS rol_permiso (
 CREATE TABLE IF NOT EXISTS usuario (
 	id_usuario INT UNSIGNED AUTO_INCREMENT NOT NULL COMMENT 'PK de la clase usuario',
     
-	correo VARCHAR (50) UNIQUE NOT  NULL COMMENT 'Correo de usuario',
+	correo VARCHAR (100) UNIQUE NOT  NULL COMMENT 'Correo de usuario',
     contrasenna  VARCHAR (50)NOT NULL COMMENT 'contraseña de correo de usuario',
-    nombre VARCHAR (50) NOT NULL COMMENT 'nombre de usuario',
+    nombre VARCHAR (100) NOT NULL COMMENT 'nombre de usuario',
     genero VARCHAR (1) COMMENT 'genero de usuario',
     tipo_documento VARCHAR (3) COMMENT 'tipo de documento de usuario',
-    numero_documento VARCHAR (10) COMMENT 'numero de documento de identifidad',
+    numero_documento VARCHAR (15) COMMENT 'numero de documento de identifidad',
     fecha_nacimiento date COMMENT '',
     direccion  VARCHAR (100)  COMMENT 'direccion de usuario',
     
@@ -86,15 +87,14 @@ CREATE TABLE IF NOT EXISTS usuario (
 CREATE TABLE IF NOT EXISTS cliente (
 	id_usuario INT UNSIGNED NOT NULL COMMENT 'PK de la clase cliente y FK de la tabla Usuario' PRIMARY KEY,
     facebook_vinculado VARCHAR (50) UNIQUE NULL COMMENT 'cuenta de facebook asociada del cliente',
-    correo_vinculado VARCHAR (50) UNIQUE NULL COMMENT 'cuenta de correo asociada del cliente'
-    /*
-    CONSTRAINT fk_id_usuario
+    correo_vinculado VARCHAR (50) UNIQUE NULL COMMENT 'cuenta de correo asociada del cliente',
+    
+    CONSTRAINT fk_id_usuario__cliente
 		FOREIGN KEY (id_usuario)
 		REFERENCES usuario (id_usuario)
 		ON DELETE NO ACTION
 		ON UPDATE NO ACTION
-	*/
-    );
+);
 
 #Santiago
 CREATE TABLE IF NOT EXISTS empleado (
@@ -113,34 +113,34 @@ CREATE TABLE IF NOT EXISTS empleado (
     activo BOOL DEFAULT 0 COMMENT '',
 	cargo VARCHAR(45) NULL COMMENT 'Especifica el cargo que manejara',
     
-    PRIMARY KEY (id_usuario)
+    PRIMARY KEY (id_usuario),
     
     /*
 	tipo_afialiacion VARCHAR(45) NULL COMMENT 'categoria afilicacion a caja de compensación familiar',
 	afialiacion VARCHAR(45) NULL COMMENT 'afilicacion a caja de compensación familiar',
     */
+    
+    CONSTRAINT fk_empleado_usuario
+		FOREIGN KEY (id_usuario)
+		REFERENCES usuario (id_usuario)
+		ON DELETE NO ACTION
+		ON UPDATE NO ACTION,
 
-    /*
-	PRIMARY KEY (id_usuario),
-	INDEX fk_empleado_usuario1_idx (idusuario ASC) VISIBLE,
-	INDEX fk_empleado_tipo_contrato1_idx (tipo_contrato_idtipo_contrato ASC) VISIBLE,
-	CONSTRAINT fk_empleado_usuario1
-	FOREIGN KEY (idusuario)
-	REFERENCES usuario (idusuario)
+    CONSTRAINT fk_empleado_tipo_contrato
+	FOREIGN KEY (id_tipo_contrato)
+	REFERENCES tipo_contrato (id_tipo_contrato)
 	ON DELETE NO ACTION
 	ON UPDATE NO ACTION,
     
-	CONSTRAINT fk_empleado_tipo_contrato1
-	FOREIGN KEY (tipo_contrato_idtipo_contrato)
-	REFERENCES tipo_contrato (idtipo_contrato)
-	ON DELETE NO ACTION
-	ON UPDATE NO ACTION*/
-    /*
-    CONSTRAINT fk_id_rol
+    CONSTRAINT fk_empleado_rol
 		FOREIGN KEY (id_rol)
 		REFERENCES rol (id_rol)
 		ON DELETE NO ACTION
 		ON UPDATE NO ACTION
+        
+	/*
+	INDEX fk_empleado_usuario1_idx (idusuario ASC) VISIBLE,
+	INDEX fk_empleado_tipo_contrato1_idx (tipo_contrato_idtipo_contrato ASC) VISIBLE,
 	*/
 );
 
@@ -154,66 +154,60 @@ CREATE TABLE IF NOT EXISTS afiliacion (
     activo BOOL DEFAULT 1 COMMENT '',
     codigo_afiliacion VARCHAR (15) NULL COMMENT 'Codigo que el empleado tiene es ésta entidad',
 	
-    PRIMARY KEY (id_entidad_afiliada,id_empleado)
+    PRIMARY KEY (id_entidad_afiliada,id_empleado),
+    
+    CONSTRAINT fk_afiliacion_empleado
+		FOREIGN KEY (id_empleado)
+		REFERENCES empleado (id_usuario)
+		ON DELETE NO ACTION
+		ON UPDATE NO ACTION,
+        
+    CONSTRAINT fk_afiliacion_entidad_afiliada
+		FOREIGN KEY (id_entidad_afiliada)
+		REFERENCES entidad_afiliada (id_entidad_afiliada)
+		ON DELETE NO ACTION
+		ON UPDATE NO ACTION
     
     /*
-    CONSTRAINT fk_empleado_tipo_contrato1
-		FOREIGN KEY (tipo_contrato_idtipo_contrato)
-		REFERENCES tipo_contrato (idtipo_contrato)
-		ON DELETE NO ACTION
-		ON UPDATE NO ACTION,
-        
-    CONSTRAINT fk_empleado_tipo_contrato1
-		FOREIGN KEY (tipo_contrato_idtipo_contrato)
-		REFERENCES tipo_contrato (idtipo_contrato)
-		ON DELETE NO ACTION
-		ON UPDATE NO ACTION,
-        
-	CONSTRAINT fk_empleado_tipo_contrato1
-		FOREIGN KEY (tipo_contrato_idtipo_contrato)
-		REFERENCES tipo_contrato (idtipo_contrato)
-		ON DELETE NO ACTION
-		ON UPDATE NO ACTION,
-    */
-    
+	INDEX fk_empleado_usuario1_idx (idusuario ASC) VISIBLE,
+	INDEX fk_empleado_tipo_contrato1_idx (tipo_contrato_idtipo_contrato ASC) VISIBLE,
+	*/
 );
 
 #Santiago
 CREATE TABLE IF NOT EXISTS proveedor (
-	id_usuario INT UNSIGNED NOT NULL COMMENT 'FK de la clase Usuario'
-    
-    /*
-    CONSTRAINT fk_id_usuario
+	id_usuario INT UNSIGNED NOT NULL COMMENT 'FK de la clase Usuario',
+        
+    CONSTRAINT fk_proveedor_usuario
 		FOREIGN KEY (id_usuario)
 		REFERENCES usuario (id_usuario)
 		ON DELETE NO ACTION
 		ON UPDATE NO ACTION
-	*/
+	
 );
 
 #Santiago
 CREATE TABLE IF NOT EXISTS transportadora (
 	id_usuario INT UNSIGNED NOT NULL COMMENT 'PK de la clase transportadora y FK de la tabla Usuario',
-	PRIMARY KEY (id_usuario)
+	PRIMARY KEY (id_usuario),
     
-    /*
-	CONSTRAINT fk_transportadora_usuario1
-		FOREIGN KEY (iidusuario)
-		REFERENCES mydb.usuario (idusuario)
+    CONSTRAINT fk_transportadora_usuario
+		FOREIGN KEY (id_usuario)
+		REFERENCES usuario (id_usuario)
 		ON DELETE NO ACTION
 		ON UPDATE NO ACTION
-	*/
 );
 
 #Santiago
 CREATE TABLE IF NOT EXISTS producto (
-  id_interno INT UNSIGNED AUTO_INCREMENT NOT NULL COMMENT 'PK de la clase imagenes producto',
-  id_externo VARCHAR(45) NULL COMMENT 'Referencia UNICA del producto que tiene el proveedor',
-  id_facebook VARCHAR(45) NULL COMMENT 'Referencia UNICA del producto que tiene facebook',
+  id_producto INT UNSIGNED AUTO_INCREMENT NOT NULL COMMENT 'PK de la clase imagenes producto',
+  id_marca INT UNSIGNED NULL COMMENT  'llave foranea a la tabla marca',
+  id_proveedor INT UNSIGNED NOT NULL COMMENT 'llave foranea a la tabla proveedor',
+  
+  codigo_externo VARCHAR(45) NULL COMMENT 'Referencia UNICA del producto que tiene el proveedor',
+  codigo_facebook VARCHAR(45) NULL COMMENT 'Referencia UNICA del producto que tiene facebook',
   
   fabricado BOOLEAN NULL COMMENT 'Valor que dice si el producto es fabricado o comprado',
-  id_marca INT UNSIGNED NULL COMMENT  'llave foranea a la tabla marca',
-  id_proveedor INT NULL COMMENT 'llave foranea a la tabla proveedor',
   
   #Estos campos no irían en esta tabla
 	  #moneda VARCHAR(10) NULL COMMENT 'Nombre de la moneda con la que esta el precio',
@@ -222,14 +216,22 @@ CREATE TABLE IF NOT EXISTS producto (
   #Este campo esta para debatir si quitarlo
 	#disponible_facebook VARCHAR(45) NULL COMMENT 'Inventario de los productos disponibles de la aplicación',
 	#marca VARCHAR(45) NULL COMMENT 'identificador comercial de los bienes y servicios que ofrece una empresa',
-  PRIMARY KEY (id_interno),
+    
+  PRIMARY KEY (id_producto),
+
+	CONSTRAINT fk_producto_marca
+		FOREIGN KEY (id_marca)
+		REFERENCES marca (id_marca)
+		ON DELETE NO ACTION
+		ON UPDATE NO ACTION,
+	
+	CONSTRAINT fk_producto_proveedor
+		FOREIGN KEY (id_proveedor)
+		REFERENCES proveedor (id_usuario)
+		ON DELETE NO ACTION
+		ON UPDATE NO ACTION
+    
   #INDEX id_marca_idx (id_marca ASC) VISIBLE,
-  
-  CONSTRAINT id_marca
-    FOREIGN KEY (id_marca)
-    REFERENCES marca (id_marca)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION
 );
 
 #Santiago
@@ -242,6 +244,7 @@ CREATE TABLE IF NOT EXISTS producto (
 
 #Santiago
 CREATE TABLE IF NOT EXISTS variante (
+	id_variante INT UNSIGNED NOT NULL COMMENT 'PK de la clase variante, contador de variantes para un producto',
 	id_producto INT UNSIGNED NOT NULL COMMENT 'ID de la clase acual',
 	#id_material INT NULL COMMENT 'llave foranea a la tabla material',  
 
@@ -254,22 +257,18 @@ CREATE TABLE IF NOT EXISTS variante (
 	
     stock INT UNSIGNED DEFAULT 0 COMMENT 'Cantidad de productos en el inventario',
     
-    PRIMARY KEY (id_variante,id_producto)
+    PRIMARY KEY (id_variante,id_producto),
     
-    /*
+	CONSTRAINT fk_variante_producto
+		FOREIGN KEY (id_producto)
+		REFERENCES producto (id_producto)
+		ON DELETE NO ACTION
+		ON UPDATE NO ACTION
+
+	/*
 	INDEX fk_caracteristicas_productos_caracteristicas1_idx (caracteristicas_id ASC) VISIBLE,
 	INDEX fk_caracteristicas_productos_producto_actual1_idx (idproducto ASC) VISIBLE,
     */
-	/*CONSTRAINT fk_caracteristicas_productos_caracteristicas1
-		FOREIGN KEY (caracteristicas_id)
-		REFERENCES caracteristicas (id)
-		ON DELETE NO ACTION
-		ON UPDATE NO ACTION,
-	CONSTRAINT fk_caracteristicas_productos_producto_actual
-		FOREIGN KEY (idproducto)
-		REFERENCES producto (id_interno)
-		ON DELETE NO ACTION
-		ON UPDATE NO ACTION*/
 );
 
 #Santiago
