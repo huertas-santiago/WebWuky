@@ -52,5 +52,3 @@ inner join mascota on cliente.id_usuario = mascota.id_cliente;
 
 SELECT count(genero) FROM usuario GROUP BY genero having genero= 'M';
 SELECT count(genero) FROM usuario GROUP BY genero having genero= 'F';
-
-
