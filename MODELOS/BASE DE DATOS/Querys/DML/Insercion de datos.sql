@@ -130,12 +130,3 @@ INSERT INTO estados_facturas_cliente (id_estados_facturas_cliente,id_factura_cli
 VALUES (null,3,'Pagada','2022-01-02',null);
 SELECT*FROM  estados_facturas_cliente;
 #DROP TABLE estados_facturas_cliente;
-
-
-
-
-
-
-
-
-
