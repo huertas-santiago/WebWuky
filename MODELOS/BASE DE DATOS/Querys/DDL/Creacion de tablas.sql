@@ -258,6 +258,7 @@ CREATE TABLE IF NOT EXISTS variante (
     stock INT UNSIGNED DEFAULT 0 COMMENT 'Cantidad de productos en el inventario',
     
     PRIMARY KEY (id_variante,id_producto),
+
     
 	CONSTRAINT fk_variante_producto
 		FOREIGN KEY (id_producto)
