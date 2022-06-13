@@ -43,6 +43,7 @@ SELECT*FROM especie;
 SELECT*FROM raza;
 SELECT*FROM mascota;
 
+
 SELECT usuario.nombre, cliente.id_usuario
 from usuario inner join cliente on usuario.id_usuario=cliente.id_usuario;
 
@@ -52,5 +53,3 @@ inner join mascota on cliente.id_usuario = mascota.id_cliente;
 
 SELECT count(genero) FROM usuario GROUP BY genero having genero= 'M';
 SELECT count(genero) FROM usuario GROUP BY genero having genero= 'F';
-
-

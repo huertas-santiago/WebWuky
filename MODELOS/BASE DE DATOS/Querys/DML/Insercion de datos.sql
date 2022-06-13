@@ -1,5 +1,3 @@
-<<<<<<< Updated upstream
-=======
 use DBwuky;
 
 DESCRIBE marca;
@@ -132,12 +130,3 @@ VALUES (null,3,'Pagada','2022-01-02',null);
 SELECT*FROM  estados_facturas_cliente;
 #DROP TABLE estados_facturas_cliente;
 
-
-
-
-
-
-
-
-
->>>>>>> Stashed changes
