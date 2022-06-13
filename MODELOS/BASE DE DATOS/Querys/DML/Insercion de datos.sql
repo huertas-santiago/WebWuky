@@ -128,5 +128,6 @@ VALUES (null,1,'Pagada','2020-02-02',null);
 INSERT INTO estados_facturas_cliente (id_estados_facturas_cliente,id_factura_cliente,estado,fecha_inicio,id_estado_anterior) 
 VALUES (null,3,'Pagada','2022-01-02',null);
 SELECT*FROM  estados_facturas_cliente;
+
 #DROP TABLE estados_facturas_cliente;
 

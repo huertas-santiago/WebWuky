@@ -44,6 +44,7 @@ SELECT*FROM raza;
 SELECT*FROM mascota;
 
 
+
 SELECT usuario.nombre, cliente.id_usuario
 from usuario inner join cliente on usuario.id_usuario=cliente.id_usuario;
 
