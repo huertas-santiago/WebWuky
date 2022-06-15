@@ -22,6 +22,10 @@ INSERT INTO usuario (correo, contrasenna, nombre, genero, tipo_documento, numero
  values ('jessica@perez.com', 'xxxxx', 'Jessica Perez', 'F', 'CC', '1001000523', '1989-10-20', 'KR 50 #10-28 Bgta');
 INSERT INTO usuario (correo, contrasenna, nombre, genero, tipo_documento, numero_documento, fecha_nacimiento, direccion)
  values ('alejandra@herrera.com', 'xxxxx', 'Alejandra Herrera', 'F', 'TI', '1001569881', '2005-01-10', 'KR 50 #10-23 Bgta');
+INSERT INTO usuario (correo, contrasenna, nombre, genero, tipo_documento, numero_documento, fecha_nacimiento, direccion)
+ values ('hillscolombia@hillspet.com', 'xxxxx', 'HILLS', 'N', 'NIT', '800777654', null, 'EEUU');
+INSERT INTO usuario (correo, contrasenna, nombre, genero, tipo_documento, numero_documento, fecha_nacimiento, direccion)
+ values ('sacpet@adm.com', 'xxxxx', 'MAX TOTAL', 'N', 'NIT', '900345762', null, 'Bgta');
 SELECT*FROM usuario;
 #drop table usuario;
 
@@ -128,6 +132,12 @@ VALUES (null,1,'Pagada','2020-02-02');
 INSERT INTO estado_factura_cliente  (id_estado_factura_cliente,id_factura_cliente,estado,fecha_inicio) 
 VALUES (null,3,'Pagada','2022-01-02');
 SELECT*FROM  estado_factura_cliente;
-
 #DROP TABLE estados_facturas_cliente;
+
+DESCRIBE proveedor;
+INSERT INTO proveedor (id_usuario) values (7);
+INSERT INTO proveedor (id_usuario) values (8);
+SELECT*FROM proveedor;
+
+DESCRIBE producto;
 
