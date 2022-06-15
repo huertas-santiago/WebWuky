@@ -553,7 +553,7 @@ CREATE TABLE IF NOT EXISTS factura_cliente (
 #Santiago
 #Revisar PK
 CREATE TABLE IF NOT EXISTS estado_factura_cliente (
-	id_estados_facturas_cliente INT UNSIGNED AUTO_INCREMENT NOT NULL COMMENT 'PK de la clase estados_facturas_cliente',
+	id_estado_factura_cliente INT UNSIGNED AUTO_INCREMENT NOT NULL COMMENT 'PK de la clase estados_facturas_cliente',
 	id_factura_cliente INT UNSIGNED NOT NULL COMMENT 'FK a la clase factura_cliente',
     
 	estado VARCHAR (10) NOT NULL COMMENT 'Accion "Pendiente", "Pagada"',
