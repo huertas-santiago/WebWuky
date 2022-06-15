@@ -140,4 +140,11 @@ INSERT INTO proveedor (id_usuario) values (8);
 SELECT*FROM proveedor;
 
 DESCRIBE producto;
+INSERT INTO producto (id_marca, id_proveedor, codigo_externo, codigo_facebook,fabricado)
+ VALUES (4, 8, 'COD03', 'FAC002', 0);
+INSERT INTO producto (id_marca, id_proveedor, codigo_externo, codigo_facebook,fabricado)
+ VALUES (5, 7, 'COD04', 'FAC003', 0); 
+SELECT*FROM producto;
+ 
+
 
