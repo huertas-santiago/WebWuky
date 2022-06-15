@@ -456,7 +456,7 @@ CREATE TABLE IF NOT EXISTS envio (
 CREATE TABLE IF NOT EXISTS pedido(
 	id_pedido INT UNSIGNED NOT NULL COMMENT 'PK de la clase pedido',
     
-    id_cliente INT UNSIGNED NOT NULL COMMENT 'FK a la clase cliente',
+    id_cliente INT UNSIGNED NULL COMMENT 'FK a la clase cliente, si es un pedido de un proveedor este campo va en null',
     id_envio INT UNSIGNED NULL COMMENT 'FK a la clase envio',
     
     contador  INT UNSIGNED DEFAULT 1 COMMENT 'cuenta cuantos pedidos tiene el cliente',
@@ -561,23 +561,21 @@ CREATE TABLE IF NOT EXISTS estado_factura_cliente (
 	#Este campo ya no es necesario se puede saber cual fué el estado anterior por el orden de los id
     #id_estado_anterior INT UNSIGNED NULL COMMENT 'PK de la clase factura_cliente',
     
-    PRIMARY KEY (id_estados_facturas_cliente)
+    PRIMARY KEY (id_estados_facturas_cliente),
     
-    /*
-    CONSTRAINT fk_id_factura_cliente
+    CONSTRAINT fk_estado_factura_cliente_factura_cliente
 		FOREIGN KEY (id_factura_cliente)
 		REFERENCES factura_cliente (id_factura_cliente)
 		ON DELETE NO ACTION
 		ON UPDATE NO ACTION
-    */
 
 );
 
 #Santiago
 CREATE TABLE IF NOT EXISTS factura_proveedor (
-	id_factura INT UNSIGNED NOT NULL COMMENT 'FK a la clase factura',
-	id_empleado INT NOT NULL COMMENT 'FK a la clase empleado, Quien realizó el pedido',
-	id_proveedor INT NOT NULL COMMENT 'FK a la clase proveedor',
+	id_factura INT UNSIGNED AUTO_INCREMENT NOT NULL COMMENT 'PK de la clase factura_proveedor',
+	id_empleado INT UNSIGNED NOT NULL COMMENT 'FK a la clase empleado, Quien realizó el pedido',
+	id_proveedor INT UNSIGNED NOT NULL COMMENT 'FK a la clase proveedor',
     
 	fecha DATETIME NOT NULL COMMENT 'Fecha en que se realizó el pedido',
     fecha_cancelado DATETIME NULL COMMENT 'Fecha en que se pagó el pedido',
@@ -589,65 +587,50 @@ CREATE TABLE IF NOT EXISTS factura_proveedor (
     
 	precio_total FLOAT NULL COMMENT 'total de  la suma de los productos',
     abono FLOAT NULL COMMENT 'Total abonado a la factura',
-	tipo_pago VARCHAR(45) NULL COMMENT 'forma con que se genera el pago'
+	tipo_pago VARCHAR(45) NULL COMMENT 'forma con que se genera el pago',
+    
+    PRIMARY KEY (id_factura),
 	
-    /*
-    INDEX fk_factura_proveedor_empleado1_idx (id_empleado ASC) VISIBLE,
-	PRIMARY KEY (id_factura),
-	INDEX fk_factura_proveedor_proveedor1_idx (id_proveedor ASC) VISIBLE,
-    */
-	
-    /*
-    CONSTRAINT fk_factura_proveedor_empleado1
+    CONSTRAINT fk_factura_proveedor_empleado
 		FOREIGN KEY (id_empleado)
 		REFERENCES empleado (id_usuario)
 		ON DELETE NO ACTION
 		ON UPDATE NO ACTION,
-	CONSTRAINT fk_factura_proveedor_proveedor1
+        
+	CONSTRAINT fk_factura_proveedor_proveedor
 		FOREIGN KEY (id_proveedor)
 		REFERENCES proveedor (id_usuario)
 		ON DELETE NO ACTION
-		ON UPDATE NO ACTION,
-	CONSTRAINT fk_factura_proveedor_factura1
-		FOREIGN KEY (id_factura)
-		REFERENCES factura (id_factura)
-		ON DELETE NO ACTION
 		ON UPDATE NO ACTION
-	
-	*/
+        
+	/*
+    INDEX fk_factura_proveedor_empleado1_idx (id_empleado ASC) VISIBLE,
+	PRIMARY KEY (id_factura),
+	INDEX fk_factura_proveedor_proveedor1_idx (id_proveedor ASC) VISIBLE,
+    */
 );
 
 #Santiago
 CREATE TABLE IF NOT EXISTS carrito (
-    id_cliente INT NOT NULL COMMENT 'FK a la clase cliente',
+    id_cliente INT UNSIGNED NOT NULL COMMENT 'FK a la clase cliente',
     id_producto INT UNSIGNED NOT NULL COMMENT 'FK a la clase producto',
     
     cantidad_producto VARCHAR(45) NULL COMMENT 'Número determinado de unidades adquiridos',
     
-    PRIMARY KEY (id_cliente,id_producto)
+    PRIMARY KEY (id_cliente,id_producto),
     
-    /*
-	PRIMARY KEY (id_cliente),
-	CONSTRAINT fk_carrito_cliente1
-		FOREIGN KEY (id_usuario)
+    
+	CONSTRAINT fk_carrito_cliente
+		FOREIGN KEY (id_cliente)
 		REFERENCES cliente (id_usuario)
 		ON DELETE NO ACTION
 		ON UPDATE NO ACTION,
-	PRIMARY KEY (id_cliente),
     
-	CONSTRAINT fk_carrito_cliente1
-		FOREIGN KEY (id_usuario)
-		REFERENCES cliente (id_usuario)
-		ON DELETE NO ACTION
-		ON UPDATE NO ACTION,
-	PRIMARY KEY (id_cliente),
-    
-	CONSTRAINT fk_carrito_cliente1
-		FOREIGN KEY (id_usuario)
-		REFERENCES cliente (id_usuario)
+	CONSTRAINT fk_carrito_producto
+		FOREIGN KEY (id_producto)
+		REFERENCES producto (id_producto)
 		ON DELETE NO ACTION
 		ON UPDATE NO ACTION
-	*/
 );
 
 #Santiago
@@ -674,15 +657,14 @@ CREATE TABLE IF NOT EXISTS preguntas_frecuentes (
 	pregunta VARCHAR(45) NULL COMMENT '',
 	respuesta VARCHAR(1000) NULL COMMENT '',
     
-    PRIMARY KEY (id_preguntas_frecuentes)
+    PRIMARY KEY (id_preguntas_frecuentes),
     
-    /*
-	CONSTRAINT fk_tema_preguntas
+	CONSTRAINT fk_preguntas_frecuentes_tema_preguntas
 		FOREIGN KEY (id_tema_preguntas)
 		REFERENCES tema_preguntas (id_tema_preguntas)
 		ON DELETE NO ACTION
 		ON UPDATE NO ACTION
-	*/
+	
 );
 
 #jessica
@@ -698,22 +680,23 @@ CREATE TABLE IF NOT EXISTS preguntas_frecuentes (
 CREATE TABLE IF NOT EXISTS logs_empleado (
 	id_logs_empleado INT UNSIGNED AUTO_INCREMENT NOT NULL COMMENT '',
 	id_empleado INT UNSIGNED NOT NULL COMMENT '',
+    
 	direccion_ip INT NOT NULL COMMENT '',
     Tiempo_en_plataforma TIME NOT NULL COMMENT '',
 	hora_inicio TIME  NOT NULL COMMENT '',
     fecha_ingreso  DATE NOT NULL COMMENT '',
     dispositivo VARCHAR (50) NOT NULL COMMENT 'nombre del dispositivo con el que se conectó, PC..Celular',
     
-    PRIMARY KEY (id_logs_empleado)
+    PRIMARY KEY (id_logs_empleado),
     
-    /*
-	CONSTRAINT fk_empleado
+    
+	CONSTRAINT fk_logs_empleado_empleado
 		FOREIGN KEY (id_empleado)
-		REFERENCES empleado (id_empleado)
+		REFERENCES empleado (id_usuario)
 		ON DELETE NO ACTION
 		ON UPDATE NO ACTION
-	*/
-    );
+	
+);
 
 #jessica #Modificado por Santiago
 #Verificar tipo de dato TIME
@@ -727,15 +710,15 @@ CREATE TABLE IF NOT EXISTS logs_cliente (
     fecha_ingreso  DATE NOT NULL,
 	dispositivo VARCHAR (50) NOT NULL COMMENT 'nombre del dispositivo con el que se conectó, PC..Celular',
     
-    PRIMARY KEY (id_logs_cliente)
-
-	/*
-	CONSTRAINT fk_cliente
+    PRIMARY KEY (id_logs_cliente),
+    
+    
+	CONSTRAINT fk_logs_cliente_cliente
 		FOREIGN KEY (id_cliente)
-		REFERENCES cliente (id_cliente)
+		REFERENCES cliente (id_usuario)
 		ON DELETE NO ACTION
 		ON UPDATE NO ACTION
-	*/
+	
 );
 
 #jessica
@@ -750,59 +733,58 @@ CREATE TABLE IF NOT EXISTS logs_cliente (
 CREATE TABLE IF NOT EXISTS acciones_realizadas (
 	id_acciones_realizadas INT UNSIGNED AUTO_INCREMENT NOT NULL COMMENT 'PK de la clase acciones_realizadas',
     id_logs_empleado INT UNSIGNED NOT NULL COMMENT 'FK a la clase logs_empleado',
+    
     tipo_accion VARCHAR(45) NOT NULL COMMENT 'Nombre de la accion realizada',
     descripción VARCHAR (200) NULL COMMENT 'descripcion clase accion',
     
-    PRIMARY KEY (id_acciones_realizadas)
-
+    PRIMARY KEY (id_acciones_realizadas),
     
-    /*
-    CONSTRAINT fk_logs_empleado
+    
+    CONSTRAINT fk_acciones_realizadas_logs_empleado
 		FOREIGN KEY (id_logs_empleado)
 		REFERENCES logs_empleado (id_logs_empleado)
 		ON DELETE NO ACTION
 		ON UPDATE NO ACTION
-    */
 );
     
 #jessica #Modificado por Santiago
 CREATE TABLE IF NOT EXISTS información (
 	id_información INT UNSIGNED AUTO_INCREMENT NOT NULL ,
+    id_imagen INT UNSIGNED NULL,
     texto TEXT NOT NULL,
     titulo VARCHAR(50) NOT NULL,
-    id_imagen INT UNSIGNED NULL,
     
-    PRIMARY KEY (id_información)
+    PRIMARY KEY (id_información),
     
-    /*
-    CONSTRAINT fk_tema_preguntas
-		FOREIGN KEY (id_tema_preguntas)
-		REFERENCES tema_preguntas (id_tema_preguntas)
-		ON DELETE NO ACTION
-		ON UPDATE NO ACTION
-    */
-);
-
-#Jessica #Modificado por Santiago
-CREATE TABLE IF NOT EXISTS producto_imagenes (
-	id_imagen INT UNSIGNED NOT NULL,
-    id_producto INT UNSIGNED NOT NULL,
     
-    PRIMARY KEY ( id_producto , id_imagen )
-    
-    /*
-    CONSTRAINT fk_imagen
+    CONSTRAINT fk_información_imagen
 		FOREIGN KEY (id_imagen)
 		REFERENCES imagen (id_imagen)
 		ON DELETE NO ACTION
 		ON UPDATE NO ACTION
+    
+);
+
+#Jessica #Modificado por Santiago
+CREATE TABLE IF NOT EXISTS producto_imagen (
+	id_imagen INT UNSIGNED NOT NULL,
+    id_producto INT UNSIGNED NOT NULL,
+    
+    PRIMARY KEY ( id_producto , id_imagen ),
+    
+    
+    CONSTRAINT fk_producto_imagen_imagen
+		FOREIGN KEY (id_imagen)
+		REFERENCES imagen (id_imagen)
+		ON DELETE NO ACTION
+		ON UPDATE NO ACTION,
 	
-    CONSTRAINT fk_producto
+    CONSTRAINT fk_producto_imagen_producto
 		FOREIGN KEY (id_producto)
 		REFERENCES producto (id_producto)
 		ON DELETE NO ACTION
 		ON UPDATE NO ACTION
-    */
+	
 );
 
 #Santiago
@@ -811,44 +793,44 @@ CREATE TABLE IF NOT EXISTS producto_pedido (
 	id_pedido INT UNSIGNED NOT NULL COMMENT 'FK a la clase pedido',
     cantidad INT UNSIGNED DEFAULT 1 COMMENT '',
     
-    PRIMARY KEY (id_producto , id_pedido)
+    PRIMARY KEY (id_producto , id_pedido),
     
-    /*
-    CONSTRAINT fk_producto
+    
+    CONSTRAINT fk_producto_pedido_producto
 		FOREIGN KEY (id_producto)
 		REFERENCES producto (id_producto)
 		ON DELETE NO ACTION
 		ON UPDATE NO ACTION,
         
-	CONSTRAINT fk_pedido
+	CONSTRAINT fk_producto_pedido_pedido
 		FOREIGN KEY (id_pedido)
 		REFERENCES pedido (id_pedido)
 		ON DELETE NO ACTION
 		ON UPDATE NO ACTION
-	*/
+	
 );
 
 #Santiago
-CREATE TABLE IF NOT EXISTS producto_facturaProveedor (
+#Toca cambiar los pedidos del proveedor para que no esten en una misma tabla con los pedidos de clientes
+CREATE TABLE IF NOT EXISTS producto_factura_proveedor (
 	id_producto INT UNSIGNED NOT NULL COMMENT 'FK a la clase producto',
 	id_pedido INT UNSIGNED NOT NULL COMMENT 'FK a la clase pedido',
     cantidad INT UNSIGNED DEFAULT 1 COMMENT '',
     
-    PRIMARY KEY (id_producto , id_pedido)
+    PRIMARY KEY (id_producto , id_pedido),
     
-    /*
-    CONSTRAINT fk_producto
+    
+    CONSTRAINT fk_producto_factura_proveedor_producto
 		FOREIGN KEY (id_producto)
 		REFERENCES producto (id_producto)
 		ON DELETE NO ACTION
 		ON UPDATE NO ACTION,
         
-	CONSTRAINT fk_pedido
+	CONSTRAINT fk_producto_factura_proveedor_pedido
 		FOREIGN KEY (id_pedido)
 		REFERENCES pedido (id_pedido)
 		ON DELETE NO ACTION
 		ON UPDATE NO ACTION
-	*/
 );
 
 #Paula #Modificado por Santiago
@@ -865,15 +847,15 @@ CREATE TABLE IF NOT EXISTS raza (
     id_especie INT UNSIGNED NULL COMMENT 'PK de la clase especie',
     nombre VARCHAR (45),
     
-    PRIMARY KEY (id_raza)
+    PRIMARY KEY (id_raza),
     
-    /*
-    CONSTRAINT fk_especie
+    
+    CONSTRAINT fk_raza_especie
 		FOREIGN KEY (id_especie)
 		REFERENCES especie (id_especie)
 		ON DELETE NO ACTION
 		ON UPDATE NO ACTION
-	*/
+	
 );
 
 #Paula #Modificado por Santiago
@@ -888,19 +870,19 @@ CREATE TABLE IF NOT EXISTS mascota (
     tamaño VARCHAR (45),
     fecha_nacimiento VARCHAR(45),
     
-    PRIMARY KEY (id_mascota)
+    PRIMARY KEY (id_mascota),
     
-    /*
-    CONSTRAINT fk_tema_preguntas
-		FOREIGN KEY (id_tema_preguntas)
-		REFERENCES tema_preguntas (id_tema_preguntas)
+    
+    CONSTRAINT fk_mascota_raza
+		FOREIGN KEY (id_raza)
+		REFERENCES raza (id_raza)
 		ON DELETE NO ACTION
 		ON UPDATE NO ACTION,
 	
-    CONSTRAINT fk_tema_preguntas
-		FOREIGN KEY (id_tema_preguntas)
-		REFERENCES tema_preguntas (id_tema_preguntas)
+    CONSTRAINT fk_mascota_cliente
+		FOREIGN KEY (id_cliente)
+		REFERENCES cliente (id_usuario)
 		ON DELETE NO ACTION
 		ON UPDATE NO ACTION
-	*/
+	
 );
