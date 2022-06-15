@@ -97,13 +97,13 @@ INSERT INTO raza (id_especie, nombre) VALUES (1, 'Bengala');
 SELECT*FROM raza;
 
 DESCRIBE mascota;
-INSERT INTO mascota (id_raza, id_cliente, foto, nombre, sexo, tamaño, fecha_nacimiento)
- VALUES (1, 1, 5, 'lucas', 'M', 'Grande', '2015-05-12');
-INSERT INTO mascota (id_raza, id_cliente, foto, nombre, sexo, tamaño, fecha_nacimiento)
- VALUES (6, 2, 4, 'Anastacia', 'H', 'Pequeño', '2020-08-02');
-INSERT INTO mascota (id_raza, id_cliente, foto, nombre, sexo, tamaño, fecha_nacimiento)
- VALUES (7, 3, 7, 'Horacio', 'M', 'Grande', '2018-12-16');
-INSERT INTO mascota (id_raza, id_cliente, foto, nombre, sexo, tamaño, fecha_nacimiento)
+INSERT INTO mascota (id_raza, id_cliente, id_foto, nombre, sexo, tamaño, fecha_nacimiento)
+ VALUES (1, 3, 5, 'lucas', 'M', 'Grande', '2015-05-12');
+INSERT INTO mascota (id_raza, id_cliente, id_foto, nombre, sexo, tamaño, fecha_nacimiento)
+ VALUES (6, 4, 4, 'Anastacia', 'H', 'Pequeño', '2020-08-02');
+INSERT INTO mascota (id_raza, id_cliente, id_foto, nombre, sexo, tamaño, fecha_nacimiento)
+ VALUES (7, 5, 7, 'Horacio', 'M', 'Grande', '2018-12-16');
+INSERT INTO mascota (id_raza, id_cliente, id_foto, nombre, sexo, tamaño, fecha_nacimiento)
  VALUES (8, 3, 8, 'Pancho', 'H', 'Pequeña', '2018-12-16');
 SELECT*FROM mascota;
 #drop table mascota;
@@ -120,14 +120,14 @@ VALUES (null,'2020-10-12',0,0,22800,120000,142800,142,'B15','67545h6770',1,'Tj',
 SELECT*FROM factura_cliente;
 #DROP TABLE factura_cliente;
 
-DESCRIBE estados_facturas_cliente;
-INSERT INTO estados_facturas_cliente (id_estados_facturas_cliente,id_factura_cliente,estado,fecha_inicio,id_estado_anterior) 
-VALUES (null,2,'Pendiente','2022-02-03',null);
-INSERT INTO estados_facturas_cliente (id_estados_facturas_cliente,id_factura_cliente,estado,fecha_inicio,id_estado_anterior) 
-VALUES (null,1,'Pagada','2020-02-02',null);
-INSERT INTO estados_facturas_cliente (id_estados_facturas_cliente,id_factura_cliente,estado,fecha_inicio,id_estado_anterior) 
-VALUES (null,3,'Pagada','2022-01-02',null);
-SELECT*FROM  estados_facturas_cliente;
+DESCRIBE estado_factura_cliente;
+INSERT INTO estado_factura_cliente (id_estado_factura_cliente,id_factura_cliente,estado,fecha_inicio)
+VALUES (null,2,'Pendiente','2022-02-03');
+INSERT INTO estado_factura_cliente (id_estado_factura_cliente,id_factura_cliente,estado,fecha_inicio)
+VALUES (null,1,'Pagada','2020-02-02');
+INSERT INTO estado_factura_cliente  (id_estado_factura_cliente,id_factura_cliente,estado,fecha_inicio) 
+VALUES (null,3,'Pagada','2022-01-02');
+SELECT*FROM  estado_factura_cliente;
 
 #DROP TABLE estados_facturas_cliente;
 
