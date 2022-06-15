@@ -145,6 +145,14 @@ INSERT INTO producto (id_marca, id_proveedor, codigo_externo, codigo_facebook,fa
 INSERT INTO producto (id_marca, id_proveedor, codigo_externo, codigo_facebook,fabricado)
  VALUES (5, 7, 'COD04', 'FAC003', 0); 
 SELECT*FROM producto;
+
+DESCRIBE variante;
+INSERT INTO variante (id_variante, id_producto, precio, descuento, visualizacion_eCommerce, visualización_facebook, sexo, descripción, stock)
+ VALUES (1, 1, 20.000, 0.15, 1, 1, null, 'Comida para perro', 34);
+INSERT INTO variante (id_variante, id_producto, precio, descuento, visualizacion_eCommerce, visualización_facebook, sexo, descripción, stock)
+ VALUES (2, 2, 40.000, 0.10, 1, 1, null, 'Comida para perro', 5);
+ select*from variante;
+
  
 
 
