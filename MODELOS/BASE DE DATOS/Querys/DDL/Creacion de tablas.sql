@@ -879,13 +879,13 @@ CREATE TABLE IF NOT EXISTS mascota (
 		ON DELETE NO ACTION
 		ON UPDATE NO ACTION,
 	
-    CONSTRAINT fk_mascota_imagen
+    CONSTRAINT fk_mascota_cliente
 		FOREIGN KEY (id_cliente)
 		REFERENCES cliente (id_usuario)
 		ON DELETE NO ACTION
 		ON UPDATE NO ACTION,
 	
-    CONSTRAINT fk_mascota_cliente
+    CONSTRAINT fk_mascota_imagen
 		FOREIGN KEY (id_foto)
 		REFERENCES imagen (id_imagen)
 		ON DELETE NO ACTION
