@@ -561,7 +561,7 @@ CREATE TABLE IF NOT EXISTS estado_factura_cliente (
 	#Este campo ya no es necesario se puede saber cual fué el estado anterior por el orden de los id
     #id_estado_anterior INT UNSIGNED NULL COMMENT 'PK de la clase factura_cliente',
     
-    PRIMARY KEY (id_estados_facturas_cliente),
+    PRIMARY KEY (id_estado_factura_cliente),
     
     CONSTRAINT fk_estado_factura_cliente_factura_cliente
 		FOREIGN KEY (id_factura_cliente)
