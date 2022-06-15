@@ -863,8 +863,8 @@ CREATE TABLE IF NOT EXISTS mascota (
 	id_mascota INT UNSIGNED AUTO_INCREMENT NOT NULL COMMENT 'PK de la clase mascota',
     id_raza INT UNSIGNED NOT NULL COMMENT 'PK de la clase raza',
     id_cliente INT UNSIGNED NOT NULL COMMENT 'PK de la clase cliente',
+    id_foto INT UNSIGNED NOT NULL COMMENT 'PK de la clase imagen',
     
-    foto VARCHAR (45),
     nombre VARCHAR (45),
     sexo VARCHAR (1),
     tamaño VARCHAR (45),
@@ -879,10 +879,15 @@ CREATE TABLE IF NOT EXISTS mascota (
 		ON DELETE NO ACTION
 		ON UPDATE NO ACTION,
 	
-    CONSTRAINT fk_mascota_cliente
+    CONSTRAINT fk_mascota_imagen
 		FOREIGN KEY (id_cliente)
 		REFERENCES cliente (id_usuario)
 		ON DELETE NO ACTION
-		ON UPDATE NO ACTION
+		ON UPDATE NO ACTION,
 	
+    CONSTRAINT fk_mascota_cliente
+		FOREIGN KEY (id_foto)
+		REFERENCES imagen (id_imagen)
+		ON DELETE NO ACTION
+		ON UPDATE NO ACTION
 );
