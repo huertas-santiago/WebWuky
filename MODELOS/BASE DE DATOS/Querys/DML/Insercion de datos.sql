@@ -7,7 +7,7 @@ INSERT INTO marca (nombre) values ('PETYS');
 INSERT INTO marca (nombre) values ('MAX');
 INSERT INTO marca (nombre) values ('PURINA ONE');
 INSERT INTO marca (nombre) values ('EQUILIBRIO');
-SELECT*FROM marca;
+#SELECT*FROM marca;
 
 DESCRIBE usuario;
 INSERT INTO usuario (correo, contrasenna, nombre, genero, tipo_documento, numero_documento, fecha_nacimiento, direccion)
@@ -26,19 +26,19 @@ INSERT INTO usuario (correo, contrasenna, nombre, genero, tipo_documento, numero
  values ('hillscolombia@hillspet.com', 'xxxxx', 'HILLS', 'N', 'NIT', '800777654', null, 'EEUU');
 INSERT INTO usuario (correo, contrasenna, nombre, genero, tipo_documento, numero_documento, fecha_nacimiento, direccion)
  values ('sacpet@adm.com', 'xxxxx', 'MAX TOTAL', 'N', 'NIT', '900345762', null, 'Bgta');
-SELECT*FROM usuario;
+#SELECT*FROM usuario;
 #drop table usuario;
 
 DESCRIBE tipo_contrato;
 INSERT INTO tipo_contrato (nombre) VALUES ('Termino Indefinido');
 INSERT INTO tipo_contrato (nombre) VALUES ('Termino Fijo');
 INSERT INTO tipo_contrato (nombre) VALUES ('Obra a Labor');
-SELECT*FROM tipo_contrato;
+#SELECT*FROM tipo_contrato;
 
 DESCRIBE rol;
 INSERT INTO rol (nombre_rol) VALUES ('Administrador');
 INSERT INTO rol (nombre_rol) VALUES ('Empleado');
-SELECT*FROM rol;
+#SELECT*FROM rol;
 
 DESCRIBE permiso;
 INSERT INTO permiso (nombre_permiso) VALUES ('Editar Producto');
@@ -47,12 +47,12 @@ INSERT INTO permiso (nombre_permiso) VALUES ('Eliminar Producto');
 INSERT INTO permiso (nombre_permiso) VALUES ('Agregar Empleado');
 INSERT INTO permiso (nombre_permiso) VALUES ('Editar Empleado');
 INSERT INTO permiso (nombre_permiso) VALUES ('Eliminar Empleado');
-SELECT*FROM permiso;
+#SELECT*FROM permiso;
 
 DESCRIBE rol_permiso;
 INSERT INTO rol_permiso (id_rol, id_permiso)  VALUES (1,1),(1,2),(1,3),(1,4),(1,5),(1,6);
 INSERT INTO rol_permiso (id_rol, id_permiso) VALUES (2,1),(2,2),(2,3);
-SELECT*FROM rol_permiso;
+#SELECT*FROM rol_permiso;
 
 DESCRIBE imagen;
 INSERT INTO imagen (url, descripcion, tamaño) VALUES ('https://images.app.goo.gl/Y1Z5PurqitfCGRgCA', 'Foto de Lupe Gomez', 'P');
@@ -63,7 +63,7 @@ INSERT INTO imagen (url, descripcion, tamaño) VALUES ('https://images.app.goo.g
 INSERT INTO imagen (url, descripcion, tamaño) VALUES ('https://images.app.goo.gl/ycwSQ3F64iZHe84Q9', 'Foto de Perro Pastor Aleman', 'P');
 INSERT INTO imagen (url, descripcion, tamaño) VALUES ('https://images.app.goo.gl/ab4xVUdBBDTMgwbZ7', 'Foto de Gato Maine Coon', 'P');
 INSERT INTO imagen (url, descripcion, tamaño) VALUES ('https://images.app.goo.gl/megbGYmqbQTuiCL28', 'Foto de Gato Bengala', 'G');
-SELECT*FROM imagen;
+#SELECT*FROM imagen;
 #drop table imagen;
 
 
@@ -74,20 +74,20 @@ INSERT INTO empleado(id_usuario, id_tipo_contrato, id_rol, foto, grupo_sanguineo
  VALUES (6, 3, 1, 2, 'AB+', '2022-01-01', '2022-03-15', '002', 1, 'Administradora de Plataformas');
 INSERT INTO empleado(id_usuario, id_tipo_contrato, id_rol, foto, grupo_sanguineo_RH, fecha_contratacion, fecha_fin_contratacion, codigo_contrato, activo, cargo)
   VALUES (1, 2, 2, 3, 'O-', '2021-12-12', '2022-12-12', '003', 1, 'Auxiliar de Contabilidad');
-SELECT*FROM empleado;
+#SELECT*FROM empleado;
 #drop table empleado;
 
 DESCRIBE cliente; 
 INSERT INTO cliente (id_usuario) VALUES (3);
 INSERT INTO cliente (id_usuario) VALUES (4);
 INSERT INTO cliente (id_usuario) VALUES (5);
-SELECT*FROM cliente;
+#SELECT*FROM cliente;
 #drop table cliente;
 
 DESCRIBE especie;
 INSERT INTO especie (nombre) VALUES ('Gato');
 INSERT INTO especie (nombre) VALUES ('Perro');
-SELECT*FROM especie;
+#SELECT*FROM especie;
 
 DESCRIBE raza;
 INSERT INTO raza (id_especie, nombre) VALUES (2, 'Bulldog');
@@ -98,7 +98,7 @@ INSERT INTO raza (id_especie, nombre) VALUES (2, 'Labrador');
 INSERT INTO raza (id_especie, nombre) VALUES (1, 'Gato Persa');
 INSERT INTO raza (id_especie, nombre) VALUES (1, 'Maine Coon');
 INSERT INTO raza (id_especie, nombre) VALUES (1, 'Bengala');
-SELECT*FROM raza;
+#SELECT*FROM raza;
 
 DESCRIBE mascota;
 INSERT INTO mascota (id_raza, id_cliente, id_foto, nombre, sexo, tamaño, fecha_nacimiento)
@@ -109,7 +109,7 @@ INSERT INTO mascota (id_raza, id_cliente, id_foto, nombre, sexo, tamaño, fecha_
  VALUES (7, 5, 7, 'Horacio', 'M', 'Grande', '2018-12-16');
 INSERT INTO mascota (id_raza, id_cliente, id_foto, nombre, sexo, tamaño, fecha_nacimiento)
  VALUES (8, 3, 8, 'Pancho', 'H', 'Pequeña', '2018-12-16');
-SELECT*FROM mascota;
+#SELECT*FROM mascota;
 #drop table mascota;
 
 DESCRIBE factura_cliente;
@@ -121,7 +121,7 @@ INSERT INTO factura_cliente (id_factura_cliente,fecha,rete_ica,rete_fuente,iva,s
 VALUES (null,'2022-10-20',0,0,6460,34000,40460,226,'B14','67545h6769',1,'Tj','Lucas Contreras','C',1038055081);
 INSERT INTO factura_cliente (id_factura_cliente,fecha,rete_ica,rete_fuente,iva,subtotal,compra_neta,dijitos_tarjeta,id_banco,codigo_facturado,respuesta_banco,forma_pago,nombre_destinatario,tipo_documento,numero_documento) 
 VALUES (null,'2020-10-12',0,0,22800,120000,142800,142,'B15','67545h6770',1,'Tj','Milena Castro ','C',4592966760);
-SELECT*FROM factura_cliente;
+#SELECT*FROM factura_cliente;
 #DROP TABLE factura_cliente;
 
 DESCRIBE estado_factura_cliente;
@@ -131,28 +131,35 @@ INSERT INTO estado_factura_cliente (id_estado_factura_cliente,id_factura_cliente
 VALUES (null,1,'Pagada','2020-02-02');
 INSERT INTO estado_factura_cliente  (id_estado_factura_cliente,id_factura_cliente,estado,fecha_inicio) 
 VALUES (null,3,'Pagada','2022-01-02');
-SELECT*FROM  estado_factura_cliente;
+#SELECT*FROM  estado_factura_cliente;
 #DROP TABLE estados_facturas_cliente;
 
 DESCRIBE proveedor;
 INSERT INTO proveedor (id_usuario) values (7);
 INSERT INTO proveedor (id_usuario) values (8);
-SELECT*FROM proveedor;
+#SELECT*FROM proveedor;
 
 DESCRIBE producto;
 INSERT INTO producto (id_marca, id_proveedor, codigo_externo, codigo_facebook,fabricado)
  VALUES (4, 8, 'COD03', 'FAC002', 0);
 INSERT INTO producto (id_marca, id_proveedor, codigo_externo, codigo_facebook,fabricado)
  VALUES (5, 7, 'COD04', 'FAC003', 0); 
-SELECT*FROM producto;
+#SELECT*FROM producto;
 
 DESCRIBE variante;
 INSERT INTO variante (id_variante, id_producto, precio, descuento, visualizacion_eCommerce, visualización_facebook, sexo, descripción, stock)
  VALUES (1, 1, 20.000, 0.15, 1, 1, null, 'Comida para perro', 34);
 INSERT INTO variante (id_variante, id_producto, precio, descuento, visualizacion_eCommerce, visualización_facebook, sexo, descripción, stock)
  VALUES (2, 2, 40.000, 0.10, 1, 1, null, 'Comida para perro', 5);
- select*from variante;
+ #select*from variante;
 
+DESCRIBE material;
+INSERT INTO material (tipo_material, medida) values 
+DESCRIBE variante_material;
+DESCRIBE categoria;
+
+DESCRIBE categoria_producto;
+DESCRIBE producto_favorito;
  
 
 
