@@ -54,5 +54,26 @@ from cliente inner join usuario on cliente.id_usuario=usuario.id_usuario
 inner join mascota on cliente.id_usuario = mascota.id_cliente ;
 
 SELECT count(genero) FROM usuario GROUP BY genero having genero= 'M';
+
 SELECT count(genero) FROM usuario GROUP BY genero having genero= 'F';
+
+SELECT*FROM estado_factura_cliente WHERE estado = 'Pagada';
+
+SELECT nombre, tipo_documento, numero_documento, direccion 
+FROM usuario order by nombre asc;
+
+SELECT*FROM pedido WHERE fecha > '2022-04-01';
+
+SELECT descripción as producto, sum(stock) as cantidad FROM variante 
+WHERE descripción = 'Comida para perro';
+
+SELECT count(peso) as cantidad FROM envio WHERE peso > 2.5;
+
+SELECT id_factura_cliente, nombre_destinatario, tipo_documento, numero_documento, fecha, compra_neta FROM factura_cliente
+WHERE fecha > '2022-04-01' AND compra_neta <600000;
+
+SELECT id_factura_cliente, fecha, compra_neta, dijitos_tarjeta, id_banco FROM factura_cliente
+WHERE compra_neta > 100000 order by fecha desc;
+
+
 
