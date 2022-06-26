@@ -207,11 +207,19 @@ INSERT INTO envio (codigo_envio, peso, largo, ancho, alto, valor_declarado, dire
 #select*from envio; 
 
 DESCRIBE pedido;
-INSERT INTO (
-
+INSERT INTO pedido (id_cliente, id_envio, fecha) VALUES (3, 1,'2022-03-25');
+INSERT INTO pedido (id_cliente, id_envio, fecha) VALUES (3, 2,'2022-04-13');
+INSERT INTO pedido (id_cliente, id_envio, fecha) VALUES (4, 3,'2022-04-25');
+INSERT INTO pedido (id_cliente, id_envio, fecha) VALUES (5, 4,'2022-05-15');
+#SELECT*FROM pedido;
 
 DESCRIBE producto_pedido;
-INSERT INTO producto_pedido (id_producto, id_pedido, cantidad) VALUES (
+INSERT INTO producto_pedido (id_producto, id_pedido, cantidad) VALUES (1,1,1);
+INSERT INTO producto_pedido (id_producto, id_pedido, cantidad) VALUES (2,2,1);
+INSERT INTO producto_pedido (id_producto, id_pedido, cantidad) VALUES (3,3,1);
+INSERT INTO producto_pedido (id_producto, id_pedido, cantidad) VALUES (4,4,1);
+#select*from producto_pedido;
+
 DESCRIBE producto_factura_proveedor;
 DESCRIBE producto_imagen;
 DESCRIBE carrito;
