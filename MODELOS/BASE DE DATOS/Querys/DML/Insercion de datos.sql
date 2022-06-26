@@ -223,6 +223,7 @@ INSERT INTO producto_pedido (id_producto, id_pedido, cantidad) VALUES (2,2,1);
 INSERT INTO producto_pedido (id_producto, id_pedido, cantidad) VALUES (3,3,1);
 INSERT INTO producto_pedido (id_producto, id_pedido, cantidad) VALUES (4,4,1);
 #select*from producto_pedido;
+
 DESCRIBE producto_imagen;
 INSERT INTO producto_imagen (id_imagen, id_producto) VALUES (9, 1);
 INSERT INTO producto_imagen (id_imagen, id_producto) VALUES (10, 2);
