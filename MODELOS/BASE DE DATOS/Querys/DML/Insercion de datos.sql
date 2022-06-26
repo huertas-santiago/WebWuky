@@ -63,6 +63,10 @@ INSERT INTO imagen (url, descripcion, tamaño) VALUES ('https://images.app.goo.g
 INSERT INTO imagen (url, descripcion, tamaño) VALUES ('https://images.app.goo.gl/ycwSQ3F64iZHe84Q9', 'Foto de Perro Pastor Aleman', 'P');
 INSERT INTO imagen (url, descripcion, tamaño) VALUES ('https://images.app.goo.gl/ab4xVUdBBDTMgwbZ7', 'Foto de Gato Maine Coon', 'P');
 INSERT INTO imagen (url, descripcion, tamaño) VALUES ('https://images.app.goo.gl/megbGYmqbQTuiCL28', 'Foto de Gato Bengala', 'G');
+INSERT INTO imagen (url, descripcion, tamaño) VALUES ('https://images.app.goo.gl/v1KruVYAqJSb32c79', 'Comida para perro', 'G');
+INSERT INTO imagen (url, descripcion, tamaño) VALUES ('https://images.app.goo.gl/7Ma5PQPGkc52NXYi6', 'Comida para gato', 'G');
+INSERT INTO imagen (url, descripcion, tamaño) VALUES ('https://images.app.goo.gl/wAVwM72au2mR1NBH7', 'Cama para perro', 'G');
+INSERT INTO imagen (url, descripcion, tamaño) VALUES ('https://images.app.goo.gl/pJSghSXj4qyLd74i6', 'Maleta para gato', 'G');
 #SELECT*FROM imagen;
 #drop table imagen;
 
@@ -219,9 +223,28 @@ INSERT INTO producto_pedido (id_producto, id_pedido, cantidad) VALUES (2,2,1);
 INSERT INTO producto_pedido (id_producto, id_pedido, cantidad) VALUES (3,3,1);
 INSERT INTO producto_pedido (id_producto, id_pedido, cantidad) VALUES (4,4,1);
 #select*from producto_pedido;
+DESCRIBE producto_imagen;
+INSERT INTO producto_imagen (id_imagen, id_producto) VALUES (9, 1);
+INSERT INTO producto_imagen (id_imagen, id_producto) VALUES (10, 2);
+INSERT INTO producto_imagen (id_imagen, id_producto) VALUES (11, 4);
+INSERT INTO producto_imagen (id_imagen, id_producto) VALUES (12, 3);
+
+DESCRIBE carrito;
+INSERT INTO carrito (id_cliente, id_producto, cantidad_producto) VALUES (3, 1, 4);
+INSERT INTO carrito (id_cliente, id_producto, cantidad_producto) VALUES (4, 3, 10);
+INSERT INTO carrito (id_cliente, id_producto, cantidad_producto) VALUES (5, 4, 1);
 
 DESCRIBE producto_factura_proveedor;
-DESCRIBE producto_imagen;
-DESCRIBE carrito;
+INSERT INTO producto_factura_proveedor (id_producto, id_pedido, cantidad) VALUES ();
+#select*from producto;
+#select*from pedido;
+
+
 DESCRIBE factura_proveedor;
+
+
+
+
+
+
 
