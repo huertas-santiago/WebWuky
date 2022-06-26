@@ -454,8 +454,7 @@ CREATE TABLE IF NOT EXISTS envio (
 #DROP TABLE pedido;
 #PAULA #Modificado Santiago
 CREATE TABLE IF NOT EXISTS pedido(
-	id_pedido INT UNSIGNED NOT NULL COMMENT 'PK de la clase pedido',
-    
+	id_pedido INT UNSIGNED AUTO_INCREMENT NOT NULL COMMENT 'PK de la clase pedido',
     id_cliente INT UNSIGNED NULL COMMENT 'FK a la clase cliente, si es un pedido de un proveedor este campo va en null',
     id_envio INT UNSIGNED NULL COMMENT 'FK a la clase envio',
     
