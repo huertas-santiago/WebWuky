@@ -144,6 +144,10 @@ INSERT INTO producto (id_marca, id_proveedor, codigo_externo, codigo_facebook,fa
  VALUES (4, 8, 'COD03', 'FAC002', 0);
 INSERT INTO producto (id_marca, id_proveedor, codigo_externo, codigo_facebook,fabricado)
  VALUES (5, 7, 'COD04', 'FAC003', 0); 
+INSERT INTO producto (id_marca, id_proveedor, codigo_externo, codigo_facebook,fabricado)
+ VALUES (1, 7, 'COD05', 'FAC004', 0); 
+INSERT INTO producto (id_marca, id_proveedor, codigo_externo, codigo_facebook,fabricado)
+ VALUES (2, 7, 'COD06', 'FAC005', 0); 
 #SELECT*FROM producto;
 
 DESCRIBE variante;
@@ -151,15 +155,65 @@ INSERT INTO variante (id_variante, id_producto, precio, descuento, visualizacion
  VALUES (1, 1, 20.000, 0.15, 1, 1, null, 'Comida para perro', 34);
 INSERT INTO variante (id_variante, id_producto, precio, descuento, visualizacion_eCommerce, visualización_facebook, sexo, descripción, stock)
  VALUES (2, 2, 40.000, 0.10, 1, 1, null, 'Comida para perro', 5);
+INSERT INTO variante (id_variante, id_producto, precio, descuento, visualizacion_eCommerce, visualización_facebook, sexo, descripción, stock)
+ VALUES (3, 3, 110.000, 0.10, 1, 1, null, 'Cama trenza para perro', 10);
+INSERT INTO variante (id_variante, id_producto, precio, descuento, visualizacion_eCommerce, visualización_facebook, sexo, descripción, stock)
+ VALUES (4, 4, 150.000, 0.10, 1, 1, null, 'Portamascota - Cargador para mascota', 6);
  #select*from variante;
 
 DESCRIBE material;
-INSERT INTO material (tipo_material, medida) values 
+INSERT INTO material (tipo_material, medida) values ('Peso', '25kg');
+INSERT INTO material (tipo_material, medida) values ('Peso', '50kg');
+INSERT INTO material (tipo_material, medida) values ('Material nacional', 'Alto: 42 Cm Ancho 44 cm & Profundo 17,5 cm');
+INSERT INTO material (tipo_material, medida) values ('Material nacional', '60cmX60cm y 70cmX70 cm.');
+#select*from material;
+#DROP TABLE material;
+ 
 DESCRIBE variante_material;
+INSERT INTO variante_material (id_variante, id_material, cantidad) VALUES (1,1, 20);
+INSERT INTO variante_material (id_variante, id_material, cantidad) VALUES (2,2, 30);
+INSERT INTO variante_material (id_variante, id_material, cantidad) VALUES (3,4, 10);
+INSERT INTO variante_material (id_variante, id_material, cantidad) VALUES (4,3, 67);
+ #select*from variante_material;
+
 DESCRIBE categoria;
+INSERT INTO categoria (nombre, descripcion) VALUES ('Alimentos', 'Comida para gato y perro');
+INSERT INTO categoria (nombre, descripcion) VALUES ('Juguetes', 'Jugueteria para gato y perro');
+INSERT INTO categoria (nombre, descripcion) VALUES ('Camas y Maletas', 'Camas y maletas para gato y perro');
+#select*from categoria;
 
 DESCRIBE categoria_producto;
-DESCRIBE producto_favorito;
- 
+INSERT INTO categoria_producto (id_categoria, id_producto) VALUES (1,1);
+INSERT INTO categoria_producto (id_categoria, id_producto) VALUES (2,1);
+INSERT INTO categoria_producto (id_categoria, id_producto) VALUES (3,3);
+INSERT INTO categoria_producto (id_categoria, id_producto) VALUES (3,4);
+#select*from categoria_producto;
 
+DESCRIBE producto_favorito;
+INSERT INTO producto_favorito (id_producto, id_cliente, cantidad) VALUES (1,3,5);
+INSERT INTO producto_favorito (id_producto, id_cliente, cantidad) VALUES (3,4,2);
+INSERT INTO producto_favorito (id_producto, id_cliente, cantidad) VALUES (4,5,3);
+#select*from producto_favorito;
+
+DESCRIBE envio;
+INSERT INTO envio (codigo_envio, peso, largo, ancho, alto, valor_declarado, direccion_envio)
+ VALUES ('001', 2.5, 10, 12, 5, 8.500, 'carrera 1 #30-76');
+INSERT INTO envio (codigo_envio, peso, largo, ancho, alto, valor_declarado, direccion_envio)
+ VALUES ('002', 5.2, 20, 17, 45, 10.500, 'carrera 1 #30-76');
+INSERT INTO envio (codigo_envio, peso, largo, ancho, alto, valor_declarado, direccion_envio)
+ VALUES ('003', 28.5, 44, 17.5, 42, 11.000, 'carrera 2 #20-56');
+INSERT INTO envio (codigo_envio, peso, largo, ancho, alto, valor_declarado, direccion_envio)
+ VALUES ('004', 20, 60, 60, 10, 8.500, 'calle 30 #2-66');
+#select*from envio; 
+
+DESCRIBE pedido;
+INSERT INTO (
+
+
+DESCRIBE producto_pedido;
+INSERT INTO producto_pedido (id_producto, id_pedido, cantidad) VALUES (
+DESCRIBE producto_factura_proveedor;
+DESCRIBE producto_imagen;
+DESCRIBE carrito;
+DESCRIBE factura_proveedor;
 

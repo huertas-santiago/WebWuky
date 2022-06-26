@@ -285,7 +285,7 @@ CREATE TABLE IF NOT EXISTS variante (
 CREATE TABLE IF NOT EXISTS material (
 	id_material INT UNSIGNED AUTO_INCREMENT NOT NULL  COMMENT 'PK de la clase materiales',
     
-    tipo_material INT UNSIGNED NOT NULL COMMENT 'Tipo de la variante como PESO, DIMENSION, COLOR, TELA',
+    tipo_material VARCHAR(45) NOT NULL COMMENT 'Tipo de la variante como PESO, DIMENSION, COLOR, TELA',
 	medida VARCHAR(45) NULL COMMENT 'Como se mide el tipo, si es peso la medida es Kg',
 
     PRIMARY KEY(id_material)
