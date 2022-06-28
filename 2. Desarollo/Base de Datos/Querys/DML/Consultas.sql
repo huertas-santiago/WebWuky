@@ -51,7 +51,8 @@ from usuario inner join cliente on usuario.id_usuario=cliente.id_usuario;
 #Buscar mascotas de los clientes
 SELECT cliente.id_usuario, usuario.nombre, mascota.nombre
 from cliente inner join usuario on cliente.id_usuario=usuario.id_usuario
-inner join mascota on cliente.id_usuario = mascota.id_cliente ;
+inner join mascota on cliente.id_usuario = mascota.id_cliente 
+Order by cliente.id_usuario;
 
 SELECT count(genero) FROM usuario GROUP BY genero having genero= 'M';
 
