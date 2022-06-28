@@ -1,0 +1,42 @@
+*{
+  font-family: "Helvetica Neue",sans-serif;
+}
+
+table{
+  width: 420;
+}
+
+td{
+  padding: 10px;
+}
+
+fieldset{
+  padding: 10px;
+  border: 1px solid #ccc;
+  width: 420px;
+  margin: 0 auto;
+}
+
+legend{
+  text-align: right;
+  font-style: italic;
+  font-size: 20px;
+  font-weight: bold;
+  color: #999;
+}
+
+input[type="text"], input[type="email"],textarea{
+  padding: 5px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  width: 300px;
+}
+
+input[type="email"]{
+  /*Falta alinear el texto "Mensaje" en la parte superior*/
+}
+
+input[type="image"]{
+  height: 25px;
+}
+
