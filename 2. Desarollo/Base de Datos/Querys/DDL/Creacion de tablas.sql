@@ -4,7 +4,7 @@
 DROP DATABASE IF EXISTS DBWuky;
 CREATE DATABASE IF NOT EXISTS DBWuky DEFAULT CHARACTER SET utf8;
 USE DBWuky;
-show tables;
+#show tables;
 
 #Santiago
 CREATE TABLE IF NOT EXISTS marca(
@@ -435,9 +435,11 @@ CREATE TABLE IF NOT EXISTS producto_favorito (
     
 );
 
+#DROP TABLE envio;
 #Santiago
 CREATE TABLE IF NOT EXISTS envio (
 	id_envio INT UNSIGNED AUTO_INCREMENT NOT NULL COMMENT 'PK de la clase envio',
+    id_transportadora INT UNSIGNED NULL COMMENT 'FK de la tabla transportadora',
     
     codigo_envio VARCHAR (15) NULL COMMENT '',
 	peso FLOAT NULL COMMENT '',
@@ -448,7 +450,59 @@ CREATE TABLE IF NOT EXISTS envio (
     
     direccion_envio VARCHAR (100),
 
-	PRIMARY KEY(id_envio)
+	PRIMARY KEY(id_envio),
+    
+    CONSTRAINT fk_envio_transportadora
+		FOREIGN KEY (id_transportadora)
+		REFERENCES transportadora (id_usuario)
+		ON DELETE NO ACTION
+		ON UPDATE NO ACTION
+);
+
+#Santiago
+CREATE TABLE IF NOT EXISTS factura_cliente (
+	id_factura_cliente INT UNSIGNED AUTO_INCREMENT NOT NULL COMMENT 'PK de la clase factura_cliente',
+    
+    fecha DATETIME,
+	rete_ica FLOAT,
+	rete_fuente FLOAT,
+	iva FLOAT,
+	subtotal FLOAT,
+    compra_neta FLOAT,
+	dijitos_tarjeta VARCHAR(20),
+	id_banco VARCHAR(20) NULL,
+	codigo_facturado VARCHAR(20),
+	
+	respuesta_banco BOOL,
+	forma_pago VARCHAR(2),
+    
+    #Datos del DESTINATARIO
+	nombre_destinatario VARCHAR(20),
+    tipo_documento VARCHAR(20),
+	numero_documento VARCHAR(20),
+    
+    PRIMARY KEY (id_factura_cliente)
+);
+
+#Santiago
+#Revisar PK
+CREATE TABLE IF NOT EXISTS estado_factura_cliente (
+	id_estado_factura_cliente INT UNSIGNED AUTO_INCREMENT NOT NULL COMMENT 'PK de la clase estados_facturas_cliente',
+	id_factura_cliente INT UNSIGNED NOT NULL COMMENT 'FK a la clase factura_cliente',
+    
+	estado VARCHAR (10) NOT NULL COMMENT 'Accion "Pendiente", "Pagada"',
+	fecha_inicio DATETIME NOT NULL,
+	#Este campo ya no es necesario se puede saber cual fué el estado anterior por el orden de los id
+    #id_estado_anterior INT UNSIGNED NULL COMMENT 'PK de la clase factura_cliente',
+    
+    PRIMARY KEY (id_estado_factura_cliente),
+    
+    CONSTRAINT fk_estado_factura_cliente_factura_cliente
+		FOREIGN KEY (id_factura_cliente)
+		REFERENCES factura_cliente (id_factura_cliente)
+		ON DELETE NO ACTION
+		ON UPDATE NO ACTION
+
 );
 
 #DROP TABLE pedido;
@@ -457,6 +511,7 @@ CREATE TABLE IF NOT EXISTS pedido(
 	id_pedido INT UNSIGNED AUTO_INCREMENT NOT NULL COMMENT 'PK de la clase pedido',
     id_cliente INT UNSIGNED NULL COMMENT 'FK a la clase cliente, si es un pedido de un proveedor este campo va en null',
     id_envio INT UNSIGNED NULL COMMENT 'FK a la clase envio',
+    id_factura_cliente INT UNSIGNED NULL COMMENT 'FK a la clase factura_cliente',
     
     contador  INT UNSIGNED DEFAULT 1 COMMENT 'cuenta cuantos pedidos tiene el cliente',
     fecha DATE NOT NULL COMMENT 'Fecha en la que se encargó el pedido',
@@ -464,7 +519,13 @@ CREATE TABLE IF NOT EXISTS pedido(
     
     PRIMARY KEY (id_pedido),
     
-    CONSTRAINT fk_pedido_id_cliente
+    CONSTRAINT fk_pedido_factura_cliente
+		FOREIGN KEY (id_factura_cliente)
+		REFERENCES factura_cliente (id_factura_cliente)
+		ON DELETE NO ACTION
+		ON UPDATE NO ACTION,
+    
+    CONSTRAINT fk_pedido_cliente
 		FOREIGN KEY (id_cliente)
 		REFERENCES cliente (id_usuario)
 		ON DELETE NO ACTION
@@ -475,7 +536,6 @@ CREATE TABLE IF NOT EXISTS pedido(
 		REFERENCES envio (id_envio)
 		ON DELETE NO ACTION
 		ON UPDATE NO ACTION
-	
 );
 
 #DROP TABLE estados_pedidos;
@@ -524,51 +584,6 @@ CREATE TABLE IF NOT EXISTS estados_pedidos(
 	subtotal FLOAT
 );*/
 
-#Santiago
-CREATE TABLE IF NOT EXISTS factura_cliente (
-	id_factura_cliente INT UNSIGNED AUTO_INCREMENT NOT NULL COMMENT 'PK de la clase factura_cliente',
-    
-    fecha DATETIME,
-	rete_ica FLOAT,
-	rete_fuente FLOAT,
-	iva FLOAT,
-	subtotal FLOAT,
-    compra_neta FLOAT,
-	dijitos_tarjeta VARCHAR(20),
-	id_banco VARCHAR(20) NULL,
-	codigo_facturado VARCHAR(20),
-	
-	respuesta_banco BOOL,
-	forma_pago VARCHAR(2),
-    
-    #Datos del DESTINATARIO
-	nombre_destinatario VARCHAR(20),
-    tipo_documento VARCHAR(20),
-	numero_documento VARCHAR(20),
-    
-    PRIMARY KEY (id_factura_cliente)
-);
-
-#Santiago
-#Revisar PK
-CREATE TABLE IF NOT EXISTS estado_factura_cliente (
-	id_estado_factura_cliente INT UNSIGNED AUTO_INCREMENT NOT NULL COMMENT 'PK de la clase estados_facturas_cliente',
-	id_factura_cliente INT UNSIGNED NOT NULL COMMENT 'FK a la clase factura_cliente',
-    
-	estado VARCHAR (10) NOT NULL COMMENT 'Accion "Pendiente", "Pagada"',
-	fecha_inicio DATETIME NOT NULL,
-	#Este campo ya no es necesario se puede saber cual fué el estado anterior por el orden de los id
-    #id_estado_anterior INT UNSIGNED NULL COMMENT 'PK de la clase factura_cliente',
-    
-    PRIMARY KEY (id_estado_factura_cliente),
-    
-    CONSTRAINT fk_estado_factura_cliente_factura_cliente
-		FOREIGN KEY (id_factura_cliente)
-		REFERENCES factura_cliente (id_factura_cliente)
-		ON DELETE NO ACTION
-		ON UPDATE NO ACTION
-
-);
 
 #Santiago
 CREATE TABLE IF NOT EXISTS factura_proveedor (
