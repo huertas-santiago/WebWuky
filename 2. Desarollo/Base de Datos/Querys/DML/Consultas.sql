@@ -57,6 +57,8 @@ SELECT*FROM estado_factura_cliente;
 
 SELECT*FROM factura_proveedor;
 
+SELECT*FROM factura_cliente;
+
 SELECT*FROM carrito;
 
 SELECT*FROM tema_preguntas;
