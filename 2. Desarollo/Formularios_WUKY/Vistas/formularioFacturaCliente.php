@@ -15,13 +15,18 @@
             <table class="table table-sm">
                 <thead>
                     <tr>
-                        <th>Factura a buscar</th>
-                        <th><input name= "buscar" placeholder= "Buscar"></input></th>
-                        <div>
-                            <th><button class="btn btn-outline-success" name= "consulta" type= "button">Buscar</button></th>
-                            <th><button class="btn btn-outline-success" name= "crear" type= "button">Crear</button></th>
-                            <th><button class="btn btn-outline-success" name= "cerrar" type= "button">Salir</button></th>
-                        </div>
+                        <th class="form-label">
+                            <label class="col-form-label">Factura a buscar</label>
+                        </th>
+                        <th><input class="form-control" type="text" name= "buscar" placeholder= "Buscar"></input></th>
+                        <th>
+                            <div class="btn-group">
+                                <button class="btn btn-outline-success" name= "consulta" type= "button">Buscar</button>
+                                <button class="btn btn-outline-success" name= "crear" type= "button">Crear</button>
+                                <button class="btn btn-outline-success" name= "cerrar" type= "button">Salir</button>
+                            </div>
+                        </th>
+                        
                         
                     </tr>
                 </thead>
@@ -68,8 +73,15 @@
                             <th>8706833565</th>
                             
                             <th>
-                                <button class="btn btn-outline-success btn-sm" name= "detalle" type= "button">Detalle</button>
-                                <button class="btn btn-outline-success btn-sm" name= "editar" type= "button">Editar</button>
+                                <div class="btn-group" role="group">
+                                    <button id="btnGroupDrop1" type="button" class="btn btn-outline-success btn-sm dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                                        Dropdown
+                                    </button>
+                                    <ul class="dropdown-menu" aria-labelledby="btnGroupDrop1">
+                                        <li><a class="dropdown-item" href="#" name= "detalle"></a>Detalle</li>
+                                        <li><a class="dropdown-item" href="#" name= "editar"></a>Editar</li>
+                                    </ul>
+                                </div>
                             </th>
                         </tr>
                         <tr>
