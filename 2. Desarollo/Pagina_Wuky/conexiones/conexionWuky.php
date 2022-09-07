@@ -4,7 +4,7 @@
                     private $servidor = "localhost";
                     private $usuario = "root";
                     private $password = "";
-                    private $db = "entry_mc";
+                    private $db = "dbwuky";
 
 
 
