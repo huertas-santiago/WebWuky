@@ -6,7 +6,7 @@ function conexionDB(){
     host: "localhost",
     user: "root",
     password: "",
-    database:'dbwuky'
+    database:'db_ecommerce'
   });
   
   return connection;

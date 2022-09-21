@@ -6,13 +6,13 @@ const router = Router();
 let connection = conexionDB();
 
 
-router.get('/', (req,res) => {
+router.get('/API/clientes', (req,res) => {
   if(connection.state !='connected'){
     connection = conexionDB();
   }
 
   try {
-    let resultado = connection.query('SELECT * FROM usuario', function(err, rows, fields) {
+    let resultado = connection.query('SELECT * FROM cliente', function(err, rows, fields) {
       if (err){
         res.status(500).send(rows);
         //throw err;
