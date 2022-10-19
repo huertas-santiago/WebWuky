@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { conexionDB } from "../conexionDB.js";
+import { conexionDB } from "../config/conexionDB.js";
 
 const router = Router();
 

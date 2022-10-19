@@ -1,5 +1,7 @@
 import express from 'express';
 import morgan from 'morgan';
+import cors from 'cors';
+
 
 import { router } from './routes/index.js';
 
@@ -15,14 +17,18 @@ const app = express();
 
 //Setting
 const port = 5000; 
-app.set('port', port);
+app.set('port', process.env.PORT || port);
 app.set('view', path.join(__dirname, 'views'));
 app.set('views engine', 'ejs');
 app.use(express.json({limit: "50mb"}));
 
+
 //Middlewares
 app.use(morgan('dev'));// le decimos que vamos a usar el metodo dev de morgan
 app.use(express.urlencoded({extended: false}));//convertir datos a json
+app.use(cors({
+  origin: ['https://wuky.com','http://localhost:3000']
+}));
 
 // Routes
 app.use(router);//Importa todas las rutas

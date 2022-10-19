@@ -21,7 +21,8 @@ CREATE TABLE IF NOT EXISTS cliente (
     direccion  VARCHAR (100)  COMMENT 'direccion de usuario',
     facebook_vinculado VARCHAR (50) UNIQUE NULL COMMENT 'cuenta de facebook asociada del cliente',
     correo_vinculado VARCHAR (50) UNIQUE NULL COMMENT 'cuenta de correo asociada del cliente',
-    
+    createdAt DATETIME NULL COMMENT 'Fecha en la que se agrego el ',
+    updatedAt DATETIME NULL COMMENT 'Fecha de la modificacion del ',
     PRIMARY KEY (id_cliente)
 );
 
@@ -34,7 +35,10 @@ CREATE TABLE IF NOT EXISTS producto (
   codigo_facebook VARCHAR(45) NULL COMMENT 'Referencia UNICA del producto que tiene facebook',
   
   fabricado BOOLEAN NULL COMMENT 'Valor que dice si el producto es fabricado o comprado',
-   
+  
+  createdAt DATETIME NULL COMMENT 'Fecha en la que se agrego el ',
+  updatedAt DATETIME NULL COMMENT 'Fecha de la modificacion del ',
+  
   PRIMARY KEY (id_producto),
 
 	CONSTRAINT fk_producto_marca
@@ -59,6 +63,9 @@ CREATE TABLE IF NOT EXISTS variante (
 	
     stock INT UNSIGNED DEFAULT 0 COMMENT 'Cantidad de productos en el inventario',
     
+    createdAt DATETIME NULL COMMENT 'Fecha en la que se agrego el ',
+    updatedAt DATETIME NULL COMMENT 'Fecha de la modificacion del ',
+    
     PRIMARY KEY (id_variante,id_producto),
 
     
@@ -74,7 +81,10 @@ CREATE TABLE IF NOT EXISTS material (
     
     tipo_material VARCHAR(45) NOT NULL COMMENT 'Tipo de la variante como PESO, DIMENSION, COLOR, TELA',
 	medida VARCHAR(45) NULL COMMENT 'Como se mide el tipo, si es peso la medida es Kg',
-
+	
+    createdAt DATETIME NULL COMMENT 'Fecha en la que se agrego el ',
+    updatedAt DATETIME NULL COMMENT 'Fecha de la modificacion del ',
+    
     PRIMARY KEY(id_material)
 );
 
@@ -83,6 +93,9 @@ CREATE TABLE IF NOT EXISTS variante_material (
     id_material INT UNSIGNED NOT NULL,
     
     cantidad VARCHAR(45) NULL COMMENT 'Valor tomado por el tipo_material en material',
+    
+    createdAt DATETIME NULL COMMENT 'Fecha en la que se agrego el ',
+    updatedAt DATETIME NULL COMMENT 'Fecha de la modificacion del ',
     
     PRIMARY KEY (id_variante,id_material),
     
@@ -107,12 +120,18 @@ CREATE TABLE IF NOT EXISTS categoria (
     nombre VARCHAR (45),
     descripcion VARCHAR(45),
     
+    createdAt DATETIME NULL COMMENT 'Fecha en la que se agrego el ',
+    updatedAt DATETIME NULL COMMENT 'Fecha de la modificacion del ',
+    
     PRIMARY KEY (id_categoria)
 );
 
 CREATE TABLE IF NOT EXISTS categoria_producto (
 	id_categoria INT UNSIGNED NOT NULL,
     id_producto INT UNSIGNED NOT NULL,
+    
+    createdAt DATETIME NULL COMMENT 'Fecha en la que se agrego el ',
+    updatedAt DATETIME NULL COMMENT 'Fecha de la modificacion del ',
     
     PRIMARY KEY (id_categoria,id_producto),
     
@@ -139,6 +158,9 @@ CREATE TABLE IF NOT EXISTS imagen(
     #Este campo esta para debatir si quitarlo
     #codigo INT NULL COMMENT 'conjunto de caracteres que identifican la imagen del producto',
 	
+    createdAt DATETIME NULL COMMENT 'Fecha en la que se agrego el ',
+    updatedAt DATETIME NULL COMMENT 'Fecha de la modificacion del ',
+    
 	PRIMARY KEY (id_imagen)
 );
 	
@@ -146,9 +168,15 @@ CREATE TABLE IF NOT EXISTS producto_favorito (
 	id_producto INT UNSIGNED NOT NULL COMMENT 'PK de la clase producto_favorito',
     id_cliente INT UNSIGNED NOT NULL COMMENT 'PK de la clase cliente',
     cantidad INT UNSIGNED DEFAULT 1 COMMENT '',
+    Favorito BOOLEAN NOT NULL COMMENT 'Indica si el producto sigue estando en la lista de favoritos',
     
     #Este campo se puede calcular con las facturas del cliente
     #comprado INT UNSIGNED DEFAULT 0 COMMENT ''
+    
+    createdAt DATETIME NULL COMMENT 'Fecha en la que se agrego el ',
+    updatedAt DATETIME NULL COMMENT 'Fecha de la modificacion del ',
+    
+    PRIMARY KEY (id_producto,id_cliente),
     
     CONSTRAINT fk_producto_favorito_producto
 		FOREIGN KEY (id_producto)
@@ -161,7 +189,6 @@ CREATE TABLE IF NOT EXISTS producto_favorito (
 		REFERENCES cliente (id_cliente)
 		ON DELETE NO ACTION
 		ON UPDATE NO ACTION
-    
 );
 
 CREATE TABLE IF NOT EXISTS factura_cliente (
@@ -185,6 +212,9 @@ CREATE TABLE IF NOT EXISTS factura_cliente (
     tipo_documento VARCHAR(20),
 	numero_documento VARCHAR(20),
     
+    createdAt DATETIME NULL COMMENT 'Fecha en la que se agrego el ',
+    updatedAt DATETIME NULL COMMENT 'Fecha de la modificacion del ',
+    
     PRIMARY KEY (id_factura_cliente)
 );
 
@@ -196,6 +226,9 @@ CREATE TABLE IF NOT EXISTS estado_factura_cliente (
 	fecha_inicio DATETIME NOT NULL,
 	#Este campo ya no es necesario se puede saber cual fué el estado anterior por el orden de los id
     #id_estado_anterior INT UNSIGNED NULL COMMENT 'PK de la clase factura_cliente',
+    
+    createdAt DATETIME NULL COMMENT 'Fecha en la que se agrego el ',
+    updatedAt DATETIME NULL COMMENT 'Fecha de la modificacion del ',
     
     PRIMARY KEY (id_estado_factura_cliente),
     
@@ -215,6 +248,9 @@ CREATE TABLE IF NOT EXISTS pedido(
     contador  INT UNSIGNED DEFAULT 1 COMMENT 'cuenta cuantos pedidos tiene el cliente',
     fecha DATE NOT NULL COMMENT 'Fecha en la que se encargó el pedido',
     origen VARCHAR (2) DEFAULT 'EC' COMMENT 'De donde se originó el pedido, Facebook, Instagram, eCommerce',
+    
+    createdAt DATETIME NULL COMMENT 'Fecha en la que se agrego el ',
+    updatedAt DATETIME NULL COMMENT 'Fecha de la modificacion del ',
     
     PRIMARY KEY (id_pedido),
     
@@ -245,6 +281,9 @@ CREATE TABLE IF NOT EXISTS estados_pedidos(
     fecha_inicio DATETIME,
     tiempo TIME  NOT NULL,
     
+    createdAt DATETIME NULL COMMENT 'Fecha en la que se agrego el ',
+    updatedAt DATETIME NULL COMMENT 'Fecha de la modificacion del ',
+    
     PRIMARY KEY (id_estados_pedidos),
     
     
@@ -266,6 +305,9 @@ CREATE TABLE IF NOT EXISTS carrito (
     
     cantidad_producto VARCHAR(45) NULL COMMENT 'Número determinado de unidades adquiridos',
     
+    createdAt DATETIME NULL COMMENT 'Fecha en la que se agrego el ',
+    updatedAt DATETIME NULL COMMENT 'Fecha de la modificacion del ',
+    
     PRIMARY KEY (id_cliente,id_producto),
     
     
@@ -285,6 +327,9 @@ CREATE TABLE IF NOT EXISTS carrito (
 CREATE TABLE IF NOT EXISTS producto_imagen (
 	id_imagen INT UNSIGNED NOT NULL,
     id_producto INT UNSIGNED NOT NULL,
+    
+    createdAt DATETIME NULL COMMENT 'Fecha en la que se agrego el ',
+    updatedAt DATETIME NULL COMMENT 'Fecha de la modificacion del ',
     
     PRIMARY KEY ( id_producto , id_imagen ),
     
@@ -307,6 +352,9 @@ CREATE TABLE IF NOT EXISTS producto_pedido (
 	id_producto INT UNSIGNED NOT NULL COMMENT 'FK a la clase producto',
 	id_pedido INT UNSIGNED NOT NULL COMMENT 'FK a la clase pedido',
     cantidad INT UNSIGNED DEFAULT 1 COMMENT '',
+    
+    createdAt DATETIME NULL COMMENT 'Fecha en la que se agrego el ',
+    updatedAt DATETIME NULL COMMENT 'Fecha de la modificacion del ',
     
     PRIMARY KEY (id_producto , id_pedido),
     
